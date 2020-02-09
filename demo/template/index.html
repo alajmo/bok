@@ -1,7 +1,82 @@
-<ul>
-  ${posts.map(post => `
-  <li>
-    ${post.name}
-  </div>
-  `)}
-</ul>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" rel="shortcut icon" content="" />
+
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon-precomposed" href="/favicon.ico" />
+    <meta name="msapplication-TileImage" content="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Carter+One&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" type="text/css" href="/index.css" />
+
+    <script>
+      (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        (i[r] =
+          i[r] ||
+          function() {
+            (i[r].q = i[r].q || []).push(arguments);
+          }),
+          (i[r].l = 1 * new Date());
+        (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+      })(
+        window,
+        document,
+        'script',
+        'https://www.google-analytics.com/analytics.js',
+        'ga',
+      );
+
+      var dimensions = {
+        TRACKING_VERSION: 'dimension1',
+        CLIENT_ID: 'dimension2',
+      };
+      var TRACKING_VERSION = '1';
+
+      ga('create', 'UA-62263838-2', 'auto');
+
+      ga('set', 'transport', 'beacon');
+      ga('set', dimensions.TRACKING_VERSION, TRACKING_VERSION);
+
+      ga(function(tracker) {
+        var clientId = tracker.get('clientId');
+        tracker.set(dimensions.CLIENT_ID, clientId);
+      });
+
+      ga('require', 'eventTracker');
+      ga('require', 'outboundLinkTracker');
+      ga('require', 'maxScrollTracker');
+      ga('require', 'outboundFormTracker');
+      ga('require', 'pageVisibilityTracker');
+
+      ga('send', 'pageview');
+    </script>
+
+    <script async src="/analytics.js"></script>
+    <script async src="/autotrack.js"></script>
+  </head>
+
+  <body>
+    <div class="root"></div>
+  </body>
+
+  <script defer src="/index.js"></script>
+</html>
