@@ -58,4 +58,3 @@ There are a lot of CLI tools and files associated with SSH, some of them are:
 - <span class="border_black">~/.ssh/authorized_key</span>: list of public keys which can be used to login to the server, usually located at root-owned locations (should only be writable by owner and root)
 - <span class="border_black">/etc/ssh/ssh_host_&lt;algorithm></span>: Private host keys stored on SSH servers
 - <span class="border_black">/etc/ssh/ssh_host_&lt;algorithm>.pub</span>: Public host keys are stored on and/or distributed to SSH clients
-
