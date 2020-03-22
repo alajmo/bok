@@ -10,7 +10,7 @@ import { basename } from 'https://deno.land/std/path/mod.ts';
 import { parse } from 'https://deno.land/std/encoding/yaml.ts';
 import { Marked } from '../lib/src/index.ts';
 
-console.log(Marked.parse('I am using __markdown__.'));
+console.log();
 
 export { build };
 
@@ -29,6 +29,7 @@ function getContent(sitePaths) {
   for (const fileInfo of walkSync(sitePaths.content)) {
     if (fileInfo.info.isFile()) {
       const data = readFileStrSync(fileInfo.filename);
+      console.log(data);
       // TODO: Parse yaml
       /* const fileData = parse(data); */
       /* console.log(fileData); */
