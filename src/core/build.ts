@@ -7,7 +7,7 @@ import {
   readFileStrSync,
 } from 'https://deno.land/std/fs/mod.ts';
 import { basename } from 'https://deno.land/std/path/mod.ts';
-import { parse } from 'https://deno.land/std/encoding/yaml.ts';
+/* import { parse } from 'https://deno.land/std/encoding/yaml.ts'; */
 import { Marked } from '../lib/src/index.ts';
 
 console.log();
@@ -29,7 +29,8 @@ function getContent(sitePaths) {
   for (const fileInfo of walkSync(sitePaths.content)) {
     if (fileInfo.info.isFile()) {
       const data = readFileStrSync(fileInfo.filename);
-      console.log(data);
+      const k = Marked.parse(data);
+      console.log(k);
       // TODO: Parse yaml
       /* const fileData = parse(data); */
       /* console.log(fileData); */
