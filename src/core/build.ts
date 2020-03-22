@@ -8,7 +8,9 @@ import {
 } from 'https://deno.land/std/fs/mod.ts';
 import { basename } from 'https://deno.land/std/path/mod.ts';
 import { parse } from 'https://deno.land/std/encoding/yaml.ts';
-import '../lib/showdown.ts';
+import { Marked } from '../lib/src/index.ts';
+
+console.log(Marked.parse('I am using __markdown__.'));
 
 export { build };
 
