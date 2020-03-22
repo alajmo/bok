@@ -8,6 +8,7 @@ import {
 } from 'https://deno.land/std/fs/mod.ts';
 import { basename } from 'https://deno.land/std/path/mod.ts';
 import { parse } from 'https://deno.land/std/encoding/yaml.ts';
+import '../lib/showdown.ts';
 
 export { build };
 
@@ -26,20 +27,20 @@ function getContent(sitePaths) {
   for (const fileInfo of walkSync(sitePaths.content)) {
     if (fileInfo.info.isFile()) {
       const data = readFileStrSync(fileInfo.filename);
-      throw 123;
-      const fileData = parse(data);
-      console.log(fileData);
+      // TODO: Parse yaml
+      /* const fileData = parse(data); */
+      /* console.log(fileData); */
 
-      content.push({
-        name: basename(fileInfo.filename),
-        path: fileInfo.filename,
-        attr: {
-          layout: 'post.ts', // fileData.layout
-          name: 'lala', // fileData.title
-          draft: false, // fileData.draft
-          content: '## Lala World', // fileData.content
-        },
-      });
+      /* content.push({ */
+      /*   name: basename(fileInfo.filename), */
+      /*   path: fileInfo.filename, */
+      /*   attr: { */
+      /*     layout: 'post.ts', // fileData.layout */
+      /*     name: 'lala', // fileData.title */
+      /*     draft: false, // fileData.draft */
+      /*     content: '## Lala World', // fileData.content */
+      /*   }, */
+      /* }); */
     }
   }
 
@@ -66,7 +67,7 @@ function validatePage(node) {
 function createSite(contentTree) {
   // Loop through entries in contentTree and build a index.html page for each node
   /* contentTree.forEach((node => {
-      buildPage()
-      validatePage()
-  })) */
+     buildPage()
+     validatePage()
+     })) */
 }

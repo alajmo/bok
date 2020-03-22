@@ -16,6 +16,7 @@ function help() {
   console.log('help');
 }
 
+
 const siteConfigPath = args[0];
 const sitePath = Deno.realpathSync(siteConfigPath);
 const site = readFileStrSync(sitePath);
