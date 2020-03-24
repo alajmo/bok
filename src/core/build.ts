@@ -34,7 +34,7 @@ function getPages(sitePaths) {
   return pages;
 }
 
-function buildPage(node) {
+async function buildHtml(page) {
   // USE: ensureFileSync
   // 1. Create file node.path
   // 2. Write template/base.html to node.path
@@ -43,9 +43,5 @@ function buildPage(node) {
 }
 
 function createSite(pages) {
-  // Loop through entries in contentTree and build a index.html page for each node
-  /* contentTree.forEach((node => {
-     buildPage()
-     validatePage()
-     })) */
+  return Promises.all(pages.map(async page => buildHtml(page)));
 }
