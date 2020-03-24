@@ -11,9 +11,3 @@ function validateConfig(sitePaths) {
     console.error('error: template directory is missing');
   }
 }
-
-function validateContent(tree) {
-  // - All files have title
-  // - All files have layout
-  // - All dirs have children
-}
