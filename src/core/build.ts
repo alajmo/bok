@@ -1,17 +1,17 @@
 import { configurePath } from '../lib/lib.ts';
 import { parseFrontMatter } from '../lib/front-matter.ts';
 import { validateConfig } from './validate.ts';
-import { walkSync, readFileStrSync } from 'https://deno.land/std/fs/mod.ts';
-import { basename } from 'https://deno.land/std/path/mod.ts';
+import { walkSync, ensureDir, writeFileStr, readFileStrSync } from 'https://deno.land/std/fs/mod.ts';
+import { relative, join, dirname, basename } from 'https://deno.land/std/path/mod.ts';
 import { Marked } from '../lib/src/index.ts';
 
 export { build };
 
-function build(sitePath, site) {
+function build(sitePath: string, site: any) {
   const sitePaths = configurePath(sitePath, site);
   validateConfig(sitePaths);
   const pages = getPages(sitePaths);
-  createSite(pages);
+  createSite(sitePath, site, pages);
 }
 
 function getPages(sitePaths) {
@@ -34,14 +34,24 @@ function getPages(sitePaths) {
   return pages;
 }
 
-async function buildHtml(page) {
-  // USE: ensureFileSync
-  // 1. Create file node.path
-  // 2. Write template/base.html to node.path
-  // 3. Parse node.content with marked and get html output
-  // 4. Evaluate node.layout and write output to node.path inside <div id="root"></div>
+async function buildHtml(sitePath, site, baseTemplate, page) {
+  const templatePath = join(dirname(sitePath), site.template, page.params.layout);
+  const template = await import(templatePath);
+  const templateContent = template.default();
+
+  const pagePath = relative(join(dirname(sitePath), site.content), page.path);
+  const outputPath = join(dirname(sitePath), site.output, dirname(pagePath), 'index.html')
+  const pageHtml = baseTemplate(templateContent);
+
+  await ensureDir(dirname(outputPath));
+  await writeFileStr(outputPath, pageHtml);
 }
 
-function createSite(pages) {
-  return Promises.all(pages.map(async page => buildHtml(page)));
+async function createSite(sitePath, site, pages) {
+  const baseTemplatePath = join(dirname(sitePath), site.template, 'base.ts');
+  const baseTemplate = await import(baseTemplatePath);
+
+  return Promise.all(
+    pages.map(async page => buildHtml(sitePath, site, baseTemplate.default, page)),
+  );
 }

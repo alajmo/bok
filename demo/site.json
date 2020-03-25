@@ -2,20 +2,12 @@
   "name": "Samir Alajmovic Blog",
   "description": "Samir Alajmovic Blog",
   "version": "0.1.0",
-  "manifest_version": 2,
   "icons": {
     "128": "icon_128.png"
-  },
-  "app": {
-    "urls": ["http://www.alajmovic.com/"],
-    "launch": {
-      "web_url": "http://www.alajmovic.com/"
-    }
   },
 
   "assets": { "from": "assets", "to": "assets" },
   "content": "content",
   "template": "template",
-
   "output": "site"
 }

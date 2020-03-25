@@ -12,7 +12,7 @@
 export default function() {
   return `
     <h1>
-      Lala land
+      About page
     </h1>
   `;
 }

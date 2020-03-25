@@ -1,6 +1,6 @@
 import { existsSync } from 'https://deno.land/std/fs/mod.ts';
 
-export { validateConfig, validateContent };
+export { validateConfig };
 
 function validateConfig(sitePaths) {
   if (!existsSync(sitePaths.content)) {
