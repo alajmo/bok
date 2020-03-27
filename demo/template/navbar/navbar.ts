@@ -1,3 +1,5 @@
-<div>
-  Navbar
-</div>
+export default function(content) {
+  return `
+    ${content}
+  `;
+}

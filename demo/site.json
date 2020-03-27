@@ -6,7 +6,7 @@
     "128": "icon_128.png"
   },
 
-  "assets": { "from": "assets", "to": "assets" },
+  "public": "assets",
   "content": "content",
   "template": "template",
   "output": "site"

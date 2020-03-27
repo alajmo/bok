@@ -1,17 +1,20 @@
 import { configurePath } from '../lib/lib.ts';
 import { parseFrontMatter } from '../lib/front-matter.ts';
 import { validateConfig } from './validate.ts';
-import { walkSync, ensureDir, writeFileStr, readFileStrSync } from 'https://deno.land/std/fs/mod.ts';
+import { copy, walkSync, ensureDir, writeFileStr, readFileStrSync } from 'https://deno.land/std/fs/mod.ts';
 import { relative, join, dirname, basename } from 'https://deno.land/std/path/mod.ts';
 import { Marked } from '../lib/src/index.ts';
 
 export { build };
 
-function build(sitePath: string, site: any) {
+async function build(sitePath: string, site: any) {
   const sitePaths = configurePath(sitePath, site);
   validateConfig(sitePaths);
   const pages = getPages(sitePaths);
-  createSite(sitePath, site, pages);
+
+  await clearOutput(sitePath, site);
+  await createSite(sitePath, site, pages);
+  await copyAssets(sitePath, site);
 }
 
 function getPages(sitePaths) {
@@ -34,10 +37,18 @@ function getPages(sitePaths) {
   return pages;
 }
 
+async function clearOutput(sitePath, site) {
+  await Deno.remove(join(dirname(sitePath), site.output), { recursive: true });
+}
+
+async function copyAssets(sitePath, site) {
+  await copy(join(dirname(sitePath), site.public), join(dirname(sitePath), site.output, site.public));
+}
+
 async function buildHtml(sitePath, site, baseTemplate, page) {
   const templatePath = join(dirname(sitePath), site.template, page.params.layout);
   const template = await import(templatePath);
-  const templateContent = template.default();
+  const templateContent = template.default(page.htmlContent);
 
   const pagePath = relative(join(dirname(sitePath), site.content), page.path);
   const outputPath = join(dirname(sitePath), site.output, dirname(pagePath), 'index.html')

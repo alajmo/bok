@@ -4,4 +4,4 @@ layout: about/about.ts
 
 # Lala land
 
-Hello
+Hello, go to this [link]().

@@ -1,5 +1,5 @@
 /* import Header from '../header/header.ts'; */
-/* import Navbar from '../navbar/navbar.ts'; */
+import Navbar from '../navbar/navbar.ts';
 
 /* return ` */
 /*   ${Header} */
@@ -9,10 +9,8 @@
 /*   ${content} */
 /* `; */
 
-export default function() {
+export default function(content) {
   return `
-    <h1>
-      About page
-    </h1>
+    ${content}
   `;
 }
