@@ -1,4 +1,4 @@
-# freeze
+# Document Generator
 
 ## Synopsis
 

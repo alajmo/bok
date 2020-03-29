@@ -1,4 +1,3 @@
-import { configurePath } from '../lib/lib.ts';
 import { parseFrontMatter } from '../lib/front-matter.ts';
 import { validateConfig } from './validate.ts';
 import { copy, walkSync, ensureDir, writeFileStr, readFileStrSync } from 'https://deno.land/std/fs/mod.ts';
@@ -7,8 +6,7 @@ import { Marked } from '../lib/src/index.ts';
 
 export { build };
 
-async function build(sitePath: string, site: any) {
-  const sitePaths = configurePath(sitePath, site);
+async function build(sitePath: string, site: any, paths: string[]) {
   validateConfig(sitePaths);
   const pages = getPages(sitePaths);
 
