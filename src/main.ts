@@ -1,25 +1,17 @@
 import { build } from './core/build.ts';
 import { join, dirname } from 'https://deno.land/std/path/mod.ts';
 import { readFileStrSync } from 'https://deno.land/std/fs/mod.ts';
+import { parseConfig } from './lib/config.ts';
 
-function buildSite(sitePath, site) {
-  build(sitePath, site);
+function buildSite(site, paths) {
+  build(site, paths);
 }
 
 function main() {
   const { args } = Deno;
-  const siteConfigPath = args[0];
-  const sitePath = Deno.realpathSync(siteConfigPath);
-  const siteStr = readFileStrSync(sitePath);
-  const site = JSON.parse(siteStr);
-  const paths = {
-    public: join(dirname(siteConfigPath), site.public),
-    content: join(dirname(siteConfigPath), site.content),
-    template: join(dirname(siteConfigPath), site.template),
-    output: join(dirname(siteConfigPath), site.output),
-  };
+  const { site, paths } = parseConfig(args[0]);
 
-  buildSite(sitePath, site, paths);
+  buildSite(site, paths);
 }
 
 main();

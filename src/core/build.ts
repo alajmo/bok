@@ -6,13 +6,13 @@ import { Marked } from '../lib/src/index.ts';
 
 export { build };
 
-async function build(sitePath: string, site: any, paths: string[]) {
-  validateConfig(sitePaths);
+async function build(site, paths) {
+  validateConfig(paths);
   const pages = getPages(sitePaths);
 
-  await clearOutput(sitePath, site);
-  await createSite(sitePath, site, pages);
-  await copyAssets(sitePath, site);
+  /* await clearOutput(sitePath, site); */
+  /* await createSite(sitePath, site, pages); */
+  /* await copyAssets(sitePath, site); */
 }
 
 function getPages(sitePaths) {

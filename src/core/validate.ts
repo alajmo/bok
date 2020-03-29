@@ -2,12 +2,12 @@ import { existsSync } from 'https://deno.land/std/fs/mod.ts';
 
 export { validateConfig };
 
-function validateConfig(sitePaths) {
-  if (!existsSync(sitePaths.content)) {
+function validateConfig(paths) {
+  if (!existsSync(paths.content)) {
     console.error('error: content directory is missing');
   }
 
-  if (!existsSync(sitePaths.template)) {
+  if (!existsSync(paths.template)) {
     console.error('error: template directory is missing');
   }
 }

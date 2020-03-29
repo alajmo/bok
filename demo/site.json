@@ -9,5 +9,10 @@
   "public": "assets",
   "content": "content",
   "template": "template",
-  "output": "site"
+  "output": "site",
+
+  "data": {
+    "projects": [],
+    "posts": []
+  }
 }
