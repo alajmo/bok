@@ -11,8 +11,8 @@ async function build(site: any, paths: any) {
   const pages = getPages(site, paths);
 
   await clearOutput(sitePath, site);
-  await createSite(sitePath, site, pages);
-  await copyAssets(sitePath, site);
+  /* await createSite(sitePath, site, pages); */
+  /* await copyAssets(sitePath, site); */
 }
 
 function getPages(site: any, paths: any) {
