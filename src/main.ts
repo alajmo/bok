@@ -1,9 +1,7 @@
 import { build } from './core/build.ts';
-import { join, dirname } from 'https://deno.land/std/path/mod.ts';
-import { readFileStrSync } from 'https://deno.land/std/fs/mod.ts';
 import { parseConfig } from './lib/config.ts';
 
-function buildSite(site, paths) {
+function buildSite(site: any, paths: any) {
   build(site, paths);
 }
 

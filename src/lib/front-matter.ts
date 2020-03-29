@@ -1,6 +1,6 @@
 export { parseFrontMatter };
 
-function parseFrontMatter(data) {
+function parseFrontMatter(data: any) {
   const splitted = data.split('\n');
   const paramLineNumber = splitted.indexOf('---');
 

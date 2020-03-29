@@ -2,22 +2,22 @@ import { parseFrontMatter } from '../lib/front-matter.ts';
 import { validateConfig } from './validate.ts';
 import { copy, walkSync, ensureDir, writeFileStr, readFileStrSync } from 'https://deno.land/std/fs/mod.ts';
 import { relative, join, dirname, basename } from 'https://deno.land/std/path/mod.ts';
-import { Marked } from '../lib/src/index.ts';
+import { Marked } from '../../marked/index.ts';
 
 export { build };
 
-async function build(site, paths) {
+async function build(site: any, paths: any) {
   validateConfig(paths);
-  const pages = getPages(sitePaths);
+  const pages = getPages(site, paths);
 
-  /* await clearOutput(sitePath, site); */
-  /* await createSite(sitePath, site, pages); */
-  /* await copyAssets(sitePath, site); */
+  await clearOutput(sitePath, site);
+  await createSite(sitePath, site, pages);
+  await copyAssets(sitePath, site);
 }
 
-function getPages(sitePaths) {
+function getPages(site: any, paths: any) {
   const pages = [];
-  for (const fileInfo of walkSync(sitePaths.content)) {
+  for (const fileInfo of walkSync(paths.content)) {
     if (fileInfo.info.isFile()) {
       const data = readFileStrSync(fileInfo.filename);
       const { params, content } = parseFrontMatter(data);

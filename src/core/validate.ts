@@ -2,7 +2,7 @@ import { existsSync } from 'https://deno.land/std/fs/mod.ts';
 
 export { validateConfig };
 
-function validateConfig(paths) {
+function validateConfig(paths: any) {
   if (!existsSync(paths.content)) {
     console.error('error: content directory is missing');
   }
