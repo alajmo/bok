@@ -12,7 +12,7 @@ async function build(site: any, paths: any) {
 
   await clearOutput(paths.output);
   await createSite(site, paths, pages);
-  /* await copyAssets(sitePath, site); */
+  await copyAssets(site, paths);
 }
 
 function getPages(site: any, paths: any) {
@@ -41,17 +41,17 @@ async function clearOutput(path) {
   }
 }
 
-async function copyAssets(sitePath, site) {
-  await copy(join(dirname(sitePath), site.public), join(dirname(sitePath), site.output, site.public));
+async function copyAssets(site, paths) {
+  await copy(paths.public, join(paths.output, basename(paths.public)));
 }
 
-async function buildHtml(sitePath, site, baseTemplate, page) {
-  const templatePath = join(dirname(sitePath), site.template, page.params.layout);
+async function buildHtml(site, paths, baseTemplate, page) {
+  const templatePath = join(paths.template, page.params.layout);
   const template = await import(templatePath);
-  const templateContent = template.default(page.htmlContent);
+  const templateContent = template.default(site, page);
 
-  const pagePath = relative(join(dirname(sitePath), site.content), page.path);
-  const outputPath = join(dirname(sitePath), site.output, dirname(pagePath), 'index.html')
+  const pagePath = relative(paths.content, page.path);
+  const outputPath = join(paths.output, dirname(pagePath), 'index.html')
   const pageHtml = baseTemplate(templateContent);
 
   await ensureDir(dirname(outputPath));
@@ -65,6 +65,6 @@ async function createSite(site, paths, pages) {
   const baseTemplate = await import(baseTemplatePath);
 
   return Promise.all(
-    pages.map(async page => buildHtml(sitePath, site, baseTemplate.default, page)),
+    pages.map(async page => buildHtml(site, paths, baseTemplate.default, page)),
   );
 }

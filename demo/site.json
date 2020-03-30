@@ -1,5 +1,6 @@
 {
-  "name": "Samir Alajmovic Blog",
+  "name": "Samir Alajmovic",
+  "author": "Samir Alajmovic",
   "description": "Samir Alajmovic Blog",
   "version": "0.1.0",
   "icons": {
@@ -12,7 +13,16 @@
   "output": "site",
 
   "data": {
+    "pages": [],
     "projects": [],
-    "posts": []
+    "posts": ["posts/97-things-every-programmer-should-know.md"],
+
+    "links": {
+      "sitemap": "https://www.alajmovic.com/sitemap.xml",
+      "rss": "http://alajmovic.com/rss.xml",
+      "linkedin": "https://www.linkedin.com/in/samir-alajmovic-91126b60/",
+      "github": "https://github.com/samiralajmovic",
+      "stackoverflow": "http://stackoverflow.com/users/1645369/samir-alajmovic"
+    }
   }
 }

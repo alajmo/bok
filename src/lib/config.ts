@@ -5,6 +5,7 @@ export { parseConfig };
 
 function parseConfig(siteConfigPath: string) {
   siteConfigPath = Deno.realpathSync(siteConfigPath);
+
   const sitePath = dirname(siteConfigPath);
   const siteStr = readFileStrSync(siteConfigPath);
   const site = JSON.parse(siteStr);
@@ -15,6 +16,7 @@ function parseConfig(siteConfigPath: string) {
 
 function getPaths(sitePath: string, site: any) {
   return {
+    root: sitePath,
     public: join(sitePath, site.public),
     content: join(sitePath, site.content),
     template: join(sitePath, site.template),

@@ -1,4 +1,4 @@
-layout: index/index.ts
+layout: index.ts
 
 ---
 
