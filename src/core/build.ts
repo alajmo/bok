@@ -10,6 +10,7 @@ async function build(site: any, paths: any) {
   validateConfig(paths);
   const pages = getPages(site, paths);
 
+  await savePagesData(paths, pages);
   await clearOutput(paths.output);
   await createSite(site, paths, pages);
   await copyAssets(site, paths);
@@ -45,13 +46,35 @@ async function copyAssets(site, paths) {
   await copy(paths.public, join(paths.output, basename(paths.public)));
 }
 
+async function savePagesData(paths, pages) {
+  pages.forEach(page => {
+    let link = relative(paths.content, page.path);
+    link = join(dirname(link), basename(link, '.md'));
+    page.link = link;
+  })
+
+
+  const list = {
+    pages: pages
+  };
+
+  await writeFileStr(paths.data, JSON.stringify(list));
+}
+
 async function buildHtml(site, paths, baseTemplate, page) {
   const templatePath = join(paths.template, page.params.layout);
   const template = await import(templatePath);
   const templateContent = template.default(site, page);
 
   const pagePath = relative(paths.content, page.path);
-  const outputPath = join(paths.output, dirname(pagePath), 'index.html')
+
+  let outputPath;
+  if (basename(pagePath) === 'index.md') {
+    outputPath = join(paths.output, dirname(pagePath), 'index.html')
+  } else {
+    outputPath = join(paths.output, dirname(pagePath), basename(pagePath, '.md'), 'index.html');
+  }
+
   const pageHtml = baseTemplate(templateContent);
 
   await ensureDir(dirname(outputPath));

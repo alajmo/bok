@@ -4,25 +4,25 @@ export default function(site) {
       <div class="social">
           <ul>
               <li>
-                  <a href="${site.data.links.github}">
+                  <a href="${site.links.github}">
                       <i class="fa fa-github" aria-hidden="true"></i>
                   </a>
               </li>
 
               <li>
-                  <a href="${site.data.links.stackoverflow}">
+                  <a href="${site.links.stackoverflow}">
                       <i class="fa fa-stack-overflow" aria-hidden="true"></i>
                   </a>
               </li>
 
               <li>
-                  <a href="${site.data.links.linkedin}">
+                  <a href="${site.links.linkedin}">
                       <i class="fa fa-linkedin" aria-hidden="true"></i>
                   </a>
               </li>
 
               <li>
-                  <a href="${site.data.links.rss}">
+                  <a href="${site.links.rss}">
                       <i class="fa fa-rss" aria-hidden="true"></i>
                   </a>
               </li>

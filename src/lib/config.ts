@@ -21,5 +21,6 @@ function getPaths(sitePath: string, site: any) {
     content: join(sitePath, site.content),
     template: join(sitePath, site.template),
     output: join(sitePath, site.output),
+    data: join(sitePath, site.list),
   };
 }

@@ -28,23 +28,17 @@ html {
 
 @font-face {
   font-family: 'Bebas Neue';
-  src: url('./fonts/jetbrainsmono/JetBrainsMono-Regular.woff2') format('woff2'),
-    url('./fonts/jetbrainsmono/JetBrainsMono-Regular.woff') format('woff'),
-    url('./fonts/jetbrainsmono/JetBrainsMono-Regular.ttf') format('truetype');
+  src: url('./fonts/bebasneue/BebasNeue-Regular.ttf') format('truetype');
 }
 
 @font-face {
   font-family: 'Carter One';
-  src: url('./fonts/jetbrainsmono/JetBrainsMono-Regular.woff2') format('woff2'),
-    url('./fonts/jetbrainsmono/JetBrainsMono-Regular.woff') format('woff'),
-    url('./fonts/jetbrainsmono/JetBrainsMono-Regular.ttf') format('truetype');
+  src: url('./fonts/carterone/CarterOne-Regular.ttf') format('truetype');
 }
 
 @font-face {
   font-family: 'Roboto slab';
-  src: url('./fonts/jetbrainsmono/JetBrainsMono-Regular.woff2') format('woff2'),
-    url('./fonts/jetbrainsmono/JetBrainsMono-Regular.woff') format('woff'),
-    url('./fonts/jetbrainsmono/JetBrainsMono-Regular.ttf') format('truetype');
+  src: url('./fonts/roboto/Roboto-Regular.ttf') format('truetype');
 }
 
 .root {

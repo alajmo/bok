@@ -3,26 +3,18 @@
   "author": "Samir Alajmovic",
   "description": "Samir Alajmovic Blog",
   "version": "0.1.0",
-  "icons": {
-    "128": "icon_128.png"
-  },
 
   "public": "assets",
   "content": "content",
   "template": "template",
   "output": "site",
+  "list": "list.json",
 
-  "data": {
-    "pages": [],
-    "projects": [],
-    "posts": ["posts/97-things-every-programmer-should-know.md"],
-
-    "links": {
-      "sitemap": "https://www.alajmovic.com/sitemap.xml",
-      "rss": "http://alajmovic.com/rss.xml",
-      "linkedin": "https://www.linkedin.com/in/samir-alajmovic-91126b60/",
-      "github": "https://github.com/samiralajmovic",
-      "stackoverflow": "http://stackoverflow.com/users/1645369/samir-alajmovic"
-    }
+  "links": {
+    "sitemap": "https://www.alajmovic.com/sitemap.xml",
+    "rss": "http://alajmovic.com/rss.xml",
+    "linkedin": "https://www.linkedin.com/in/samir-alajmovic-91126b60/",
+    "github": "https://github.com/samiralajmovic",
+    "stackoverflow": "http://stackoverflow.com/users/1645369/samir-alajmovic"
   }
 }
