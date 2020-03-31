@@ -1,4 +1,4 @@
-layout: index.ts
+layout: project.ts
 title: template-generator
 ---
 

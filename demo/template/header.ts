@@ -3,7 +3,7 @@ export default function(site) {
     <header>
       <div>
         <a href="/">
-          <div class="logo">${site.author}</div>
+          <div class="logo">${site.title}</div>
         </a>
       </div>
 

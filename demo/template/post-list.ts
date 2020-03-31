@@ -1,31 +1,54 @@
-export default function(site) {
+function dateFormat(date) {
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+
+  const d = new Date(date);
+  return `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+}
+
+export default function(site, posts) {
   return `
-    <div class="content-list">
+    <div class="index">
+      <div class="content-list">
+        ${posts
+          .map(
+            p => `
+            <div>
+                <a href="${p.link}">
+                    <h3>
+                      ${p.title}
+                    </h3>
+
+                    <div class="timestamp">
+                        <div datetime="${p.date}" title="${p.date}">
+                            <p>
+                              ${dateFormat(p.date)}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="post__snippet">
+                        <p>
+                          ${p.excerpt}
+                        </p>
+                    </div>
+                </a>
+            </div>`,
+          )
+          .join(' ')}
+      </div>
     </div>
   `;
 }
-
-/* ${site.data.posts.map( */
-/*   post => ` */
-/*     <div> */
-/*         <a href="/{{ post.path }}"> */
-/*             <h3> */
-/*                 {{ post.title }} */
-/*             </h3> */
-
-/*             <div class="timestamp"> */
-/*                 <div datetime="{{ date }}" title="{{ date }}"> */
-/*                     <p> */
-/*                         {{ post.date | date('MMM DD, YYYY')  }} */
-/*                     </p> */
-/*                 </div> */
-/*             </div> */
-
-/*             <div class="post__snippet"> */
-/*                 <p> */
-/*                 {{ post.snippet }} */
-/*                 </p> */
-/*             </div> */
-/*         </a> */
-/*     </div>` */
-/* )} */

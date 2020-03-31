@@ -1,5 +1,5 @@
 {
-  "name": "Samir Alajmovic",
+  "title": "/home/samir",
   "author": "Samir Alajmovic",
   "description": "Samir Alajmovic Blog",
   "version": "0.1.0",
@@ -9,6 +9,7 @@
   "template": "template",
   "output": "site",
   "list": "list.json",
+  "excerptionLength": 120,
 
   "links": {
     "sitemap": "https://www.alajmovic.com/sitemap.xml",

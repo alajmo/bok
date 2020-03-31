@@ -1,4 +1,4 @@
-layout: index.ts
+layout: post.ts
 date: 2018-08-08
 title: 97 Things Every Programmer Should Know
 ---
