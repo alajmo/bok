@@ -1,5 +1,5 @@
-import Header from './header.ts';
-import Footer from './footer.ts';
+import Header from '../components/header.ts';
+import Footer from '../components/footer.ts';
 
 export default function(site, page, pages) {
   return `

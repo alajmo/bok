@@ -1,6 +1,6 @@
-import Header from './header.ts';
-import Footer from './footer.ts';
-import PostList from './post-list.ts';
+import Header from '../components/header.ts';
+import Footer from '../components/footer.ts';
+import PostExcerpts from '../components/post-excerpts.ts';
 
 export default function(site, page, pages) {
   const posts = pages
@@ -18,7 +18,7 @@ export default function(site, page, pages) {
       ${Header(site)}
 
       <main>
-        ${PostList(site, posts)}
+        ${PostExcerpts(site, posts)}
       </main>
 
       ${Footer(site)}

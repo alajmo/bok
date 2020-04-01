@@ -1,4 +1,4 @@
-layout: post.ts
+layout: pages/post.ts
 date: 2019-03-22
 title: A Brief Intro to SSH
 ---

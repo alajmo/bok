@@ -11,7 +11,7 @@ export default function(site) {
         <nav>
           <ul>
             <li>
-              <a href="/articles">~/Posts</a>
+              <a href="/posts">~/Posts</a>
             </li>
             <li>
               <a href="/projects">~/Projects</a>

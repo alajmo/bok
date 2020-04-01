@@ -25,15 +25,15 @@ function getPages(site: any, paths: any) {
 
       let link = relative(paths.content, fileInfo.filename);
       link = join(dirname(link), basename(link, '.md'));
-      const tokenizedWords = content.replace(/^\s+|\s+$/g, '').split(' ').join(' ');
+      const cleanedContent = content.replace(/^\s+|\s+$/g, '').replace('.', '');
 
       pages.push({
         name: basename(fileInfo.filename),
         path: fileInfo.filename,
         link,
         types: link.split('/'),
-        excerpt: tokenizedWords.slice(0, site.excerptionLength),
-        numWords: tokenizedWords.length,
+        excerpt: getExcerpt(cleanedContent, site.excerptionLength),
+        numWords: cleanedContent.split(' ').length,
         params,
         htmlContent,
       });
@@ -41,6 +41,11 @@ function getPages(site: any, paths: any) {
   }
 
   return pages;
+}
+
+function getExcerpt(text: string, excerptionLength: number) {
+  const words = text.substring(0, excerptionLength + 1).split(' ');
+  return `${words.splice(0, words.length - 1).join(' ')}...`;
 }
 
 async function clearOutput(path) {

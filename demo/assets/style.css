@@ -390,6 +390,11 @@ table tr td :last-child {
   opacity: 1;
 }
 
+.social-icon {
+  line-height: 20px;
+  font-size: 20px;
+}
+
 /* Nav */
 
 nav {

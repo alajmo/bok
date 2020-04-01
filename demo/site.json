@@ -8,8 +8,11 @@
   "content": "content",
   "template": "template",
   "output": "site",
-  "list": "list.json",
   "excerptionLength": 120,
+
+  "serve": {
+    "port": 5001
+  },
 
   "links": {
     "sitemap": "https://www.alajmovic.com/sitemap.xml",

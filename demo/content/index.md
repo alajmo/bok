@@ -1,5 +1,4 @@
-layout: index.ts
-
+layout: pages/index.ts
 ---
 
 # Lala land
