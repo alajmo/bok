@@ -1,4 +1,5 @@
-layout: pages/project.ts
+layout: pages/content.ts
+type: project
 title: template-generator
 ---
 

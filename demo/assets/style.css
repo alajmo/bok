@@ -549,3 +549,144 @@ header > div {
     width: 100%;
   }
 }
+
+/* Project list */
+
+.project-list > ul > li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 30px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.project-list > ul > li > a {
+  display: flex;
+  width: 100%;
+}
+
+.project-list > ul > li:nth-child(even) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.project-list > ul > li > a > div {
+  text-overflow: ellipsis;
+}
+
+.project-list-item-title {
+  background: red;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  flex: 0.9;
+}
+
+.project-list-item-time {
+  background: red;
+  flex: 0.2;
+  text-align: right;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 601px) {
+  .projects {
+    width: 100%;
+  }
+}
+
+img {
+  width: auto;
+}
+
+/* Post */
+.post {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.post__info {
+  display: flex;
+  justify-content: flex-start;
+  line-height: 1.5;
+  margin-top: 1.5em;
+  margin-bottom: 0em;
+}
+
+article {
+  flex-wrap: wrap;
+  white-space: normal;
+}
+
+article img {
+  width: 100%;
+}
+
+article ul,
+article ol {
+  padding: 0 0 0 18px;
+  font-size: 1em;
+  margin-top: 1.5em;
+}
+
+article ul li,
+article ol li {
+  padding: 0 0 0 16px;
+  font-size: 1em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+article li {
+  line-height: 1em;
+}
+
+article li ul {
+  list-style: circle outside none;
+  margin-top: 0.5em;
+  padding-top: 0;
+}
+
+@media screen and (max-width: 601px) {
+  .post {
+    width: 100%;
+  }
+}
+
+/* Post List */
+
+.article-list__items {
+  margin-top: 16px;
+}
+
+.article-list__items a:nth-child(even) .article-list__item {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.article-list__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+  padding: 8px;
+}
+
+.article-list__items a .article-list__item:hover {
+  background-color: black;
+  color: white;
+}
+
+.article-list__item-title {
+  white-space: normal;
+  overflow: hidden;
+  flex: 0.8;
+}
+
+.article-list__item-time {
+  flex: 0.3;
+  text-align: right;
+  overflow: hidden;
+  white-space: nowrap;
+}

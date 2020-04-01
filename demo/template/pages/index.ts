@@ -4,7 +4,7 @@ import PostExcerpts from '../components/post-excerpts.ts';
 
 export default function(site, page, pages) {
   const posts = pages
-    .filter(p => p.types[0] === 'posts')
+    .filter(p => p.params.type === 'post')
     .map(p => ({
       title: p.params.title,
       link: p.link,

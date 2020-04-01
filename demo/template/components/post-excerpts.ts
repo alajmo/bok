@@ -1,22 +1,4 @@
-function dateFormat(date) {
-  const months = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec',
-  ];
-
-  const d = new Date(date);
-  return `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
-}
+import { fullDateFormat } from '../util.ts';
 
 export default function(site, posts) {
   return `
@@ -32,11 +14,11 @@ export default function(site, posts) {
                     </h3>
 
                     <div class="timestamp">
-                        <div datetime="${p.date}" title="${p.date}">
-                            <p>
-                              ${dateFormat(p.date)}
-                            </p>
-                        </div>
+                      <div datetime="${p.date}" title="${p.date}">
+                        <p>
+                          ${fullDateFormat(p.date)}
+                        </p>
+                      </div>
                     </div>
 
                     <div class="post__snippet">
