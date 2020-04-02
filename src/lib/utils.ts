@@ -14,7 +14,7 @@ function getExcerpt(text: string, excerptionLength: number) {
 
 function generateSitemap(site, paths, pages) {
   const urls = pages.map(p =>
-    p.link === 'index'
+    p.link === '/index'
       ? `${site.url}/index.html`
       : `${site.url}/${p.link}/index.html`,
   );
