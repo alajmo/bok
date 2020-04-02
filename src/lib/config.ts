@@ -22,5 +22,7 @@ function getPaths(siteConfigPath: string, sitePath: string, site: any) {
     content: join(sitePath, site.content),
     template: join(sitePath, site.template),
     output: join(sitePath, site.output),
+    robot: join(sitePath, site.output, 'robots.txt'),
+    sitemap: join(sitePath, site.output, 'sitemap.xml'),
   };
 }

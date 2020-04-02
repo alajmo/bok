@@ -3,7 +3,7 @@ import { validateConfig } from './validate.ts';
 import { existsSync, copy, walkSync, ensureDir, writeFileStr, readFileStrSync } from 'https://deno.land/std/fs/mod.ts';
 import { relative, join, dirname, basename } from 'https://deno.land/std/path/mod.ts';
 import { Marked } from '../../marked/index.ts';
-import { getExcerpt } from '../lib/utils.ts';
+import { getExcerpt, generateSitemap, generateRobotsTxt } from '../lib/utils.ts';
 
 export { build };
 
@@ -14,6 +14,10 @@ async function build(site: any, paths: any) {
   await clearOutput(paths.output);
   await createSite(site, paths, pages);
   await copyAssets(site, paths);
+  const xml = generateSitemap(site, paths, pages);
+  await createSitemapFile(xml, paths);
+  const robotsTxt = generateRobotsTxt(site, paths);
+  await createRobotsFile(robotsTxt, paths);
 }
 
 function getPages(site: any, paths: any) {
@@ -48,6 +52,14 @@ async function clearOutput(path) {
   if (existsSync(path)) {
     await Deno.remove(path, { recursive: true });
   }
+}
+
+async function createSitemapFile(xml, paths) {
+  await writeFileStr(paths.sitemap, xml);
+}
+
+async function createRobotsFile(robotsTxt, paths) {
+  await writeFileStr(paths.robot, robotsTxt);
 }
 
 async function copyAssets(site, paths) {

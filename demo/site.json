@@ -3,6 +3,7 @@
   "author": "Samir Alajmovic",
   "description": "Samir Alajmovic Blog",
   "version": "0.1.0",
+  "url": "https://alajmovic.com",
 
   "public": "assets",
   "content": "content",
@@ -16,7 +17,6 @@
 
   "links": {
     "sitemap": "https://www.alajmovic.com/sitemap.xml",
-    "rss": "http://alajmovic.com/rss.xml",
     "linkedin": "https://www.linkedin.com/in/samir-alajmovic-91126b60/",
     "github": "https://github.com/samiralajmovic",
     "stackoverflow": "http://stackoverflow.com/users/1645369/samir-alajmovic"
