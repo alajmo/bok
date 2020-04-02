@@ -3,6 +3,9 @@
   --site-width: 600px;
   --margin: 4px;
   --padding: 4px;
+  --background: white;
+  --surface: rgba(0, 0, 0, 0.12);
+  --scroll: #e1e1e1;
 }
 
 body,
@@ -16,6 +19,9 @@ html {
   line-height: normal;
   color: var(--color);
   letter-spacing: 0.02em;
+  scrollbar-width: 15px;
+  scrollbar-color: var(--background) var(--scroll);
+  /* overflow: hidden; */
 }
 
 @font-face {
@@ -48,25 +54,25 @@ html {
   align-items: flex-start;
   width: 100%;
   height: 100%;
-  overflow-y: hidden;
+  overflow: hidden;
 }
 
 nav {
-  border-right: 1px solid rgba(0, 0, 0, 0.12);
+  /* border-right: 1px solid rgba(0, 0, 0, 0.12); */
   height: 100%;
   flex: 0 1 auto;
-  padding-top: calc(var(--padding) * 4);
-  padding-bottom: calc(var(--padding) * 4);
-  padding-left: calc(var(--padding) * 2);
-  padding-right: calc(var(--padding) * 8);
+  /* padding-top: calc(var(--padding) * 4); */
+  /* padding-bottom: calc(var(--padding) * 4); */
+  /* padding-left: calc(var(--padding) * 2); */
+  /* padding-right: calc(var(--padding) * 8); */
   overflow-y: auto;
 }
 
 main {
   flex: 1;
   /* flex: 0 0 auto; */
-  padding-top: calc(var(--padding) * 4);
-  padding-bottom: calc(var(--padding) * 4);
+  /* margin-top: calc(var(--padding) * 4); */
+  margin-bottom: calc(var(--padding) * 4);
   height: 100%;
   overflow-y: auto;
 }
@@ -145,7 +151,7 @@ ol {
   list-style: initial;
   list-style: decimal;
   margin: initial;
-  padding: 0 0 0 16px;
+  /* padding: 0 0 0 16px; */
   font-size: 1em;
   line-height: 1.5;
   margin-top: 1.5em;
@@ -200,4 +206,33 @@ hr {
 
 strong {
   font-weight: bold;
+}
+
+/* Scroll */
+
+::-webkit-scrollbar-corner {
+  background: var(--background);
+}
+
+::-webkit-scrollbar {
+  width: 22px;
+  height: 22px;
+  background: #e1e1e1;
+}
+
+::-webkit-scrollbar-track-piece,
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scroll);
+  background-clip: padding-box;
+  height: 6px;
+  border: 6px solid rgba(0, 0, 0, 0);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #cdcdcd;
+  background-clip: padding-box;
 }
