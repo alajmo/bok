@@ -29,7 +29,7 @@ function getPages(site: any, paths: any) {
       const htmlContent = Marked.parse(content);
 
       let link = relative(paths.content, fileInfo.filename);
-      link = join(dirname(link), basename(link, '.md'));
+      link = join('/', dirname(link), basename(link, '.md'));
       const cleanedContent = content.replace(/^\s+|\s+$/g, '').replace('.', '');
 
       pages.push({
