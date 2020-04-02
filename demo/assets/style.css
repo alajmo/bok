@@ -339,6 +339,7 @@ article {
   white-space: normal;
 }
 
+main img,
 article img {
   width: 100%;
 }
