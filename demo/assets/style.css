@@ -354,8 +354,8 @@ article ul li,
 article ol li {
   padding: 0 0 0 calc(var(--padding) * 5);
   font-size: 1em;
-  margin-top: calc(var(--margin) * 0.5);
-  margin-bottom: calc(var(--margin) * 0.5);
+  margin-top: calc(var(--margin) * 4);
+  margin-bottom: calc(var(--margin) * 4);
 }
 
 article li {
@@ -364,7 +364,7 @@ article li {
 
 article li ul {
   list-style: circle outside none;
-  margin-top: calc(var(--margin) * 0.5);
+  margin-top: calc(var(--margin) * 4);
   padding-top: 0;
 }
 
