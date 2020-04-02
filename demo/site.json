@@ -8,7 +8,7 @@
   "content": "content",
   "template": "template",
   "output": "site",
-  "excerptionLength": 120,
+  "excerptionLength": 140,
 
   "serve": {
     "port": 5001

@@ -38,28 +38,8 @@ export default function(site) {
               />
             </a>
           </li>
-
-          <li>
-            <a href="${site.links.rss}">
-              <img
-                class="social-icon"
-                src="/assets/images/svg/rss.svg"
-                alt="rss"
-                width="auto"
-                height="20"
-              />
-            </a>
-          </li>
         </ul>
       </div>
-
-      <img
-        class="footer__image"
-        src="/assets/images/gif/party-parrot.gif"
-        alt="Party Parrot"
-        height="42"
-        width="42"
-      />
     </footer>
   `;
 }

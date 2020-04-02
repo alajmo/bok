@@ -13,7 +13,7 @@ export async function serve(site, paths) {
   ]);
 
   for await (const event of iter) {
-    /* console.log('>>>> event', event); //e.g. { kind: "create", paths: [ "/foo.txt" ] } */
+    /* console.log('>>>> event', event); */
     await build(site, paths);
   }
 }

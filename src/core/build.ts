@@ -3,6 +3,7 @@ import { validateConfig } from './validate.ts';
 import { existsSync, copy, walkSync, ensureDir, writeFileStr, readFileStrSync } from 'https://deno.land/std/fs/mod.ts';
 import { relative, join, dirname, basename } from 'https://deno.land/std/path/mod.ts';
 import { Marked } from '../../marked/index.ts';
+import { getExcerpt } from '../lib/utils.ts';
 
 export { build };
 
@@ -41,11 +42,6 @@ function getPages(site: any, paths: any) {
   }
 
   return pages;
-}
-
-function getExcerpt(text: string, excerptionLength: number) {
-  const words = text.substring(0, excerptionLength + 1).split(' ');
-  return `${words.splice(0, words.length - 1).join(' ')}...`;
 }
 
 async function clearOutput(path) {

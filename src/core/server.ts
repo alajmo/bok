@@ -4,6 +4,7 @@ import {
   ServerRequest,
   Response,
 } from 'https://deno.land/std/http/mod.ts';
+import { exists } from '../lib/utils.ts';
 const { stat, open } = Deno;
 
 const encoder = new TextEncoder();
@@ -30,8 +31,19 @@ async function serveStatic(
   return res;
 }
 
-function serveFallback(req: ServerRequest, e: Error): Promise<Response> {
+async function serveFallback(
+  paths: any,
+  req: ServerRequest,
+  e: Error,
+): Promise<Response> {
   if (e instanceof Deno.errors.NotFound) {
+    const fsPath = join(paths.output, '404', 'index.html');
+    const notFoundPageExists = await exists(fsPath);
+    if (notFoundPageExists) {
+      const contentType = getContentType(fsPath);
+      return serveStatic(req, fsPath, contentType);
+    }
+
     return Promise.resolve({
       status: 404,
       body: encoder.encode('Not found'),
@@ -88,8 +100,7 @@ export function server(site, paths) {
         const contentType = getContentType(fsPath);
         response = await serveStatic(req, fsPath, contentType);
       } catch (e) {
-        console.error(e.message);
-        response = await serveFallback(req, e);
+        response = await serveFallback(paths, req, e);
       } finally {
         /* serverLog(req, response!); */
         req.respond(response!);

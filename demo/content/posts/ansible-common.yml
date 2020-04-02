@@ -1,0 +1,24 @@
+layout: pages/post.ts
+type: post
+draft: true
+title: Ansible Commands
+date: 2018-12-19
+---
+
+- debug:
+    var: docker_add_repository_key
+
+- debug:
+    var: myvar
+
+- debug:
+    msg: "My JSON {{ myvar | to_json }}"
+
+- name: Daily vim tmp files purge
+  become: true
+  become_user: root
+  lineinfile:
+    path: /etc/anacrontab
+    line: "@daily 5 purge-vim-tmp 'rm {{ user_home }}/.vim/viminf*.tmp'"
+    state: present
+
