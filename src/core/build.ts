@@ -21,6 +21,7 @@ async function build(site: any, paths: any) {
 }
 
 function getPages(site: any, paths: any) {
+  // TODO: Build a ToC here, get all pages and their headers and package as an tree object
   const pages = [];
   for (const fileInfo of walkSync(paths.content)) {
     if (fileInfo.info.isFile()) {
