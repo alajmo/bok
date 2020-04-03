@@ -73,7 +73,7 @@ async function buildHtml(site, paths, baseTemplate, page, pages) {
 
   const pagePath = relative(paths.content, page.path);
 
-  let outputPath;
+  let outputPath: string;
   if (basename(pagePath) === 'index.md') {
     outputPath = join(paths.output, dirname(pagePath), 'index.html')
   } else {
