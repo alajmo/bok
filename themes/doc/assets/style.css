@@ -4,8 +4,10 @@
   --margin: 4px;
   --padding: 4px;
   --background: white;
-  --surface: rgba(0, 0, 0, 0.12);
-  --scroll: #e1e1e1;
+  --surface: white;
+  --scroll-fg: #ebebeb;
+  --scroll-fg-hover: #dfdfdf;
+  --scroll-bg: #f8f8f8;
 }
 
 body,
@@ -14,13 +16,12 @@ html {
   height: 100%;
   margin: 0;
   padding: 0;
-  font-size: 20px;
+  font-size: 16px;
   font-family: 'JetBrainsMono', 'monospace', 'system-ui', sans-serif;
   line-height: normal;
   color: var(--color);
   letter-spacing: 0.02em;
-  scrollbar-width: 15px;
-  scrollbar-color: var(--background) var(--scroll);
+  box-sizing: border-box;
   /* overflow: hidden; */
 }
 
@@ -29,16 +30,6 @@ html {
   src: url('./fonts/jetbrainsmono/JetBrainsMono-Regular.woff2') format('woff2'),
     url('./fonts/jetbrainsmono/JetBrainsMono-Regular.woff') format('woff'),
     url('./fonts/jetbrainsmono/JetBrainsMono-Regular.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Bebas Neue';
-  src: url('./fonts/bebasneue/BebasNeue-Regular.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Carter One';
-  src: url('./fonts/carterone/CarterOne-Regular.ttf') format('truetype');
 }
 
 @font-face {
@@ -55,26 +46,55 @@ html {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  box-sizing: border-box;
+}
+
+.sidebar {
+  position: relative;
+  top: 0;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+  padding: calc(var(--padding) * 4) calc(var(--padding) * 8)
+    calc(var(--padding) * 4) calc(var(--padding) * 8);
+  background: var(--surface);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  /* box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), */
+  /*   0 1px 10px 0 rgba(0, 0, 0, 0.12); */
+
+  box-sizing: border-box;
 }
 
 nav {
-  /* border-right: 1px solid rgba(0, 0, 0, 0.12); */
   height: 100%;
   flex: 0 1 auto;
-  /* padding-top: calc(var(--padding) * 4); */
-  /* padding-bottom: calc(var(--padding) * 4); */
+  /* padding-top: calc(var(--padding) * 12); */
+  /* padding-bottom: calc(var(--padding) * 8); */
+  /* margin-bottom: calc(var(--padding) * 8); */
   /* padding-left: calc(var(--padding) * 2); */
-  /* padding-right: calc(var(--padding) * 8); */
-  overflow-y: auto;
+  /* margin-top: 30px; */
+  padding-right: calc(var(--padding) * 8);
+  /* border-right: 1px solid rgba(0, 0, 0, 0.12); */
+  box-sizing: border-box;
 }
 
 main {
   flex: 1;
   /* flex: 0 0 auto; */
   /* margin-top: calc(var(--padding) * 4); */
+  padding: 0 20px 0 20px;
   margin-bottom: calc(var(--padding) * 4);
   height: 100%;
   overflow-y: auto;
+  box-sizing: border-box;
 }
 
 /* Basic Elements */
@@ -82,8 +102,7 @@ main {
 h1 {
   font-size: 2em;
   line-height: 1.5em;
-  margin-top: 0.75em;
-  margin-bottom: 0em;
+  padding: calc(var(--padding) * 2) 0 calc(var(--padding) * 2) 0;
 }
 
 h2 {
@@ -128,7 +147,7 @@ h4,
 h5,
 h6 {
   font-weight: 500;
-  font-family: 'Bebas Neue', cursive;
+  font-family: 'JetBrainsMono';
   font-style: normal;
   margin-left: 0;
   margin-right: 0;
@@ -159,23 +178,26 @@ ol {
 }
 
 ul {
-  list-style: square outside none;
   margin: initial;
   padding: 0 0 0 32px;
   font-size: 1em;
   line-height: 1.5;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
+  list-style: square outside none;
+  box-sizing: border-box;
 }
 
 li {
   display: list-item;
+  box-sizing: border-box;
 }
 
 li ul {
   list-style: circle outside none;
   margin-top: 0.5em;
   padding-top: 0;
+  box-sizing: border-box;
 }
 
 pre {
@@ -215,24 +237,19 @@ strong {
 }
 
 ::-webkit-scrollbar {
-  width: 22px;
-  height: 22px;
-  background: #e1e1e1;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track-piece,
 ::-webkit-scrollbar-track {
-  background: var(--background);
+  background: var(--scroll-bg);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--scroll);
-  background-clip: padding-box;
-  height: 6px;
-  border: 6px solid rgba(0, 0, 0, 0);
+  background: var(--scroll-fg);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #cdcdcd;
-  background-clip: padding-box;
+  background: var(--scroll-fg-hover);
 }

@@ -1,6 +1,8 @@
 layout: pages/index.ts
 ---
 
+# 97 things every programmer should know
+
 "97 things every programmer should know" is a rich book containing programming wisdom from famous software developers. The "things" range from practical advice on how to write code, to the more social aspect of coding and the importance of it.
 I believe all points combined produce an accurate list of properties of a complete and accomplished programmer.
 
