@@ -1,9 +1,9 @@
 {
-  "title": "/home/samir",
+  "title": "Docs",
   "author": "Samir Alajmovic",
-  "description": "Samir Alajmovic Blog",
+  "description": "Documentation Theme",
   "version": "0.1.0",
-  "url": "https://alajmovic.com",
+  "url": "https://docs.com",
 
   "public": "assets",
   "content": "content",
@@ -15,10 +15,5 @@
     "port": 5001
   },
 
-  "links": {
-    "sitemap": "https://www.alajmovic.com/sitemap.xml",
-    "linkedin": "https://www.linkedin.com/in/samir-alajmovic-91126b60/",
-    "github": "https://github.com/samiralajmovic",
-    "stackoverflow": "http://stackoverflow.com/users/1645369/samir-alajmovic"
-  }
+  "links": {}
 }
