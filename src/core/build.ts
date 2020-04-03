@@ -21,13 +21,12 @@ async function build(site: any, paths: any) {
 }
 
 function getPages(site: any, paths: any) {
-  // TODO: Build a ToC here, get all pages and their headers and package as an tree object
   const pages = [];
   for (const fileInfo of walkSync(paths.content)) {
     if (fileInfo.info.isFile()) {
       const data = readFileStrSync(fileInfo.filename);
       const { params, content } = parseFrontMatter(data);
-      const htmlContent = Marked.parse(content);
+      const parsedData = Marked.debug(content);
 
       let link = relative(paths.content, fileInfo.filename);
       link = join('/', dirname(link), basename(link, '.md'));
@@ -41,10 +40,12 @@ function getPages(site: any, paths: any) {
         excerpt: getExcerpt(cleanedContent, site.excerptionLength),
         numWords: cleanedContent.split(' ').length,
         params,
-        htmlContent,
+        tokens: parsedData.tokens,
+        htmlContent: parsedData.result,
       });
     }
   }
+  // TODO: Build a ToC here, get all pages and their headers and package as an tree object
 
   return pages;
 }

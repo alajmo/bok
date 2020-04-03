@@ -5,8 +5,9 @@
   --padding: 4px;
   --background: white;
   --surface: white;
-  --scroll-fg: #ebebeb;
-  --scroll-fg-hover: #dfdfdf;
+  --scroll-fg: #dfdfdf;
+  --scroll-fg-hover: #c8c8c8;
+  --scroll-fg-active: #b2b2b2;
   --scroll-bg: #f8f8f8;
 }
 
@@ -252,4 +253,8 @@ strong {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--scroll-fg-hover);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: var(--scroll-fg-active);
 }
