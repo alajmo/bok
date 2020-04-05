@@ -1,5 +1,5 @@
 layout: pages/index.ts
-key: philosophy
+key: background
 ---
 
 # Philosophy

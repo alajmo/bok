@@ -1,4 +1,5 @@
 layout: pages/index.ts
+key: home
 ---
 
 # 97 things every programmer should know
