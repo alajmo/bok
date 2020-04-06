@@ -9,10 +9,10 @@ export { build };
 
 async function build(site: any, paths: any) {
   validateConfig(paths);
-  const pages = getPages(site, paths);
+  const { pages, pageLinks } = getPages(site, paths);
 
   await clearOutput(paths.output);
-  await createSite(site, paths, pages);
+  await createSite(site, paths, pages, pageLinks);
   await copyAssets(site, paths);
   const xml = generateSitemap(site, paths, pages);
   await createSitemapFile(xml, paths);
@@ -22,6 +22,7 @@ async function build(site: any, paths: any) {
 
 function getPages(site: any, paths: any) {
   const pages = [];
+  const pageLinks = new Map();
   for (const fileInfo of walkSync(paths.content)) {
     if (fileInfo.info.isFile()) {
       const data = readFileStrSync(fileInfo.filename);
@@ -32,7 +33,7 @@ function getPages(site: any, paths: any) {
       link = join('/', dirname(link), basename(link, '.md'));
       const cleanedContent = content.replace(/^\s+|\s+$/g, '').replace('.', '');
 
-      pages.push({
+      const page = {
         name: basename(fileInfo.filename),
         path: fileInfo.filename,
         link,
@@ -42,12 +43,14 @@ function getPages(site: any, paths: any) {
         params,
         tokens: parsedData.tokens,
         htmlContent: parsedData.result,
-      });
+      }
+
+      pages.push(page);
+      pageLinks.set(link, page)
     }
   }
-  // TODO: Build a ToC here, get all pages and their headers and package as an tree object
 
-  return pages;
+  return { pages, pageLinks };
 }
 
 async function clearOutput(path) {
@@ -68,10 +71,10 @@ async function copyAssets(site, paths) {
   await copy(paths.public, join(paths.output, basename(paths.public)));
 }
 
-async function buildHtml(site, paths, baseTemplate, page, pages) {
+async function buildHtml(site, paths, baseTemplate, page, pages, pageLinks: any) {
   const templatePath = join(paths.template, page.params.layout);
   const template = await import(templatePath);
-  const templateContent = template.default(site, page, pages);
+  const templateContent = template.default(site, page, pages, pageLinks);
 
   const pagePath = relative(paths.content, page.path);
 
@@ -88,13 +91,13 @@ async function buildHtml(site, paths, baseTemplate, page, pages) {
   await writeFileStr(outputPath, pageHtml);
 }
 
-async function createSite(site, paths, pages) {
+async function createSite(site, paths, pages, pageLinks: any) {
   await ensureDir(paths.output);
 
   const baseTemplatePath = join(paths.template, 'base.ts');
   const baseTemplate = await import(baseTemplatePath);
 
   return Promise.all(
-    pages.map(async page => buildHtml(site, paths, baseTemplate.default, page, pages)),
+    pages.map(async page => buildHtml(site, paths, baseTemplate.default, page, pages, pageLinks)),
   );
 }

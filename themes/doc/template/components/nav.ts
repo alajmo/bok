@@ -1,47 +1,36 @@
-export default function(site, page, pages) {
-  const keyPages = pages.map(p => ({
-    link: p.link,
+import { generateToc, getGroups, parseHeaderLink } from '../components/toc.ts';
+
+export default function (site, page, pages, pageLinks) {
+  const groups = getGroups(pageLinks, [
+    {
+      header: 'Background',
+      pages: [
+        'intro',
+        'philosophy',
+      ],
+    },
+  ]);
+  console.log(groups);
+
+  const headers = pages.map(p => ({
     key: p.params.key,
     headers: p.tokens
       .filter(t => t.type === 'heading')
-      .map(({ type, depth, text }) => ({ type, depth, text })),
+      .map(t => ({
+        text: t.text,
+        depth: t.depth,
+        link: `${p.link}#${parseHeaderLink(t.text)}`,
+      })),
   }));
-  console.log(keyPages[5]);
+  console.log(pageLinks.get(pages[0].link));
+
+  const toc = generateToc(headers);
 
   return `
     <div class="sidebar">
       <header>Doc Theme</header>
       <nav>
-        <ul>
-          <li>sdjhfkhsdf</li>
-          <li>sdjhfkhsdf</li>
-          <li>sdjhfkhsdf</li>
-          <li>sdjhfkhsdf</li>
-          <li>sdjhfkhsdf</li>
-          <li>sdjhfkhsdf</li>
-          <li>sdjhfkhsdf</li>
-          <li>sdjhfkhsdf</li>
-          <li>sdjhfkhsdflallaalal</li>
-          <li>sdjhfkhsdf</li>
-          <li>sdjhfkhsdf</li>
-          <li>sdjhfkhsdf</li>
-          <li>sdjhfkhsdf</li>
-          <li>sdjhfkhsdf</li>
-          <li>sdjhfkhsdf</li>
-          <li>sdjhfkhsdf</li>
-          <li>sdjhfkhsdf</li>
-          <li>sdjhfkhsdf</li>
-          <li>sdjhfkhsdf</li>
-          <li>sdjhfkhsdf</li>
-          <li>sdjhfkhsdf</li>
-          <li>sdjhfkhsdf</li>
-          <li>sdjhfkhsdf</li>
-          <li>sdjhfkhsdf</li>
-          <li>sdjhfkhsdf</li>
-          <li>sdjhfkhsdf</li>
-          <li>sdjhfkhsdf</li>
-          <li>sdjhfkhsdf</li>
-        </ul>
+        ${toc}
       </nav>
     </div>
   `;
