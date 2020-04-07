@@ -1,12 +1,10 @@
 export { generateToc, getGroups, parseHeaderLink };
 
 function getGroups(pageLinks, groups) {
-  return [
-    {
-      header: 'Groups',
-      pages: [],
-    },
-  ];
+  return groups.map(g => ({
+    header: g.header,
+    pages: g.pages.map(p => pageLinks.get(p)),
+  }));
 }
 
 function generateToc(pages: any) {

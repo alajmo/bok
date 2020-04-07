@@ -3,18 +3,24 @@ import { generateToc, getGroups, parseHeaderLink } from '../components/toc.ts';
 export default function (site, page, pages, pageLinks) {
   const groups = getGroups(pageLinks, [
     {
-      header: 'Background',
-      pages: [
-        'intro',
-        'philosophy',
-      ],
+      type: 'header',
+      text: 'Background',
+    },
+    {
+      type: 'page',
+      text: '/background/philosophy',
+    },
+    {
+      type: 'page',
+      text: '/background/background',
     },
   ]);
-  console.log(groups);
 
-  const headers = pages.map(p => ({
-    key: p.params.key,
-    headers: p.tokens
+  /* console.log(groups[0].pages[0]); */
+
+  const headers = groups.map(p => ({
+    header: p.header,
+    headers: p.pages
       .filter(t => t.type === 'heading')
       .map(t => ({
         text: t.text,
@@ -22,7 +28,10 @@ export default function (site, page, pages, pageLinks) {
         link: `${p.link}#${parseHeaderLink(t.text)}`,
       })),
   }));
-  console.log(pageLinks.get(pages[0].link));
+  /* console.log(pageLinks.get(pages[0].link)); */
+
+  console.log(groups);
+  /* console.log(headers); */
 
   const toc = generateToc(headers);
 
