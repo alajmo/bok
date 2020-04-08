@@ -1,54 +1,97 @@
 export { buildToc, generateToc, getGroups, parseHeaderLink };
 
 function buildToc(site, pages, pageLinks) {
-  const groups = getGroups(pageLinks, [
+  return getGroups(pageLinks, [
     {
-      type: 'header',
+      type: 'directory',
       text: 'Background',
+
+      pages: [
+        {
+          type: 'page',
+          text: 'Philosophy',
+          key: '/background/philosophy',
+        },
+
+        {
+          type: 'page',
+          text: 'Background',
+          key: '/background/background',
+        },
+
+        {
+          type: 'page',
+          text: 'Intro',
+          key: '/background/intro',
+        },
+      ],
     },
+
     {
       type: 'page',
-      text: '/background/philosophy',
-    },
-    {
-      type: 'page',
-      text: '/background/background',
+      text: 'Setup',
+      key: '/guide/setup',
     },
   ]);
-  console.log(groups);
-
-  /*   const headers = groups.map(p => ({ */
-  /*     header: p.header, */
-  /*     headers: p.pages */
-  /*       .filter(t => t.type === 'heading') */
-  /*       .map(t => ({ */
-  /*         text: t.text, */
-  /*         depth: t.depth, */
-  /*         link: `${p.link}#${parseHeaderLink(t.text)}`, */
-  /*       })), */
-  /*   })); */
 }
 
 function getGroups(pageLinks, groups) {
-  return groups.map(g => ({
-    header: g.header,
-    /* pages: g.pages.map(p => pageLinks.get(p)), */
-  }));
+  return groups.map(g => {
+    if (g.type === 'directory') {
+      return {
+        type: g.type,
+        text: g.text,
+        pages: g.pages.map(p => {
+          const page = pageLinks.get(p.key);
+          return getPage(page);
+        }),
+      };
+    } else {
+      const page = pageLinks.get(g.key);
+      return getPage(page);
+    }
+  });
 }
 
-function generateToc(pages: any) {
+function getPage(page) {
+  return {
+    text: page.text,
+    type: 'page',
+    headers: page.tokens
+      .filter(t => t.type === 'heading')
+      .map(t => ({
+        type: 'header',
+        text: t.text,
+        depth: t.depth,
+        link: `${page.link}#${parseHeaderLink(t.text)}`,
+      })),
+  };
+}
+
+function generateToc(headers: any) {
+  console.log(headers);
+  return `<div>lala</div>`;
+
   return `
-  ${pages
-    .map(
-      (p: any) => `
 <ul class="nav-list">
+  ${headers
+    .map(
+      (g: any) => `
   <li class="nav-item">
-    <div>${p.key}</div>
-    ${pageList(p)}
+    ${
+      g.type === 'directory'
+        ? `
+        ${g.text}
+      `
+        : `
+        ${pageList(g)}
+        `
+    }
   </li>
-</ul>`,
+`,
     )
     .join('')}
+</ul>
   `;
 }
 

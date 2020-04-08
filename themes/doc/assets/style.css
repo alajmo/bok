@@ -77,14 +77,9 @@ header {
 nav {
   height: 100%;
   flex: 0 1 auto;
-  /* padding-top: calc(var(--padding) * 12); */
-  /* padding-bottom: calc(var(--padding) * 8); */
-  /* margin-bottom: calc(var(--padding) * 8); */
-  /* padding-left: calc(var(--padding) * 2); */
-  /* margin-top: 30px; */
   padding-right: calc(var(--padding) * 8);
-  /* border-right: 1px solid rgba(0, 0, 0, 0.12); */
   box-sizing: border-box;
+  padding: 0 0 0 24px;
 }
 
 main {
@@ -168,10 +163,7 @@ a {
 }
 
 ol {
-  list-style: initial;
-  list-style: decimal;
   margin: initial;
-  /* padding: 0 0 0 16px; */
   font-size: 1em;
   line-height: 1.5;
   margin-top: 1.5em;
@@ -180,24 +172,21 @@ ol {
 
 ul {
   margin: initial;
-  padding: 0 0 0 32px;
   font-size: 1em;
   line-height: 1.5;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
-  list-style: square outside none;
   box-sizing: border-box;
 }
 
 li {
   display: list-item;
+  padding-left: 8px;
   box-sizing: border-box;
 }
 
 li ul {
-  list-style: circle outside none;
   margin-top: 0.5em;
-  padding-top: 0;
   box-sizing: border-box;
 }
 

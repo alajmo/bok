@@ -1,5 +1,6 @@
 layout: pages/index.ts
 key: setup
+title: Setup
 ---
 
 # Setup

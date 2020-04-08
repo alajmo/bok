@@ -1,5 +1,6 @@
 layout: pages/index.ts
 key: intro
+title: Intro
 ---
 
 # Intro
@@ -10,6 +11,19 @@ Philosophy...
 
 Philosophy...
 
-## Intro 3
+### Intro 3
 
 Philosophy...
+
+### Intro 4
+
+Philosophy...
+
+## Intro 5
+
+Philosophy...
+
+## Intro 6
+
+Philosophy...
+
