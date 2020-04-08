@@ -71,10 +71,11 @@ async function copyAssets(site, paths) {
   await copy(paths.public, join(paths.output, basename(paths.public)));
 }
 
-async function buildHtml(site, paths, baseTemplate, page, pages, pageLinks: any) {
+async function buildHtml(site, paths, baseTemplate, page, pages, pageLinks: any, beforeBuild: any) {
   const templatePath = join(paths.template, page.params.layout);
   const template = await import(templatePath);
-  const templateContent = template.default(site, page, pages, pageLinks);
+
+  const templateContent = template.default(site, page, pages, pageLinks, beforeBuild);
 
   const pagePath = relative(paths.content, page.path);
 
@@ -97,7 +98,9 @@ async function createSite(site, paths, pages, pageLinks: any) {
   const baseTemplatePath = join(paths.template, 'base.ts');
   const baseTemplate = await import(baseTemplatePath);
 
+  const beforeBuild = await site.beforeBuild(site, pages, pageLinks);
+
   return Promise.all(
-    pages.map(async page => buildHtml(site, paths, baseTemplate.default, page, pages, pageLinks)),
+    pages.map(async page => buildHtml(site, paths, baseTemplate.default, page, pages, pageLinks, beforeBuild)),
   );
 }

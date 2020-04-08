@@ -3,12 +3,12 @@ import { readFileStrSync } from 'https://deno.land/std/fs/mod.ts';
 
 export { parseConfig };
 
-function parseConfig(siteConfigPath: string) {
+async function parseConfig(siteConfigPath: string) {
   siteConfigPath = Deno.realpathSync(siteConfigPath);
-
   const sitePath = dirname(siteConfigPath);
-  const siteStr = readFileStrSync(siteConfigPath);
-  const site = JSON.parse(siteStr);
+
+  const siteFile = await import(siteConfigPath);
+  const site = siteFile.config();
   const paths = getPaths(siteConfigPath, sitePath, site);
 
   return { site, paths };

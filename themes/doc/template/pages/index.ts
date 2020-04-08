@@ -1,9 +1,9 @@
 import Nav from '../components/nav.ts';
 
-export default function (site, page, pages, pageLinks) {
+export default function (site, page, pages, pageLinks, beforeBuild) {
   return `
     <div class="site">
-      ${Nav(site, page, pages, pageLinks)}
+      ${Nav(site, page, pages, pageLinks, beforeBuild)}
 
       <main>
         ${page.htmlContent}

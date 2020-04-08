@@ -1,9 +1,38 @@
-export { generateToc, getGroups, parseHeaderLink };
+export { buildToc, generateToc, getGroups, parseHeaderLink };
+
+function buildToc(site, pages, pageLinks) {
+  const groups = getGroups(pageLinks, [
+    {
+      type: 'header',
+      text: 'Background',
+    },
+    {
+      type: 'page',
+      text: '/background/philosophy',
+    },
+    {
+      type: 'page',
+      text: '/background/background',
+    },
+  ]);
+  console.log(groups);
+
+  /*   const headers = groups.map(p => ({ */
+  /*     header: p.header, */
+  /*     headers: p.pages */
+  /*       .filter(t => t.type === 'heading') */
+  /*       .map(t => ({ */
+  /*         text: t.text, */
+  /*         depth: t.depth, */
+  /*         link: `${p.link}#${parseHeaderLink(t.text)}`, */
+  /*       })), */
+  /*   })); */
+}
 
 function getGroups(pageLinks, groups) {
   return groups.map(g => ({
     header: g.header,
-    pages: g.pages.map(p => pageLinks.get(p)),
+    /* pages: g.pages.map(p => pageLinks.get(p)), */
   }));
 }
 
