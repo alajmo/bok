@@ -69,9 +69,6 @@ function getPage(page) {
 }
 
 function generateToc(headers: any) {
-  console.log(headers);
-  return `<div>lala</div>`;
-
   return `
 <ul class="nav-list">
   ${headers
