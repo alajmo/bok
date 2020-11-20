@@ -6,7 +6,7 @@ export function config() {
     author: 'Samir Alajmovic',
     description: 'Documentation Theme',
     version: '0.1.0',
-    url: 'https://docs.com',
+    url: '',
 
     public: 'assets',
     content: 'content',

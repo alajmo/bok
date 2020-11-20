@@ -54,6 +54,7 @@ function getGroups(pageLinks, groups) {
 }
 
 function getPage(page) {
+  console.log(page);
   return {
     text: page.text,
     type: 'page',
