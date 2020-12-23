@@ -1,2 +1,0 @@
-layout: pages/index.ts
----

@@ -1,0 +1,25 @@
+## Install
+
+`Docz` is based on Deno, so until the single-binary executable is available (and stable) in Deno, we need to install Deno first:
+
+```
+curl -fsSL https://deno.land/x/install/install.sh | sh
+```
+
+Then install the latest version of `Docz`
+
+```
+deno install --force --no-check --unstable --allow-all --name=docz https://deno.land/x/docz/mod.ts
+```
+
+## Getting Started
+
+Run the following command to generate a new site.
+
+```sh
+# Create your site (outputs a config.ts)
+docz init
+
+# Start a HTTP server with auto-refresh on file changes
+docz serve config.ts
+```

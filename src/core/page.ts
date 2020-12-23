@@ -2,10 +2,10 @@ export interface Page {
   name: string;
   path: string;
   link: string;
-  types: string[];
-  /* excerpt: string; */
-  numWords: number;
+  prevPage?: string;
+  nextPage?: string;
   params: any;
-  /* tokens: any; */
   htmlContent: string;
+  tokens: any[];
+  build: boolean;
 }

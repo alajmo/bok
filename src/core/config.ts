@@ -1,99 +1,265 @@
-import * as path from 'https://deno.land/std@0.81.0/path/mod.ts';
-import * as fs from 'https://deno.land/std@0.81.0/fs/mod.ts';
+import { fs, path, log } from '../../deps.ts';
+import { __dirname } from './utils.ts';
 
-export { parseConfig, validateConfig };
+export {
+  getSiteConfig,
+  readSiteConfig,
+  Site,
+  SitePaths,
+  SiteServe,
+  SiteHooks,
+  SearchFilesType,
+};
 
-export interface Site {
-  title?: string;
-  author?: string;
-  description?: string;
-  url?: string;
+interface Site {
+  theme?: string;
   paths: SitePaths;
-  flags: SiteFlags;
+  files: SiteFiles;
+  serve?: SiteServe;
   hooks: SiteHooks;
-  custom: any;
+  uglyURLs?: boolean;
+  params?: any;
 }
 
-export interface SiteConfig {
-  flags: SiteFlags;
-  hooks: any;
-  custom: any;
-}
+interface SitePaths {
+  assets: string;
 
-export interface SiteFlags {
-  sitemap?: boolean;
-  robot?: boolean;
-}
-
-export interface SiteHooks {
-  beforeSite?: any;
-  afterSite?: any;
-  beforePage?: any;
-  afterPage?: any;
-}
-
-export interface SitePaths {
-  root: string;
-  public: string;
   content: string;
-  template: string;
-  output: string;
-  robot: string;
-  sitemap: string;
   toc?: string;
-  defaultTemplate?: string;
+  404?: string;
+
+  layout: string;
+  defaultLayout?: string;
+
+  output: string;
 }
+
+enum SearchFilesType {
+  walk,
+  glob,
+  toc,
+}
+
+interface SiteFiles {
+  type: SearchFilesType;
+}
+
+interface SiteServe {
+  reload: boolean;
+  port: number;
+  wsPort: number;
+}
+
+interface SiteHooks {
+  beforeSite: any;
+  afterSite: any;
+  beforePage: any;
+  afterPage: any;
+}
+
+export const THEMES = {
+  basic: path.join(__dirname(), '../../themes/basic/config.ts'),
+  book: path.join(__dirname(), '../../themes/book/config.ts'),
+};
 
 /**
- * Parse, validate config and return monolithic Site object.
+ * Parse, validate config and return Site object.
  */
-async function parseConfig(siteConfigPath: string): Promise<Site> {
-  const realSitePath = Deno.realPathSync(siteConfigPath);
-  const sitePath = path.dirname(realSitePath);
-  const siteConfig = (await import(realSitePath)).default();
+async function getSiteConfig(
+  config: string = 'config.ts',
+  options?: any,
+): Promise<Site> {
+  // 1. Read the config file
+  const { siteConfig, siteDir } = await readSiteConfig(config);
 
-  const paths = getSitePaths(sitePath, siteConfig);
+  // 2. Add default values
+  extendWithDefaultConfig(siteConfig, siteDir);
 
-  validateConfig(paths);
+  // 3. Override with theme data
+  if (siteConfig.extends) {
+    await extendWithThemeConfig(siteConfig);
+  }
 
+  // 4. Override with options
+  if (options) {
+    overrideWithOptions(siteConfig, options);
+  }
+
+  // 5. Validate config file
+  validateConfig(siteConfig.paths);
+
+  // 6. Return site object
   const site: Site = {
-    title: siteConfig.title,
-    author: siteConfig.author,
-    description: siteConfig.description,
-    url: siteConfig.url,
-    flags: siteConfig.flags,
-    custom: siteConfig.custom,
+    files: siteConfig.files,
+    paths: siteConfig.paths,
+    serve: siteConfig.serve,
     hooks: siteConfig.hooks,
-    paths,
+    uglyURLs: siteConfig.uglyURLs,
+    params: siteConfig.params,
   };
 
   return site;
 }
 
-function validateConfig(paths: any) {
-  if (!fs.existsSync(paths.content)) {
-    console.error('error: content directory is missing');
+function overrideWithOptions(siteConfig: any, options: any) {
+  siteConfig.serve.reload = options.reload ?? siteConfig.serve.reload;
+  siteConfig.serve.port = options.port ?? siteConfig.serve.port;
+  siteConfig.serve.wsPort = options.wsPort ?? siteConfig.serve.wsPort;
+}
+
+function extendWithDefaultConfig(siteConfig: any, siteDir: string) {
+  // Paths
+  siteConfig.paths = siteConfig.paths ?? {};
+
+  siteConfig.paths.content = setSitePath(
+    siteConfig.paths.content,
+    siteDir,
+    'content',
+  );
+
+  siteConfig.paths.output = setSitePath(
+    siteConfig.paths.output,
+    siteDir,
+    'site',
+  );
+
+  siteConfig.paths.assets = setSitePath(
+    siteConfig.paths.assets,
+    siteDir,
+    'assets',
+  );
+
+  siteConfig.paths.layout = setSitePath(
+    siteConfig.paths.layout,
+    siteDir,
+    'layout',
+  );
+
+  siteConfig.uglyURLs = siteConfig.uglyURLs ?? false;
+
+  // default layout is relative to layout directory
+  if (siteConfig.paths.defaultLayout) {
+    siteConfig.paths.defaultLayout = path.join(
+      siteConfig.paths.layout,
+      siteConfig.paths.defaultLayout,
+    );
   }
 
-  if (!fs.existsSync(paths.template)) {
-    console.error('error: template directory is missing');
+  // Files
+  siteConfig.files = siteConfig.files ?? { type: SearchFilesType.walk };
+
+  if (SearchFilesType[siteConfig.files.type] === SearchFilesType.toc) {
+    siteConfig.files.file = path.join(
+      siteConfig.paths.content,
+      siteConfig.files.file,
+    );
+  }
+
+  // Serve
+  siteConfig.serve = siteConfig.serve ?? {};
+
+  siteConfig.serve = {
+    reload: siteConfig.serve.reload ?? true,
+    port: siteConfig.serve.port ?? 5000,
+    wsPort: siteConfig.serve.wsPort ?? 5001,
+  };
+
+  // Hooks
+  siteConfig.hooks = siteConfig.hooks ?? {};
+
+  siteConfig.hooks.beforeSite = siteConfig.hooks.beforeSite ?? function () {};
+  siteConfig.hooks.afterSite = siteConfig.hooks.afterSite ?? function () {};
+  siteConfig.hooks.beforePage = siteConfig.hooks.beforePage ?? function () {};
+  siteConfig.hooks.afterPage = siteConfig.hooks.afterPage ?? function () {};
+
+  siteConfig.params = siteConfig.params ?? {};
+}
+
+async function extendWithThemeConfig(siteConfig: any) {
+  const configPath = THEMES[siteConfig.extends] ?? siteConfig.extends;
+  const themeConfig = (await import(configPath)).default;
+  const themeDir = path.dirname(configPath);
+
+  siteConfig.hooks = themeConfig.hooks;
+
+  siteConfig.paths.assets = setSitePath(
+    themeConfig.paths.assets,
+    themeDir,
+    'assets',
+  );
+
+  siteConfig.paths.layout = setSitePath(
+    themeConfig.paths.layout,
+    themeDir,
+    'layout',
+  );
+
+  siteConfig.paths.defaultLayout = setSitePath(
+    themeConfig.paths.defaultLayout,
+    siteConfig.paths.layout,
+    'index.ts',
+  );
+
+  siteConfig.uglyURLs = themeConfig.uglyURLs ?? siteConfig.uglyURLs;
+
+  if (themeConfig.files) {
+    siteConfig.files = themeConfig.files;
+
+    if (SearchFilesType[siteConfig.files.type] === SearchFilesType.toc) {
+      siteConfig.files.file = path.join(
+        siteConfig.paths.content,
+        siteConfig.files.file,
+      );
+    }
   }
 }
 
-function getSitePaths(sitePath: string, siteConfig: SiteConfig): SitePaths {
-  return {
-    root: sitePath,
-    public: path.join(sitePath, siteConfig.paths.public),
-    content: path.join(sitePath, siteConfig.paths.content),
-    template: path.join(sitePath, siteConfig.paths.template),
-    output: path.join(sitePath, siteConfig.paths.output),
-    robot: path.join(sitePath, siteConfig.paths.output, 'robots.txt'),
-    sitemap: path.join(sitePath, siteConfig.paths.output, 'sitemap.xml'),
-    toc: path.join(sitePath, siteConfig.paths.content, siteConfig.paths.toc),
-    defaultTemplate: path.join(
-      sitePath,
-      siteConfig.paths.template,
-      siteConfig.paths.defaultTemplate,
-    ),
-  };
+function setSitePath(
+  value: string,
+  siteDir: string,
+  defaultValue: string,
+): string {
+  if (value) {
+    if (!path.isAbsolute(value)) {
+      return path.join(siteDir, value);
+    }
+
+    return value;
+  }
+
+  return path.join(siteDir, defaultValue);
+}
+
+async function readSiteConfig(siteConfigPath: string): Promise<any, string> {
+  if (!fs.existsSync(siteConfigPath)) {
+    log.error(`Could not find config file ${siteConfigPath}`);
+    Deno.exit(1);
+  }
+
+  const realSitePath = Deno.realPathSync(siteConfigPath);
+  const siteDir = path.dirname(realSitePath);
+
+  try {
+    const siteConfig = (await import(realSitePath)).default;
+
+    return { siteConfig, siteDir };
+  } catch (error) {
+    log.error(`Configuration file is malformed:`);
+    log.error(error);
+    Deno.exit(1);
+  }
+}
+
+function validateConfig(paths: any) {
+  if (!fs.existsSync(paths.content)) {
+    log.error('error: content directory is missing');
+  }
+
+  if (!fs.existsSync(paths.assets)) {
+    log.error('error: assets directory is missing');
+  }
+
+  if (!fs.existsSync(paths.layout)) {
+    log.error('error: layout directory is missing');
+  }
 }

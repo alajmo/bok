@@ -1,31 +1,69 @@
-import * as path from "https://deno.land/std@0.81.0/path/mod.ts";
+import { http, path, log } from '../../deps.ts';
 
-import {
-  listenAndServe,
-  Response,
-  ServerRequest,
-} from "https://deno.land/std/http/mod.ts";
-import { exists } from "../lib/utils.ts";
-const { stat, open } = Deno;
+import { Site } from './config.ts';
+import { exists, __dirname } from './utils.ts';
+
+export { server };
 
 const encoder = new TextEncoder();
+let WS_CLIENT_CODE = '';
+
+const MEDIA_TYPES: Record<string, string> = {
+  '.md': 'text/markdown',
+  '.html': 'text/html',
+  '.htm': 'text/html',
+  '.json': 'application/json',
+  '.map': 'application/json',
+  '.txt': 'text/plain',
+  '.ts': 'text/typescript',
+  '.tsx': 'text/tsx',
+  '.js': 'application/javascript',
+  '.jsx': 'text/jsx',
+  '.gz': 'application/gzip',
+  '.css': 'text/css',
+  '.wasm': 'application/wasm',
+  '.mjs': 'application/javascript',
+  '.svg': 'image/svg+xml',
+};
+
+function initWSClientCode() {
+  const wsClientPath = path.join(__dirname(), 'ws-client.js');
+  WS_CLIENT_CODE = Deno.readTextFileSync(wsClientPath);
+}
+
+/** Returns the content-type based on the extension of a path. */
+function contentType(p: string): string | undefined {
+  return MEDIA_TYPES[path.extname(p)];
+}
 
 async function serveStatic(
-  req: ServerRequest,
+  req: http.ServerRequest,
   filePath: string,
-  contentType: string,
-): Promise<Response> {
-  const [file, fileInfo] = await Promise.all([open(filePath), stat(filePath)]);
-  const headers = new Headers();
-  headers.set("content-length", fileInfo.size.toString());
+): Promise<http.Response> {
+  let [file, fileInfo] = await Promise.all([
+    Deno.open(filePath),
+    Deno.stat(filePath),
+  ]);
 
-  if (contentType) {
-    headers.set("content-type", contentType);
+  const headers = new Headers();
+  /* headers.set('content-length', fileInfo.size.toString()); */
+
+  const ct = contentType(filePath);
+  let body;
+  if (ct === 'text/html') {
+    body = await Deno.readTextFile(filePath);
+    body += `<script>${WS_CLIENT_CODE}</script>`;
+  } else {
+    body = file;
+  }
+
+  if (ct) {
+    headers.set('content-type', ct);
   }
 
   const res = {
     status: 200,
-    body: file,
+    body,
     headers,
   };
 
@@ -34,79 +72,69 @@ async function serveStatic(
 
 async function serveFallback(
   paths: any,
-  req: ServerRequest,
+  req: http.ServerRequest,
   e: Error,
-): Promise<Response> {
+): Promise<http.Response> {
   if (e instanceof Deno.errors.NotFound) {
-    const fsPath = path.join(paths.output, "404", "index.html");
+    const fsPath = path.join(paths.output, '404', 'index.html');
     const notFoundPageExists = await exists(fsPath);
     if (notFoundPageExists) {
-      const contentType = getContentType(fsPath);
-      return serveStatic(req, fsPath, contentType);
+      return serveStatic(req, fsPath);
     }
 
     return Promise.resolve({
       status: 404,
-      body: encoder.encode("Not found"),
+      body: encoder.encode('Not found'),
     });
   } else {
     return Promise.resolve({
       status: 500,
-      body: encoder.encode("Internal server error"),
+      body: encoder.encode('Internal server error'),
     });
   }
 }
 
-function serverLog(req: ServerRequest, res: Response): void {
+function serverLog(req: http.ServerRequest, res: http.Response): void {
   const d = new Date().toISOString();
   const dateFmt = `[${d.slice(0, 10)} ${d.slice(11, 19)}]`;
   const s = `${dateFmt} "${req.method} ${req.url} ${req.proto}" ${res.status}`;
 }
 
-function getContentType(fsPath: string | null) {
-  switch (path.extname(fsPath)) {
-    case ".svg":
-      return "image/svg+xml";
-    default:
-      return null;
+function server(site: Site) {
+  if (site.serve.reload) {
+    initWSClientCode();
   }
-}
 
-export function server(site, paths) {
-  const addr = `0.0.0.0:${site.serve.port}`;
+  const handler = async (req: http.ServerRequest): Promise<void> => {
+    let normalizedUrl = path.normalize(req.url);
 
-  listenAndServe(
-    addr,
-    async (req): Promise<void> => {
-      let normalizedUrl = path.normalize(req.url);
+    try {
+      normalizedUrl = decodeURIComponent(normalizedUrl);
+    } catch (e) {
+      if (!(e instanceof URIError)) {
+        throw e;
+      }
+    }
 
-      try {
-        normalizedUrl = decodeURIComponent(path.normalizedUrl);
-      } catch (e) {
-        if (!(e instanceof URIError)) {
-          throw e;
-        }
+    let fsPath = path.join(site.paths.output, normalizedUrl);
+
+    let response: http.Response | undefined;
+    try {
+      const info = await Deno.stat(fsPath);
+      if (info.isDirectory) {
+        fsPath = path.join(fsPath, 'index.html');
       }
 
-      let fsPath = path.join(paths.output, path.normalizedUrl);
-      let response: Response | undefined;
-      try {
-        const info = await stat(fsPath);
+      response = await serveStatic(req, fsPath);
+    } catch (e) {
+      response = await serveFallback(site.paths, req, e);
+    } finally {
+      serverLog(req, response!);
+      req.respond(response!);
+    }
+  };
 
-        if (info.isDirectory()) {
-          fsPath = path.join(fsPath, "index.html");
-        }
+  http.listenAndServe({ port: site.serve.port }, handler);
 
-        const contentType = getContentType(fsPath);
-        response = await serveStatic(req, fsPath, contentType);
-      } catch (e) {
-        response = await serveFallback(paths, req, e);
-      } finally {
-        /* serverLog(req, response!); */
-        req.respond(response!);
-      }
-    },
-  );
-
-  console.log(`HTTP server listening on http://${addr}/`);
+  log.info(`\nListening on http://localhost:${site.serve.port}`);
 }

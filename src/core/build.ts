@@ -1,120 +1,165 @@
-import * as fs from 'https://deno.land/std@0.81.0/fs/mod.ts';
-import * as path from 'https://deno.land/std@0.81.0/path/mod.ts';
-import * as log from 'https://deno.land/std@0.81.0/log/mod.ts';
-import { parseMarkdown } from 'https://deno.land/x/markdown_wasm@1.1.2/mod.ts';
+import { fs, path, log, MarkdownIt } from '../../deps.ts';
 
 /* import { Marked } from '../../marked/index.ts'; */
+/* import { parseMarkdown } from 'https://deno.land/x/markdown_wasm@1.1.2/mod.ts'; */
+import { parseToc, TocRender } from '../plugins/toc.ts';
+
 import { parseFrontMatter } from './front-matter.ts';
+import print from './print.ts';
 import { Page } from './page.ts';
-import { Site } from './config.ts';
-import * as utils from '../lib/utils.ts';
+import { Site, SearchFilesType } from './config.ts';
+import { clean } from './utils.ts';
 
 export { build };
+
+const MD = MarkdownIt({
+  html: true,
+  linkify: true,
+});
 
 /**
  * Main function for generating a static site.
  */
 async function build(site: Site) {
-  await clearOutput(site.paths.output);
+  log.info('Building');
 
-  const { toc, pages } = getPages(site);
-  await createSite(site, pages, toc);
+  await clean(site.paths.output);
+
+  const pages = getPages(site);
+  await createSite(site, pages);
   await copyAssets(site);
 
-  if (site.flags.sitemap) {
-    const xml = utils.generateSitemap(site, pages);
-    await createSitemapFile(site, xml);
-  }
-
-  if (site.flags.robot) {
-    const robotsTxt = utils.generateRobotsTxt(site);
-    await createRobotsFile(site, robotsTxt);
-  }
+  print.build(site, pages);
 }
 
 /**
- * Crawl directory to get all pages.
- */
-function getPages(site: Site): { toc: any; pages: Page[] } {
+ * Get all pages. */
+function getPages(site: Site): Page[] {
   const pages: Page[] = [];
 
-  let toc = {};
-  for (const fileInfo of fs.walkSync(site.paths.content)) {
-    if (fileInfo.isFile && fileInfo.path !== site.paths.toc) {
-      const data = Deno.readTextFileSync(fileInfo.path);
+  switch (SearchFilesType[site.files.type]) {
+    case SearchFilesType.toc:
+      const { files, ast } = parseToc(site);
+      const actualFiles = files.filter(f => f.ref !== '');
 
-      const { params, content } = parseFrontMatter(data);
-      const parsedData = parseMarkdown(content);
+      actualFiles.forEach((f: any, i: number) => {
+        const filepath = path.join(site.paths.content, f.ref);
+        const stat = Deno.statSync(filepath);
+        const file = {
+          name: filepath,
+          path: filepath,
+        };
 
-      let link = path.relative(site.paths.content, fileInfo.name);
-      link = path.join('/', path.dirname(link), path.basename(link, '.md'));
-      const cleanedContent = content.replace(/^\s+|\s+$/g, '').replace('.', '');
+        if (stat.isFile) {
+          const { prevPage, nextPage } = getPageNav(i, actualFiles, site);
 
-      const page: Page = {
-        name: path.basename(fileInfo.name),
-        path: fileInfo.path,
-        link,
-        types: link.split('/'),
-        numWords: cleanedContent.split(' ').length,
-        params,
-        htmlContent: parsedData,
-        /* excerpt: utils.getExcerpt(cleanedContent, site.excerptionLength), */
-        /* tokens: parsedData.tokens, */
-      };
+          // Render ToC for all pages since we need to highlight current page.
+          const toc = TocRender(site, ast, file.name);
+          const page = processPage(site, file, { toc, prevPage, nextPage });
+          pages.push(page);
+        }
+      });
+      break;
+    case SearchFilesType.glob:
+      for (const file of fs.expandGlobSync(
+        path.join(site.paths.content, site.files.glob),
+      )) {
+        if (file.isFile) {
+          const page = processPage(site, file);
+          pages.push(page);
+        }
+      }
 
-      pages.push(page);
-    } else {
-      // TODO: Parse toc and create json object
-    }
+      break;
+    default:
+      for (const file of fs.walkSync(site.paths.content)) {
+        if (file.isFile) {
+          const page = processPage(site, file);
+          pages.push(page);
+        }
+      }
   }
 
-  return { toc, pages };
+  return pages;
 }
 
-async function clearOutput(path: string) {
-  if (fs.existsSync(path)) {
-    await Deno.remove(path, { recursive: true });
+function parseLink(site: Site, filename: string): string {
+  let link = path.relative(site.paths.content, filename);
+  link = path.join('/', path.dirname(link), path.basename(link, '.md'));
+
+  if (site.uglyURLs) {
+    link += '.html';
   }
+
+  // We treat /index as /
+  return link === '/index' ? '/' : link;
 }
 
-async function createSitemapFile(site: Site, xml: any) {
-  await Deno.writeTextFile(site.paths.sitemap, xml);
+function getPageNav(i: number, files: any, site: Site) {
+  return {
+    prevPage: i === 0 ? null : parseLink(site, files[i - 1].ref),
+    nextPage: i === files.length - 1 ? null : parseLink(site, files[i + 1].ref),
+  };
 }
 
-async function createRobotsFile(site: Site, robotsTxt: string) {
-  await Deno.writeTextFile(site.paths.robot, robotsTxt);
+function processPage(site: Site, file: any, opts?: any) {
+  const data = Deno.readTextFileSync(file.path);
+
+  const { params, content } = parseFrontMatter(data);
+
+  // TODO: Fix this, possibly fork markdown-it, so render returns parsed data as well.
+  const parsedData = MD.render(content);
+  let tokens = [];
+
+  try {
+    tokens = MD.parse(content);
+  } catch (e) {}
+
+  let link = path.relative(site.paths.content, file.path);
+  link = path.join('/', path.dirname(link), path.basename(link, '.md'));
+
+  const page: Page = {
+    name: path.basename(file.name),
+    path: file.path,
+    link,
+    params,
+    htmlContent: parsedData,
+    tokens,
+    build: true,
+    ...opts,
+  };
+
+  return page;
 }
 
 async function copyAssets(site: Site) {
   await fs.copy(
-    site.paths.public,
-    path.join(site.paths.output, path.basename(site.paths.public)),
+    site.paths.assets,
+    path.join(site.paths.output, path.basename(site.paths.assets)),
   );
 }
 
-async function buildHtml(site: Site, page: Page, pages: Page[], opts: any) {
-  // TODO: Skip toc file
-
-  // Page has specified template
+async function buildHtml(site: Site, page: Page, pages: Page[], opts?: any) {
+  // Page has specified layout
   if (typeof page.params.layout === 'string') {
-    let templatePath = path.join(site.paths.template, page.params.layout);
-    if (fs.existsSync(templatePath)) {
-      convertToHtml(site, page, pages, templatePath, opts);
+    let layoutPath = path.join(site.paths.layout, page.params.layout);
+    if (fs.existsSync(layoutPath)) {
+      convertToHtml(site, page, pages, layoutPath, opts);
     } else {
       log.error(`Encountered error when processing file ${page.path}.
 Could not find referenced layout: ${page.params.layout}
 `);
     }
   } else {
-    // Use default template
+    // Use default layout
     if (
-      typeof site.paths.defaultTemplate === 'string' &&
-      fs.existsSync(site.paths.defaultTemplate)
+      typeof site.paths.defaultLayout === 'string' &&
+      fs.existsSync(site.paths.defaultLayout)
     ) {
-      convertToHtml(site, page, pages, site.paths.defaultTemplate, opts);
+      convertToHtml(site, page, pages, site.paths.defaultLayout, opts);
     } else {
       log.error(`Encountered error when processing file ${page.path}.
-Since there was no layout specified, it tried to use the default template, but the default template ${site.paths.defaultTemplate}
+Since there was no layout specified, it tried to use the default layout, but the default layout ${site.paths.defaultLayout}
 does not exist.
 `);
     }
@@ -125,15 +170,22 @@ async function convertToHtml(
   site: Site,
   page: Page,
   pages: Page[],
-  templatePath: string,
+  layoutPath: string,
   opts: any,
 ) {
-  const template = await import(templatePath);
-  const htmlContent = await template.default(site, page, pages, opts);
+  let layout = await import(layoutPath);
+  const htmlContent = await layout.default(site, page, pages, opts);
 
   const pagePath = path.relative(site.paths.content, page.path);
   let outputPath: string;
-  if (path.basename(pagePath) === 'index.md') {
+
+  if (site.uglyURLs) {
+    outputPath = path.join(
+      site.paths.output,
+      path.dirname(pagePath),
+      path.basename(pagePath, '.md') + '.html',
+    );
+  } else if (path.basename(pagePath) === 'index.md') {
     outputPath = path.join(
       site.paths.output,
       path.dirname(pagePath),
@@ -152,32 +204,24 @@ async function convertToHtml(
   await Deno.writeTextFile(outputPath, htmlContent);
 }
 
-async function createSite(site: Site, pages: Page[], toc: any) {
+async function createSite(site: Site, pages: Page[]) {
   await fs.ensureDir(site.paths.output);
 
-  if (site.hooks.beforeSite) {
-    const beforeSite = await site.hooks.beforeSite(site, pages, { toc });
-  }
+  const opts = {};
+
+  await site.hooks.beforeSite(site, pages, opts);
 
   await Promise.all(
-    pages.map(async (page: Page) => {
-      if (site.hooks.beforePage) {
-        const beforePage = await site.hooks.beforePage(site, page, pages, {
-          toc,
-        });
+    pages.map(async (page: Page, i: number) => {
+      await site.hooks.beforePage(site, page, i, pages, opts);
+
+      if (page.build) {
+        buildHtml(site, page, pages);
       }
 
-      buildHtml(site, page, pages, { toc });
-
-      if (site.hooks.afterPage) {
-        const afterPage = await site.hooks.afterPage(site, page, pages, {
-          toc,
-        });
-      }
+      await site.hooks.afterPage(site, page, i, pages, opts);
     }),
   );
 
-  if (site.hooks.afterSite) {
-    const afterSite = await site.hooks.afterSite(site, pages, { toc });
-  }
+  await site.hooks.afterSite(site, pages, opts);
 }
