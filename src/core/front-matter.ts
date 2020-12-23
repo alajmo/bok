@@ -1,22 +1,22 @@
 export { parseFrontMatter };
 
 function parseFrontMatter(data: any) {
-  const splitted = data.split('\n');
-  const paramLineNumber = splitted.indexOf('---');
+  const splitted = data.split("\n");
+  const paramLineNumber = splitted.indexOf("---");
 
-  let ft: any = { params: {}, content: '' };
+  let ft: any = { params: {}, content: "" };
   for (let i = 0; i < paramLineNumber; i++) {
-    let key = '';
-    let value = '';
+    let key = "";
+    let value = "";
     let isKey = true;
     let isValue = false;
 
     for (let j = 0; j < splitted[i].length; j++) {
-      if (splitted[i][j] === '\n') {
+      if (splitted[i][j] === "\n") {
         break;
       }
 
-      if (splitted[i][j] === ':' && isKey) {
+      if (splitted[i][j] === ":" && isKey) {
         isKey = false;
         isValue = true;
         continue;
@@ -34,7 +34,7 @@ function parseFrontMatter(data: any) {
     ft.params[key] = value.trim();
   }
 
-  ft.content = splitted.slice(paramLineNumber + 1, splitted.length).join('\n');
+  ft.content = splitted.slice(paramLineNumber + 1, splitted.length).join("\n");
 
   return ft;
 }

@@ -1,11 +1,11 @@
-import { server } from './server.ts';
-import { build } from './build.ts';
+import { server } from "./server.ts";
+import { build } from "./build.ts";
 
-export async function serve(site, paths) {
+export async function serve(site, paths: [string]) {
   await build(site, paths);
   server(site, paths);
 
-  const iter = Deno.fsEvents([
+  const iter = Deno.watchFs([
     paths.config,
     paths.public,
     paths.content,
@@ -13,7 +13,6 @@ export async function serve(site, paths) {
   ]);
 
   for await (const event of iter) {
-    /* console.log('>>>> event', event); */
     await build(site, paths);
   }
 }

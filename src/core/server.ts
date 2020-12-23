@@ -1,10 +1,11 @@
-import { extname, normalize, join } from 'https://deno.land/std/path/mod.ts';
+import * as path from "https://deno.land/std@0.81.0/path/mod.ts";
+
 import {
   listenAndServe,
-  ServerRequest,
   Response,
-} from 'https://deno.land/std/http/mod.ts';
-import { exists } from '../lib/utils.ts';
+  ServerRequest,
+} from "https://deno.land/std/http/mod.ts";
+import { exists } from "../lib/utils.ts";
 const { stat, open } = Deno;
 
 const encoder = new TextEncoder();
@@ -16,10 +17,10 @@ async function serveStatic(
 ): Promise<Response> {
   const [file, fileInfo] = await Promise.all([open(filePath), stat(filePath)]);
   const headers = new Headers();
-  headers.set('content-length', fileInfo.size.toString());
+  headers.set("content-length", fileInfo.size.toString());
 
   if (contentType) {
-    headers.set('content-type', contentType);
+    headers.set("content-type", contentType);
   }
 
   const res = {
@@ -37,7 +38,7 @@ async function serveFallback(
   e: Error,
 ): Promise<Response> {
   if (e instanceof Deno.errors.NotFound) {
-    const fsPath = join(paths.output, '404', 'index.html');
+    const fsPath = path.join(paths.output, "404", "index.html");
     const notFoundPageExists = await exists(fsPath);
     if (notFoundPageExists) {
       const contentType = getContentType(fsPath);
@@ -46,12 +47,12 @@ async function serveFallback(
 
     return Promise.resolve({
       status: 404,
-      body: encoder.encode('Not found'),
+      body: encoder.encode("Not found"),
     });
   } else {
     return Promise.resolve({
       status: 500,
-      body: encoder.encode('Internal server error'),
+      body: encoder.encode("Internal server error"),
     });
   }
 }
@@ -63,9 +64,9 @@ function serverLog(req: ServerRequest, res: Response): void {
 }
 
 function getContentType(fsPath: string | null) {
-  switch (extname(fsPath)) {
-    case '.svg':
-      return 'image/svg+xml';
+  switch (path.extname(fsPath)) {
+    case ".svg":
+      return "image/svg+xml";
     default:
       return null;
   }
@@ -77,23 +78,23 @@ export function server(site, paths) {
   listenAndServe(
     addr,
     async (req): Promise<void> => {
-      let normalizedUrl = normalize(req.url);
+      let normalizedUrl = path.normalize(req.url);
 
       try {
-        normalizedUrl = decodeURIComponent(normalizedUrl);
+        normalizedUrl = decodeURIComponent(path.normalizedUrl);
       } catch (e) {
         if (!(e instanceof URIError)) {
           throw e;
         }
       }
 
-      let fsPath = join(paths.output, normalizedUrl);
+      let fsPath = path.join(paths.output, path.normalizedUrl);
       let response: Response | undefined;
       try {
         const info = await stat(fsPath);
 
         if (info.isDirectory()) {
-          fsPath = join(fsPath, 'index.html');
+          fsPath = path.join(fsPath, "index.html");
         }
 
         const contentType = getContentType(fsPath);

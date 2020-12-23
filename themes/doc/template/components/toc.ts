@@ -1,6 +1,6 @@
 export { buildToc, generateToc, getGroups, parseHeaderLink };
 
-function buildToc(site, pages, pageLinks) {
+function buildToc(site, pages) {
   return getGroups(pageLinks, [
     {
       type: 'directory',

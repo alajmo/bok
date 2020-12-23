@@ -1,7 +1,0 @@
-{
-  "compilerOptions": {
-    "strictNullChecks": false,
-    "strict": false
-  },
-  "exclude": ["lib/marked/**/*.ts"]
-}
