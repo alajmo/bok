@@ -1,13 +1,13 @@
 import { log, Command, prompt, Select, Confirm, Input } from './deps.ts';
-import { Docz } from './src/mod.ts';
+import { bok } from './src/mod.ts';
 
 if (import.meta.main) {
-  const docz = Docz();
+  const docz = bok();
 
   const init = new Command()
     .description('Initialize a site in current directory')
     .option('--mode <string>', 'Create or extend a theme')
-    .option('--theme <string>', 'Docz theme to base site on')
+    .option('--theme <string>', 'bok theme to base site on')
     .option('--theme-path <string>', 'Path to site config')
     .action(async (options: any) => {
       const mode: string =

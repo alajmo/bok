@@ -1,10 +1,10 @@
-# Docz
+# bok
 
-`Docz` is a simple static site generator implemented as a command line tool in `Deno`. It converts Markdown (CommonMark specification) files to HTML files via Javascript Template Literals.
+`bok` is a simple static site generator implemented as a command line tool in `Deno`. It converts Markdown (CommonMark specification) files to HTML files via Javascript Template Literals.
 
 It comes with a theme for creating HTML books from Markdown, see [docz.demo.com](https://google.com).
 
-Main use cases for `Docz` are personal blogs, documentation sites, etc.
+Main use cases for `bok` are personal blogs, documentation sites, etc.
 
 ## Features
 
@@ -17,13 +17,13 @@ Main use cases for `Docz` are personal blogs, documentation sites, etc.
 
 ## Install
 
-`Docz` is based on Deno, so until the single-binary executable is available (and stable) in Deno, we need to install Deno first:
+`bok` is based on Deno, so until the single-binary executable is available (and stable) in Deno, we need to install Deno first:
 
 ```
 curl -fsSL https://deno.land/x/install/install.sh | sh
 ```
 
-Then install the latest version of `Docz`
+Then install the latest version of `bok`
 
 ```
 deno install --force --no-check --unstable --allow-all --name=docz https://deno.land/x/docz/mod.ts
@@ -69,7 +69,7 @@ docz serve config.ts
 
 ### Content
 
-`Docz` supports two methods for collecting content files:
+`bok` supports two methods for collecting content files:
 
 1. Iterate all files in the content directory recursively [default]
 2. Provide a glob string

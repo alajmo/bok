@@ -59,7 +59,7 @@ async function createSite(configPath: string) {
 
 function successfulCreateMessage(configPath: string) {
   console.log(`
-Your new Docz site is created in ${configPath}!
+Your new bok site is created in ${configPath}!
 
 Visit https://github.com/alajmo/docs for quickstart guide and full documentation.
 `);

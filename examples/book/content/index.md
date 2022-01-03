@@ -1,10 +1,10 @@
 # markBook
 
-`Docz` is a simple static site generator implemented as a command line tool in `Deno`. It converts Markdown (CommonMark specification) files to HTML files via Javascript Template Literals.
+`bok` is a simple static site generator implemented as a command line tool in `Deno`. It converts Markdown (CommonMark specification) files to HTML files via Javascript Template Literals.
 
 It comes with a theme for creating HTML books from Markdown, see [docz.demo.com](https://google.com).
 
-Main use cases for `Docz` are personal blogs, documentation sites, etc.
+Main use cases for `bok` are personal blogs, documentation sites, etc.
 
 ## Features
 
