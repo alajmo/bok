@@ -14,6 +14,7 @@ export {
 interface Site {
   theme?: string;
   paths: SitePaths;
+  public: string[];
   files: SiteFiles;
   serve?: SiteServe;
   hooks: SiteHooks;
@@ -92,6 +93,7 @@ async function getSiteConfig(
   const site: Site = {
     files: siteConfig.files,
     paths: siteConfig.paths,
+    public: siteConfig.public,
     serve: siteConfig.serve,
     hooks: siteConfig.hooks,
     uglyURLs: siteConfig.uglyURLs,

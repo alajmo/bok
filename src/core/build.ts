@@ -136,6 +136,13 @@ async function copyAssets(site: Site) {
     site.paths.assets,
     path.join(site.paths.output, path.basename(site.paths.assets))
   );
+
+  await Promise.all(site.public.map(async (dir) => {
+    await fs.copy(
+      dir,
+      path.join(site.paths.output, path.basename(dir))
+    );
+  }));
 }
 
 async function buildHtml(site: Site, page: Page, pages: Page[], opts?: any) {
