@@ -8,7 +8,6 @@ function parseToc(site: Site): any {
   const reader = TocReader(content);
   const lexer = TocLexer(reader);
   const { files, ast } = TocParser(lexer);
-  console.log(JSON.stringify(ast, null, 4));
 
   return { files, ast };
 }

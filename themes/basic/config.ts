@@ -1,5 +1,6 @@
 export default {
   name: 'basic',
+
   files: {
     type: 'walk',
   },

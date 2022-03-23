@@ -57,7 +57,7 @@ interface SiteHooks {
   afterPage: any;
 }
 
-export const THEMES = {
+export const THEMES: any = {
   basic: path.join(__dirname(), '../../themes/basic/config.ts'),
   book: path.join(__dirname(), '../../themes/book/config.ts'),
 };

@@ -14,12 +14,12 @@ function Events(all: any) {
       }
     },
 
-    emit(type, evt) {
-      (all[type] || []).slice().map(handler => {
+    emit(type: string, evt?: any) {
+      (all[type] || []).slice().map((handler) => {
         handler(evt);
       });
 
-      (all['*'] || []).slice().map(handler => {
+      (all["*"] || []).slice().map((handler) => {
         handler(type, evt);
       });
     },

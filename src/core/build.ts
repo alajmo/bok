@@ -1,14 +1,14 @@
-import { fs, path, log, MarkdownIt } from '../../deps.ts';
+import { fs, path, log, MarkdownIt } from "../../deps.ts";
 
 /* import { Marked } from '../../marked/index.ts'; */
 /* import { parseMarkdown } from 'https://deno.land/x/markdown_wasm@1.1.2/mod.ts'; */
-import { parseToc, TocRender } from '../plugins/toc.ts';
+import { parseToc, TocRender } from "../plugins/toc.ts";
 
-import { parseFrontMatter } from './front-matter.ts';
-import print from './print.ts';
-import { Page } from './page.ts';
-import { Site, SearchFilesType } from './config.ts';
-import { clean } from './utils.ts';
+import { parseFrontMatter } from "./front-matter.ts";
+import print from "./print.ts";
+import { Page } from "./page.ts";
+import { Site, SearchFilesType } from "./config.ts";
+import { clean } from "./utils.ts";
 
 export { build };
 
@@ -21,10 +21,9 @@ const MD = MarkdownIt({
  * Main function for generating a static site.
  */
 async function build(site: Site) {
-  log.info('Building');
+  log.info("Building");
 
   await clean(site.paths.output);
-
   const pages = getPages(site);
   await createSite(site, pages);
   await copyAssets(site);
@@ -40,7 +39,7 @@ function getPages(site: Site): Page[] {
   switch (SearchFilesType[site.files.type]) {
     case SearchFilesType.toc:
       const { files, ast } = parseToc(site);
-      const actualFiles = files.filter(f => f.ref !== '');
+      const actualFiles = files.filter((f) => f.ref !== "");
 
       actualFiles.forEach((f: any, i: number) => {
         const filepath = path.join(site.paths.content, f.ref);
@@ -62,7 +61,7 @@ function getPages(site: Site): Page[] {
       break;
     case SearchFilesType.glob:
       for (const file of fs.expandGlobSync(
-        path.join(site.paths.content, site.files.glob),
+        path.join(site.paths.content, site.files.glob)
       )) {
         if (file.isFile) {
           const page = processPage(site, file);
@@ -85,14 +84,14 @@ function getPages(site: Site): Page[] {
 
 function parseLink(site: Site, filename: string): string {
   let link = path.relative(site.paths.content, filename);
-  link = path.join('/', path.dirname(link), path.basename(link, '.md'));
+  link = path.join("/", path.dirname(link), path.basename(link, ".md"));
 
   if (site.uglyURLs) {
-    link += '.html';
+    link += ".html";
   }
 
   // We treat /index as /
-  return link === '/index' ? '/' : link;
+  return link === "/index" ? "/" : link;
 }
 
 function getPageNav(i: number, files: any, site: Site) {
@@ -116,7 +115,7 @@ function processPage(site: Site, file: any, opts?: any) {
   } catch (e) {}
 
   let link = path.relative(site.paths.content, file.path);
-  link = path.join('/', path.dirname(link), path.basename(link, '.md'));
+  link = path.join("/", path.dirname(link), path.basename(link, ".md"));
 
   const page: Page = {
     name: path.basename(file.name),
@@ -135,13 +134,13 @@ function processPage(site: Site, file: any, opts?: any) {
 async function copyAssets(site: Site) {
   await fs.copy(
     site.paths.assets,
-    path.join(site.paths.output, path.basename(site.paths.assets)),
+    path.join(site.paths.output, path.basename(site.paths.assets))
   );
 }
 
 async function buildHtml(site: Site, page: Page, pages: Page[], opts?: any) {
   // Page has specified layout
-  if (typeof page.params.layout === 'string') {
+  if (typeof page.params.layout === "string") {
     let layoutPath = path.join(site.paths.layout, page.params.layout);
     if (fs.existsSync(layoutPath)) {
       convertToHtml(site, page, pages, layoutPath, opts);
@@ -153,7 +152,7 @@ Could not find referenced layout: ${page.params.layout}
   } else {
     // Use default layout
     if (
-      typeof site.paths.defaultLayout === 'string' &&
+      typeof site.paths.defaultLayout === "string" &&
       fs.existsSync(site.paths.defaultLayout)
     ) {
       convertToHtml(site, page, pages, site.paths.defaultLayout, opts);
@@ -171,7 +170,7 @@ async function convertToHtml(
   page: Page,
   pages: Page[],
   layoutPath: string,
-  opts: any,
+  opts: any
 ) {
   let layout = await import(layoutPath);
   const htmlContent = await layout.default(site, page, pages, opts);
@@ -183,20 +182,20 @@ async function convertToHtml(
     outputPath = path.join(
       site.paths.output,
       path.dirname(pagePath),
-      path.basename(pagePath, '.md') + '.html',
+      path.basename(pagePath, ".md") + ".html"
     );
-  } else if (path.basename(pagePath) === 'index.md') {
+  } else if (path.basename(pagePath) === "index.md") {
     outputPath = path.join(
       site.paths.output,
       path.dirname(pagePath),
-      'index.html',
+      "index.html"
     );
   } else {
     outputPath = path.join(
       site.paths.output,
       path.dirname(pagePath),
-      path.basename(pagePath, '.md'),
-      'index.html',
+      path.basename(pagePath, ".md"),
+      "index.html"
     );
   }
 
@@ -220,7 +219,7 @@ async function createSite(site: Site, pages: Page[]) {
       }
 
       await site.hooks.afterPage(site, page, i, pages, opts);
-    }),
+    })
   );
 
   await site.hooks.afterSite(site, pages, opts);

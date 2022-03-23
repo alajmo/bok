@@ -1,4 +1,6 @@
 export default {
+  name: 'book',
+
   files: {
     type: 'toc',
     file: 'toc.md',

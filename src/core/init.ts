@@ -1,20 +1,20 @@
-import { fs, path, log } from '../../deps.ts';
-import { readSiteConfig, THEMES } from './config.ts';
+import { fs, path, log } from "../../deps.ts";
+import { readSiteConfig, THEMES } from "./config.ts";
 
 export { init };
 
 async function init(mode: string, theme: string, themePath: string) {
-  log.info('Init');
+  log.info("Init");
 
-  const configPath = theme === 'path' ? themePath : THEMES[theme];
+  const configPath = theme === "path" ? themePath : THEMES[theme];
 
-  exitIfPathExists('./config.ts');
+  exitIfPathExists("./config.ts");
 
-  const { siteConfig: config, siteDir } = await readSiteConfig(configPath, {});
+  const { siteConfig: config, siteDir } = await readSiteConfig(configPath);
 
-  if (mode === 'extend') {
-    extendSite(theme === 'path' ? themePath : theme, config, siteDir);
-  } else if (mode === 'create') {
+  if (mode === "extend") {
+    extendSite(theme === "path" ? themePath : theme, config, siteDir);
+  } else if (mode === "create") {
     createSite(configPath);
   }
 
@@ -29,16 +29,16 @@ export default {
   params: ${JSON.stringify(config.params, null, 2)},
 };`;
 
-  await Deno.writeTextFile('config.ts', site);
+  await Deno.writeTextFile("config.ts", site);
 
-  const contentPath = path.join(Deno.cwd(), 'content');
+  const contentPath = path.join(Deno.cwd(), "content");
 
   exitIfPathExists(contentPath);
 
-  await fs.copy(path.join(siteDir, 'content'), contentPath);
+  await fs.copy(path.join(siteDir, "content"), contentPath);
 
   const p = Deno.run({
-    cmd: ['deno', 'fmt', 'config.ts', '--quiet'],
+    cmd: ["deno", "fmt", "config.ts", "--quiet"],
   });
 
   await p.status();

@@ -1,33 +1,33 @@
-import { http, path, log } from '../../deps.ts';
+import { http, path, log } from "../../deps.ts";
 
-import { Site } from './config.ts';
-import { exists, __dirname } from './utils.ts';
+import { Site } from "./config.ts";
+import { exists, __dirname } from "./utils.ts";
 
 export { server };
 
 const encoder = new TextEncoder();
-let WS_CLIENT_CODE = '';
+let WS_CLIENT_CODE = "";
 
 const MEDIA_TYPES: Record<string, string> = {
-  '.md': 'text/markdown',
-  '.html': 'text/html',
-  '.htm': 'text/html',
-  '.json': 'application/json',
-  '.map': 'application/json',
-  '.txt': 'text/plain',
-  '.ts': 'text/typescript',
-  '.tsx': 'text/tsx',
-  '.js': 'application/javascript',
-  '.jsx': 'text/jsx',
-  '.gz': 'application/gzip',
-  '.css': 'text/css',
-  '.wasm': 'application/wasm',
-  '.mjs': 'application/javascript',
-  '.svg': 'image/svg+xml',
+  ".md": "text/markdown",
+  ".html": "text/html",
+  ".htm": "text/html",
+  ".json": "application/json",
+  ".map": "application/json",
+  ".txt": "text/plain",
+  ".ts": "text/typescript",
+  ".tsx": "text/tsx",
+  ".js": "application/javascript",
+  ".jsx": "text/jsx",
+  ".gz": "application/gzip",
+  ".css": "text/css",
+  ".wasm": "application/wasm",
+  ".mjs": "application/javascript",
+  ".svg": "image/svg+xml",
 };
 
 function initWSClientCode() {
-  const wsClientPath = path.join(__dirname(), 'ws-client.js');
+  const wsClientPath = path.join(__dirname(), "ws-client.js");
   WS_CLIENT_CODE = Deno.readTextFileSync(wsClientPath);
 }
 
@@ -38,7 +38,7 @@ function contentType(p: string): string | undefined {
 
 async function serveStatic(
   req: http.ServerRequest,
-  filePath: string,
+  filePath: string
 ): Promise<http.Response> {
   let [file, fileInfo] = await Promise.all([
     Deno.open(filePath),
@@ -50,7 +50,7 @@ async function serveStatic(
 
   const ct = contentType(filePath);
   let body;
-  if (ct === 'text/html') {
+  if (ct === "text/html") {
     body = await Deno.readTextFile(filePath);
     body += `<script>${WS_CLIENT_CODE}</script>`;
   } else {
@@ -58,7 +58,7 @@ async function serveStatic(
   }
 
   if (ct) {
-    headers.set('content-type', ct);
+    headers.set("content-type", ct);
   }
 
   const res = {
@@ -73,10 +73,10 @@ async function serveStatic(
 async function serveFallback(
   paths: any,
   req: http.ServerRequest,
-  e: Error,
+  e: Error
 ): Promise<http.Response> {
   if (e instanceof Deno.errors.NotFound) {
-    const fsPath = path.join(paths.output, '404', 'index.html');
+    const fsPath = path.join(paths.output, "404", "index.html");
     const notFoundPageExists = await exists(fsPath);
     if (notFoundPageExists) {
       return serveStatic(req, fsPath);
@@ -84,12 +84,12 @@ async function serveFallback(
 
     return Promise.resolve({
       status: 404,
-      body: encoder.encode('Not found'),
+      body: encoder.encode("Not found"),
     });
   } else {
     return Promise.resolve({
       status: 500,
-      body: encoder.encode('Internal server error'),
+      body: encoder.encode("Internal server error"),
     });
   }
 }
@@ -122,7 +122,7 @@ function server(site: Site) {
     try {
       const info = await Deno.stat(fsPath);
       if (info.isDirectory) {
-        fsPath = path.join(fsPath, 'index.html');
+        fsPath = path.join(fsPath, "index.html");
       }
 
       response = await serveStatic(req, fsPath);
@@ -134,7 +134,7 @@ function server(site: Site) {
     }
   };
 
-  http.listenAndServe({ port: site.serve.port }, handler);
+  http.listenAndServe({ port: site.serve?.port }, handler);
 
-  log.info(`\nListening on http://localhost:${site.serve.port}`);
+  log.info(`\nListening on http://localhost:${site.serve?.port}`);
 }

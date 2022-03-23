@@ -2,7 +2,7 @@
 
 `bok` is a simple static site generator implemented as a command line tool in `Deno`. It converts Markdown (CommonMark specification) files to HTML files via Javascript Template Literals.
 
-It comes with a theme for creating HTML books from Markdown, see [docz.demo.com](https://google.com).
+It comes with a theme for creating HTML books from Markdown, see [bok.demo.com](https://google.com).
 
 Main use cases for `bok` are personal blogs, documentation sites, etc.
 
@@ -10,10 +10,10 @@ Main use cases for `bok` are personal blogs, documentation sites, etc.
 
 - Simple and minimal API
 - Supports Markdown (with Front-matter)
-- Vanilla JS Templating (or bring your own templating system and invoke it via Javascript)
+- Vanilla TS/JS Templating (or bring your own templating system and invoke it via Javascript)
 - Easily extendable
 - Auto-refresh browser client on file change
-- Documentation Theme
+- Documentation/Book Theme, similar to rust's [mdbook](https://github.com/rust-lang/mdBook)
 
 ## Install
 
@@ -26,7 +26,7 @@ curl -fsSL https://deno.land/x/install/install.sh | sh
 Then install the latest version of `bok`
 
 ```
-deno install --force --no-check --unstable --allow-all --name=docz https://deno.land/x/docz/mod.ts
+deno install --force --no-check --unstable --allow-all --name=bok https://deno.land/x/bok/mod.ts
 ```
 
 ## Quickstart
@@ -35,10 +35,10 @@ Run the following command to generate a new site.
 
 ```sh
 # Create your site (outputs a config.ts)
-docz init
+bok init
 
 # Start a HTTP server with auto-refresh on file changes
-docz serve config.ts
+bok serve config.ts
 ```
 
 ## Documentation
@@ -46,7 +46,7 @@ docz serve config.ts
 ### Commands
 
 ```sh
- Usage:   docz
+ Usage:   bok
  Version: v0.1.0
 
  Description:

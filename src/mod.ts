@@ -1,8 +1,8 @@
-import { clean } from './core/utils.ts';
-import { init } from './core/init.ts';
-import { build } from './core/build.ts';
-import { serve, watch } from './core/watch.ts';
-import { getSiteConfig } from './core/config.ts';
+import { clean } from "./core/utils.ts";
+import { init } from "./core/init.ts";
+import { build } from "./core/build.ts";
+import { serve, watch } from "./core/watch.ts";
+import { getSiteConfig } from "./core/config.ts";
 
 export { bok };
 
@@ -10,22 +10,22 @@ function bok() {
   return {
     init,
 
-    build: async (config?: string, options: any) => {
+    build: async (options: any, config?: string) => {
       const site = await getSiteConfig(config, options);
       build(site);
     },
 
-    watch: async (config?: string, options: any) => {
+    watch: async (options: any, config?: string) => {
       const site = await getSiteConfig(config, options);
       watch(site);
     },
 
-    serve: async (config?: string, options: any) => {
+    serve: async (options: any, config?: string) => {
       const site = await getSiteConfig(config, options);
       serve(site);
     },
 
-    clean: async (config?: string, options: any) => {
+    clean: async (options: any, config: string) => {
       const site = await getSiteConfig(config, options);
       clean(site.paths.output);
     },

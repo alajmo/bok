@@ -1,8 +1,8 @@
-import { Site, SearchFilesType } from './config.ts';
-import { websocket } from './ws-server.ts';
-import { server } from './server.ts';
-import { build } from './build.ts';
-import { events } from './event.ts';
+import { Site, SearchFilesType } from "./config.ts";
+import { websocket } from "./ws-server.ts";
+import { server } from "./server.ts";
+import { build } from "./build.ts";
+import { events } from "./event.ts";
 
 export { watch, serve };
 
@@ -14,7 +14,7 @@ async function watch(site: Site) {
   const dirs = [site.paths.assets, site.paths.content, site.paths.layout];
   let reloading = false;
   for await (const event of Deno.watchFs(dirs)) {
-    if (event.kind === 'modify' && !reloading) {
+    if (event.kind === "modify" && !reloading) {
       reloading = true;
 
       await build(site);
@@ -26,7 +26,7 @@ async function watch(site: Site) {
 
 async function serve(site: Site) {
   await build(site);
-  if (site.serve.reload) {
+  if (site.serve?.reload) {
     websocket(site);
   }
   server(site);
@@ -35,14 +35,14 @@ async function serve(site: Site) {
 
   let reloading = false;
   for await (const event of Deno.watchFs(dirs)) {
-    if (event.kind === 'modify' && !reloading) {
+    if (event.kind === "modify" && !reloading) {
       reloading = true;
 
       await build(site);
 
-      if (site.serve.reload) {
+      if (site.serve?.reload) {
         setTimeout(() => {
-          events.emit('BUILD_COMPLETE');
+          events.emit("BUILD_COMPLETE");
         }, 500);
       }
 
