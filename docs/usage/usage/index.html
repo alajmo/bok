@@ -5,18 +5,18 @@
         <meta charset="UTF-8" />
         <meta name="description" rel="shortcut icon" content="" />
 
-        <link rel="icon" href="/assets/img/ico/favicon.ico" />
-        <link rel="apple-touch-icon-precomposed" href="/assets/img/ico/favicon.ico" />
-        <meta name="msapplication-TileImage" content="/assets/img/ico/favicon.ico" />
+        <link rel="icon" href="bok/assets/img/ico/favicon.ico" />
+        <link rel="apple-touch-icon-precomposed" href="bok/assets/img/ico/favicon.ico" />
+        <meta name="msapplication-TileImage" content="bok/assets/img/ico/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        <link rel="stylesheet" type="text/css" href="/assets/css/reset.css" />
-        <link rel="stylesheet" type="text/css" href="/assets/css/prism.css" />
-        <link rel="stylesheet" type="text/css" href="/assets/fonts/fonts.css" />
-        <link rel="stylesheet" type="text/css" href="/assets/css/variables.css" />
-        <link rel="stylesheet" type="text/css" href="/assets/css/base.css" />
-        <link rel="stylesheet" type="text/css" href="/assets/css/typography.css" />
-        <link rel="stylesheet" type="text/css" href="/assets/css/list.css" />
+        <link rel="stylesheet" type="text/css" href="bok/assets/css/reset.css" />
+        <link rel="stylesheet" type="text/css" href="bok/assets/css/prism.css" />
+        <link rel="stylesheet" type="text/css" href="bok/assets/fonts/fonts.css" />
+        <link rel="stylesheet" type="text/css" href="bok/assets/css/variables.css" />
+        <link rel="stylesheet" type="text/css" href="bok/assets/css/base.css" />
+        <link rel="stylesheet" type="text/css" href="bok/assets/css/typography.css" />
+        <link rel="stylesheet" type="text/css" href="bok/assets/css/list.css" />
       </head>
 
       <body>
@@ -29,19 +29,19 @@
     </script>
 
     <aside id="sidebar" class="sidebar">
-      <ol class="toc"><li class="part-title">markBook</li><li><a class=""  href="/index.html">About</a></li>
+      <ol class="toc"><li class="part-title">markBook</li><li><a class=""  href="/">About</a></li>
       <li class="chapter-item">
         <strong>1.</strong>
         &nbsp;
         <a class=""
-           href="/getting-started.html">Getting Start</a>
+           href="/getting-started">Getting Start</a>
       </li>
     <li class="spacer"></li><li class="part-title">Documentation</li>
       <li class="chapter-item">
         <strong>2.</strong>
         &nbsp;
-        <a class=""
-           href="/usage/usage.html">CLI Usage</a>
+        <a class="active"
+           href="/usage/usage">CLI Usage</a>
       </li>
     
         <li>
@@ -51,35 +51,35 @@
         <strong>2.1.</strong>
         &nbsp;
         <a class=""
-           href="/usage/init.html">init</a>
+           href="/usage/init">init</a>
       </li>
     
       <li class="chapter-item">
         <strong>2.2.</strong>
         &nbsp;
-        <a class="active"
-           href="/usage/build.html">build</a>
+        <a class=""
+           href="/usage/build">build</a>
       </li>
     
       <li class="chapter-item">
         <strong>2.3.</strong>
         &nbsp;
         <a class=""
-           href="/usage/watch.html">watch</a>
+           href="/usage/watch">watch</a>
       </li>
     
       <li class="chapter-item">
         <strong>2.4.</strong>
         &nbsp;
         <a class=""
-           href="/usage/serve.html">serve</a>
+           href="/usage/serve">serve</a>
       </li>
     
       <li class="chapter-item">
         <strong>2.5.</strong>
         &nbsp;
         <a class=""
-           href="/usage/clean.html">clean</a>
+           href="/usage/clean">clean</a>
       </li>
     
           </ol>
@@ -107,7 +107,7 @@
         <strong>4.</strong>
         &nbsp;
         <a class=""
-           href="/contributing.html">Contributing</a>
+           href="/contributing">Contributing</a>
       </li>
     </ol>
     </aside>
@@ -130,7 +130,7 @@
 
       <div class="page">
         
-    <a href="/usage/init.html" id="page-nav-prev" class="page-nav page-nav-prev">
+    <a href="/getting-started" id="page-nav-prev" class="page-nav page-nav-prev">
       <img
         class="page-nav-icon"
         src="/assets/img/svg/chevron-left.svg"
@@ -142,11 +142,35 @@
   
 
         <div class="page-content">
-          
+          <h1>Usage</h1>
+<p><code>markBook</code> strives to use a simple API and leaves a lot of the implementation to
+the user.</p>
+<h2>Commands</h2>
+<pre><code class="language-sh"> Usage:   bok
+ Version: v0.1.0
+
+ Description:
+
+   Static Site Generator
+
+ Options:
+
+   -h, --help     - Show this help.
+   -V, --version  - Show the version number for this program.
+
+ Commands:
+
+   init                    - Build a static website
+   build  [config:string]  - Build a static website
+   watch  [config:string]  - Build a static website and rebuild on file changes
+   serve  [config:string]  - Build a static website, serve it and rebuild on file changes
+   clean  [config:string]  - Clean output directory
+</code></pre>
+
         </div>
 
         
-    <a href="/usage/watch.html" id="page-nav-next" class="page-nav page-nav-next">
+    <a href="/usage/init" id="page-nav-next" class="page-nav page-nav-next">
       <img
         class="page-nav-icon"
         src="/assets/img/svg/chevron-right.svg"
@@ -161,8 +185,8 @@
   
         </div>
 
-        <script defer src="/assets/js/index.js"></script>
-        <script defer src="/assets/js/prism.min.js"></script>
+        <script defer src="bok/assets/js/index.js"></script>
+        <script defer src="bok/assets/js/prism.min.js"></script>
       </body>
     </html>
   

@@ -1,7 +1,7 @@
 import base from "./base.ts";
 
 export default function (site, page, pages) {
-  return base(`
+  return base({ rootUrl: site.rootUrl }, `
     <script type="text/javascript">
       const html = document.querySelector('html');
       const showSidebar = window.sessionStorage.getItem('showSidebar');

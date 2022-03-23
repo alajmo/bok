@@ -1,4 +1,4 @@
-export default function (content) {
+export default function ({ rootUrl }, content) {
   return `
     <!DOCTYPE html>
     <html lang="en">
@@ -6,18 +6,18 @@ export default function (content) {
         <meta charset="UTF-8" />
         <meta name="description" rel="shortcut icon" content="" />
 
-        <link rel="icon" href="/assets/img/ico/favicon.ico" />
-        <link rel="apple-touch-icon-precomposed" href="/assets/img/ico/favicon.ico" />
-        <meta name="msapplication-TileImage" content="/assets/img/ico/favicon.ico" />
+        <link rel="icon" href="${rootUrl}/assets/img/ico/favicon.ico" />
+        <link rel="apple-touch-icon-precomposed" href="${rootUrl}/assets/img/ico/favicon.ico" />
+        <meta name="msapplication-TileImage" content="${rootUrl}/assets/img/ico/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        <link rel="stylesheet" type="text/css" href="/assets/css/reset.css" />
-        <link rel="stylesheet" type="text/css" href="/assets/css/prism.css" />
-        <link rel="stylesheet" type="text/css" href="/assets/fonts/fonts.css" />
-        <link rel="stylesheet" type="text/css" href="/assets/css/variables.css" />
-        <link rel="stylesheet" type="text/css" href="/assets/css/base.css" />
-        <link rel="stylesheet" type="text/css" href="/assets/css/typography.css" />
-        <link rel="stylesheet" type="text/css" href="/assets/css/list.css" />
+        <link rel="stylesheet" type="text/css" href="${rootUrl}/assets/css/reset.css" />
+        <link rel="stylesheet" type="text/css" href="${rootUrl}/assets/css/prism.css" />
+        <link rel="stylesheet" type="text/css" href="${rootUrl}/assets/fonts/fonts.css" />
+        <link rel="stylesheet" type="text/css" href="${rootUrl}/assets/css/variables.css" />
+        <link rel="stylesheet" type="text/css" href="${rootUrl}/assets/css/base.css" />
+        <link rel="stylesheet" type="text/css" href="${rootUrl}/assets/css/typography.css" />
+        <link rel="stylesheet" type="text/css" href="${rootUrl}/assets/css/list.css" />
       </head>
 
       <body>
@@ -25,8 +25,8 @@ export default function (content) {
           ${content}
         </div>
 
-        <script defer src="/assets/js/index.js"></script>
-        <script defer src="/assets/js/prism.min.js"></script>
+        <script defer src="${rootUrl}/assets/js/index.js"></script>
+        <script defer src="${rootUrl}/assets/js/prism.min.js"></script>
       </body>
     </html>
   `;

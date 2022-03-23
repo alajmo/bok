@@ -18,6 +18,7 @@ interface Site {
   files: SiteFiles;
   serve?: SiteServe;
   hooks: SiteHooks;
+  rootUrl: string,
   uglyURLs?: boolean;
   params?: any;
 }
@@ -96,6 +97,7 @@ async function getSiteConfig(
     public: siteConfig.public || [],
     serve: siteConfig.serve,
     hooks: siteConfig.hooks,
+    rootUrl: siteConfig.rootUrl,
     uglyURLs: siteConfig.uglyURLs,
     params: siteConfig.params,
   };
@@ -136,6 +138,8 @@ function extendWithDefaultConfig(siteConfig: any, siteDir: string) {
     siteDir,
     "layout",
   );
+
+  siteConfig.rootUrl = siteConfig.rootUrl ?? '';
 
   siteConfig.uglyURLs = siteConfig.uglyURLs ?? false;
 

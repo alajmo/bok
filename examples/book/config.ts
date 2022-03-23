@@ -1,7 +1,7 @@
 export default {
   extends: "book",
 
-  uglyURLs: true,
+  rootUrl: "bok",
 
   paths: {
     output: "../../docs",
