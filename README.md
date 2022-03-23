@@ -1,5 +1,7 @@
 # bok
 
+## WORK IN-PROGRESS
+
 `bok` is a simple static site generator implemented as a command line tool in
 `Deno`. It converts Markdown (CommonMark specification) files to HTML files via
 Javascript Template Literals.
