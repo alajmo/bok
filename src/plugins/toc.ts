@@ -350,6 +350,10 @@ function TocRender(site: Site, ast: any, currentFileName: string) {
       ref = "/";
     }
 
+    if (site.rootUrl) {
+      ref = `${site.rootUrl}${ref}`
+    }
+
     return ref
       ? `<li><a class="${linkClass}"  href="${ref}">${e.title}</a></li>`
       : `<li class="draft">${e.title}</li>`;
@@ -363,6 +367,10 @@ function TocRender(site: Site, ast: any, currentFileName: string) {
     // We treat index.md in root file differently
     if (ref === "/index") {
       ref = "/";
+    }
+
+    if (site.rootUrl) {
+      ref = `${site.rootUrl}${ref}`
     }
 
     return ref

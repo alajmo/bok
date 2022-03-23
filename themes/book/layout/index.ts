@@ -20,7 +20,7 @@ export default function (site, page, pages) {
                   onclick="sidebar.toggle();">
             <img
               class="menu-icon"
-              src="/assets/img/svg/menu.svg"
+              src="${site.rootUrl}/assets/img/svg/menu.svg"
               alt="menu"
               width="auto"
               height="20"
@@ -29,25 +29,25 @@ export default function (site, page, pages) {
       </div>
 
       <div class="page">
-        ${PrevPageNav(page.prevPage)}
+        ${PrevPageNav({ rootUrl: site.rootUrl, prevUrl: page.prevPage })}
 
         <div class="page-content">
           ${page.htmlContent}
         </div>
 
-        ${NextPageNav(page.nextPage)}
+        ${NextPageNav({ rootUrl: site.rootUrl, nextUrl: page.nextPage })}
       </div>
     </main>
   `);
 }
 
-function PrevPageNav(url) {
-  return url
+function PrevPageNav({ rootUrl, prevUrl }) {
+  return prevUrl
     ? `
-    <a href="${url}" id="page-nav-prev" class="page-nav page-nav-prev">
+    <a href="${prevUrl}" id="page-nav-prev" class="page-nav page-nav-prev">
       <img
         class="page-nav-icon"
-        src="/assets/img/svg/chevron-left.svg"
+        src="${rootUrl}/assets/img/svg/chevron-left.svg"
         alt="Previous chapter"
         width="auto"
         height="40"
@@ -57,13 +57,13 @@ function PrevPageNav(url) {
     : `<div class="page-nav page-nav-prev"></div>`;
 }
 
-function NextPageNav(url) {
-  return url
+function NextPageNav({ rootUrl, nextUrl }) {
+  return nextUrl
     ? `
-    <a href="${url}" id="page-nav-next" class="page-nav page-nav-next">
+    <a href="${nextUrl}" id="page-nav-next" class="page-nav page-nav-next">
       <img
         class="page-nav-icon"
-        src="/assets/img/svg/chevron-right.svg"
+        src="${rootUrl}/assets/img/svg/chevron-right.svg"
         alt="Previous chapter"
         width="auto"
         height="40"
