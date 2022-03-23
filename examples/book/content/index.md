@@ -2,12 +2,9 @@
 
 `bok` is a simple static site generator implemented as a command line tool in
 `Deno`. It converts Markdown (CommonMark specification) files to HTML files via
-Javascript Template Literals.
+Javascript Template Literals. Main use cases for `bok` are personal blogs, documentation sites, etc.
 
-It comes with a theme for creating HTML books from Markdown, see
-[docz.demo.com](https://google.com).
-
-Main use cases for `bok` are personal blogs, documentation sites, etc.
+It comes with a theme for creating HTML books from Markdown.
 
 ## Features
 
@@ -17,7 +14,7 @@ Main use cases for `bok` are personal blogs, documentation sites, etc.
   Javascript)
 - Easily extendable
 - Auto-refresh browser client on file change
-- Documentation Theme
+- Book Theme
 
 ## Philosophy
 
