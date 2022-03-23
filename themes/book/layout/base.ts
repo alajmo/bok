@@ -1,4 +1,4 @@
-export default function(content) {
+export default function (content) {
   return `
     <!DOCTYPE html>
     <html lang="en">
@@ -17,6 +17,7 @@ export default function(content) {
         <link rel="stylesheet" type="text/css" href="/assets/css/variables.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/tufte.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/base.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/list.css" />
       </head>
 
       <body>

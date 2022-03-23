@@ -345,6 +345,11 @@ function TocRender(site: Site, ast: any, currentFileName: string) {
     let ref = e.ref !== '' ? stripExtension(e.ref) : '';
     const linkClass = ref === activePage ? 'active' : '';
 
+    // We treat index.md in root file differently
+    if (ref === '/index') {
+      ref = '/';
+    }
+
     return ref
       ? `<li><a class="${linkClass}"  href="${ref}">${e.title}</a></li>`
       : `<li class="draft">${e.title}</li>`;
