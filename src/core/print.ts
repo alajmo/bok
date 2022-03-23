@@ -1,14 +1,14 @@
-import { Table } from '../../deps.ts';
-import { Site } from './config.ts';
-import { Page } from './page.ts';
+import { Table } from "../../deps.ts";
+import { Site } from "./config.ts";
+import { Page } from "./page.ts";
 
 export default { build };
 
 function build(site: Site, pages: Page[]) {
   new Table()
-    .header(['', 'EN'])
+    .header(["", "EN"])
     .body([
-      ['# Pages', pages.length],
+      ["# Pages", pages.length],
       /* ['# Sitemaps', '1'], */
     ])
     /* .maxColWidth(10) */

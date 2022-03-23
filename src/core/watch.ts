@@ -1,10 +1,10 @@
-import { Site, SearchFilesType } from "./config.ts";
+import { SearchFilesType, Site } from "./config.ts";
 import { websocket } from "./ws-server.ts";
 import { server } from "./server.ts";
 import { build } from "./build.ts";
 import { events } from "./event.ts";
 
-export { watch, serve };
+export { serve, watch };
 
 const INTERVAL = 500;
 

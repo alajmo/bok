@@ -1,10 +1,10 @@
 let sidebar;
 
-window.addEventListener('DOMContentLoaded', event => {
-  console.log('DOM fully loaded and parsed');
+window.addEventListener("DOMContentLoaded", (event) => {
+  console.log("DOM fully loaded and parsed");
 
   sidebar = Sidebar();
-  window.addEventListener('keydown', shortcutHandler, false);
+  window.addEventListener("keydown", shortcutHandler, false);
 });
 
 // let systemInitiatedDark = window.matchMedia('(prefers-color-scheme: dark)');
@@ -48,8 +48,8 @@ window.addEventListener('DOMContentLoaded', event => {
 // }
 
 function Sidebar() {
-  const html = document.querySelector('html');
-  const contentElement = document.getElementById('content');
+  const html = document.querySelector("html");
+  const contentElement = document.getElementById("content");
 
   // if (showSidebar === 'true') {
   //   show();
@@ -58,11 +58,11 @@ function Sidebar() {
   // }
 
   function toggle() {
-    const showSidebar = html.getAttribute('data-show-sidebar');
+    const showSidebar = html.getAttribute("data-show-sidebar");
     console.log(showSidebar);
     console.log(contentElement);
 
-    if (showSidebar === 'true') {
+    if (showSidebar === "true") {
       hide();
     } else {
       show();
@@ -70,8 +70,8 @@ function Sidebar() {
   }
 
   function show() {
-    window.sessionStorage.setItem('showSidebar', 'true');
-    html.setAttribute('data-show-sidebar', 'true');
+    window.sessionStorage.setItem("showSidebar", "true");
+    html.setAttribute("data-show-sidebar", "true");
     // contentElement.style.left = '300px';
 
     // sidebarElement.setAttribute('data-show', 'true');
@@ -79,8 +79,8 @@ function Sidebar() {
   }
 
   function hide() {
-    window.sessionStorage.setItem('showSidebar', 'false');
-    html.setAttribute('data-show-sidebar', 'false');
+    window.sessionStorage.setItem("showSidebar", "false");
+    html.setAttribute("data-show-sidebar", "false");
     // contentElement.style.left = 0;
 
     // sidebarElement.setAttribute('data-show', 'false');
@@ -93,25 +93,25 @@ function Sidebar() {
 }
 
 function shortcutHandler(e) {
-  if (e.code === 'KeyT') {
+  if (e.code === "KeyT") {
     sidebar.toggle();
-  } else if (e.code === 'KeyS') {
-  } else if (e.code === 'ArrowLeft') {
+  } else if (e.code === "KeyS") {
+  } else if (e.code === "ArrowLeft") {
     previousChapter();
-  } else if (e.code === 'ArrowRight') {
+  } else if (e.code === "ArrowRight") {
     nextChapter();
   }
 }
 
 function previousChapter() {
-  const prevButton = document.getElementById('page-nav-prev');
+  const prevButton = document.getElementById("page-nav-prev");
   if (prevButton) {
     window.location.href = prevButton.href;
   }
 }
 
 function nextChapter() {
-  const nextButton = document.getElementById('page-nav-next');
+  const nextButton = document.getElementById("page-nav-next");
   if (nextButton) {
     window.location.href = nextButton.href;
   }

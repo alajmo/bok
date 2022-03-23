@@ -1,4 +1,4 @@
-import { fs, path, log, MarkdownIt } from "../../deps.ts";
+import { fs, log, MarkdownIt, path } from "../../deps.ts";
 
 /* import { Marked } from '../../marked/index.ts'; */
 /* import { parseMarkdown } from 'https://deno.land/x/markdown_wasm@1.1.2/mod.ts'; */
@@ -7,7 +7,7 @@ import { parseToc, TocRender } from "../plugins/toc.ts";
 import { parseFrontMatter } from "./front-matter.ts";
 import print from "./print.ts";
 import { Page } from "./page.ts";
-import { Site, SearchFilesType } from "./config.ts";
+import { SearchFilesType, Site } from "./config.ts";
 import { clean } from "./utils.ts";
 
 export { build };
@@ -60,9 +60,11 @@ function getPages(site: Site): Page[] {
       });
       break;
     case SearchFilesType.glob:
-      for (const file of fs.expandGlobSync(
-        path.join(site.paths.content, site.files.glob)
-      )) {
+      for (
+        const file of fs.expandGlobSync(
+          path.join(site.paths.content, site.files.glob),
+        )
+      ) {
         if (file.isFile) {
           const page = processPage(site, file);
           pages.push(page);
@@ -134,13 +136,13 @@ function processPage(site: Site, file: any, opts?: any) {
 async function copyAssets(site: Site) {
   await fs.copy(
     site.paths.assets,
-    path.join(site.paths.output, path.basename(site.paths.assets))
+    path.join(site.paths.output, path.basename(site.paths.assets)),
   );
 
   await Promise.all(site.public.map(async (dir) => {
     await fs.copy(
       dir,
-      path.join(site.paths.output, path.basename(dir))
+      path.join(site.paths.output, path.basename(dir)),
     );
   }));
 }
@@ -177,7 +179,7 @@ async function convertToHtml(
   page: Page,
   pages: Page[],
   layoutPath: string,
-  opts: any
+  opts: any,
 ) {
   let layout = await import(layoutPath);
   const htmlContent = await layout.default(site, page, pages, opts);
@@ -189,20 +191,20 @@ async function convertToHtml(
     outputPath = path.join(
       site.paths.output,
       path.dirname(pagePath),
-      path.basename(pagePath, ".md") + ".html"
+      path.basename(pagePath, ".md") + ".html",
     );
   } else if (path.basename(pagePath) === "index.md") {
     outputPath = path.join(
       site.paths.output,
       path.dirname(pagePath),
-      "index.html"
+      "index.html",
     );
   } else {
     outputPath = path.join(
       site.paths.output,
       path.dirname(pagePath),
       path.basename(pagePath, ".md"),
-      "index.html"
+      "index.html",
     );
   }
 
@@ -226,7 +228,7 @@ async function createSite(site: Site, pages: Page[]) {
       }
 
       await site.hooks.afterPage(site, page, i, pages, opts);
-    })
+    }),
   );
 
   await site.hooks.afterSite(site, pages, opts);

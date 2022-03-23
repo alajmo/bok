@@ -1,15 +1,15 @@
 export default {
-  name: 'book',
+  name: "book",
 
   files: {
-    type: 'toc',
-    file: 'toc.md',
+    type: "toc",
+    file: "toc.md",
   },
 
   paths: {
-    assets: 'assets',
-    layout: 'layout',
-    defaultLayout: 'index.ts',
+    assets: "assets",
+    layout: "layout",
+    defaultLayout: "index.ts",
   },
 
   serve: {
@@ -26,6 +26,6 @@ export default {
   },
 
   params: {
-    title: 'book',
+    title: "book",
   },
 };

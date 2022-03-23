@@ -1,14 +1,14 @@
 export default {
-  name: 'basic',
+  name: "basic",
 
   files: {
-    type: 'walk',
+    type: "walk",
   },
 
   paths: {
-    assets: 'assets',
-    layout: 'layout',
-    defaultLayout: 'index.ts',
+    assets: "assets",
+    layout: "layout",
+    defaultLayout: "index.ts",
   },
 
   serve: {

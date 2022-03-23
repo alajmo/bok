@@ -1,11 +1,12 @@
 # Usage
 
-`markBook` strives to use a simple API and leaves a lot of the implementation to the user.
+`markBook` strives to use a simple API and leaves a lot of the implementation to
+the user.
 
 ## Commands
 
 ```sh
- Usage:   docz
+ Usage:   bok
  Version: v0.1.0
 
  Description:
@@ -25,4 +26,3 @@
    serve  [config:string]  - Build a static website, serve it and rebuild on file changes
    clean  [config:string]  - Clean output directory
 ```
-

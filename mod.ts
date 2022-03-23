@@ -1,8 +1,8 @@
-import { log, Command, prompt, Select, Confirm, Input } from "./deps.ts";
+import { Command, Confirm, Input, log, prompt, Select } from "./deps.ts";
 import { bok } from "./src/mod.ts";
 
 if (import.meta.main) {
-  const docz = bok();
+  const bok = Bok();
 
   const init = new Command()
     .description("Initialize a site in current directory")
@@ -10,8 +10,7 @@ if (import.meta.main) {
     .option("--theme <string>", "bok theme to base site on")
     .option("--theme-path <string>", "Path to site config")
     .action(async (options: any) => {
-      const mode: string =
-        options.mode ??
+      const mode: string = options.mode ??
         (await Select.prompt({
           message: "Extend or create new site from scratch",
           options: [
@@ -20,8 +19,7 @@ if (import.meta.main) {
           ],
         }));
 
-      const theme: string =
-        options.theme ??
+      const theme: string = options.theme ??
         (await Select.prompt({
           message: "Choose template boilerplate",
           options: [
@@ -36,26 +34,25 @@ if (import.meta.main) {
 
       let themePath: string = "";
       if (theme === "path") {
-        themePath =
-          options.themePath ??
+        themePath = options.themePath ??
           (await Input.prompt("Enter absolute path to theme config"));
       }
 
-      docz.init(mode, theme, themePath);
+      bok.init(mode, theme, themePath);
     });
 
   const build = new Command()
     .description("Build a static website")
     .arguments("[config]")
     .action((options: any, args: any) => {
-      docz.build(options, args);
+      bok.build(options, args);
     });
 
   const watch = new Command()
     .description("Build a static website and rebuild on file changes")
     .arguments("[config]")
     .action((options: any, args: any) => {
-      docz.watch(options, args);
+      bok.watch(options, args);
     });
 
   const serve = new Command()
@@ -65,18 +62,18 @@ if (import.meta.main) {
     .option("--reload <reload:boolean>", "Live-reload browser on change")
     .arguments("[config]")
     .action((options: any, args: any) => {
-      docz.serve(options, args);
+      bok.serve(options, args);
     });
 
   const clean = new Command()
     .description("Clean output directory")
     .arguments("[config]")
     .action((options: any, args: any) => {
-      docz.clean(options, args);
+      bok.clean(options, args);
     });
 
   await new Command()
-    .name("docz")
+    .name("bok")
     .version("0.1.0")
     .description("Static Site Generator")
     .command("init", init)

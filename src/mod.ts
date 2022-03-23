@@ -4,9 +4,9 @@ import { build } from "./core/build.ts";
 import { serve, watch } from "./core/watch.ts";
 import { getSiteConfig } from "./core/config.ts";
 
-export { bok };
+export { Bok };
 
-function bok() {
+function Bok() {
   return {
     init,
 

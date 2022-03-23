@@ -1,5 +1,5 @@
-import { path, log } from '../../deps.ts';
-import { Site } from '../core/config.ts';
+import { log, path } from "../../deps.ts";
+import { Site } from "../core/config.ts";
 
 export { parseToc, TocRender };
 
@@ -76,31 +76,31 @@ function TocLexer(reader: any) {
     const c = reader.consume();
 
     switch (c) {
-      case '\n':
+      case "\n":
         break;
-      case ' ':
-        if (reader.peek() === ' ') {
+      case " ":
+        if (reader.peek() === " ") {
           addToken(TokenType.INDENT);
           reader.consume();
         }
         break;
-      case '[':
+      case "[":
         addToken(TokenType.LEFT_BRACE);
         break;
-      case ']':
+      case "]":
         addToken(TokenType.RIGHT_BRACE);
         break;
-      case '(':
+      case "(":
         addToken(TokenType.LEFT_PAREN);
         break;
-      case ')':
+      case ")":
         addToken(TokenType.RIGHT_PAREN);
         break;
-      case '#':
+      case "#":
         header();
         break;
-      case '-':
-        if (reader.peek() === '-' && reader.peek(1) === '-') {
+      case "-":
+        if (reader.peek() === "-" && reader.peek(1) === "-") {
           reader.consume();
           reader.consume();
           addToken(TokenType.HORIZONTAL_RULE);
@@ -115,8 +115,8 @@ function TocLexer(reader: any) {
   }
 
   function header() {
-    let text = '';
-    while (reader.peek() !== '\n' && !reader.isEOF()) {
+    let text = "";
+    while (reader.peek() !== "\n" && !reader.isEOF()) {
       text += reader.consume();
     }
 
@@ -130,20 +130,20 @@ function TocLexer(reader: any) {
     let unClosedParens = 0;
     let unClosedBraces = 0;
 
-    while (reader.peek() !== '\n' && !reader.isEOF()) {
+    while (reader.peek() !== "\n" && !reader.isEOF()) {
       const nth = reader.peek();
 
-      if (nth === '(') {
+      if (nth === "(") {
         unClosedParens += 1;
-      } else if (nth === ')' && unClosedParens === 0) {
+      } else if (nth === ")" && unClosedParens === 0) {
         break;
-      } else if (nth === ')') {
+      } else if (nth === ")") {
         unClosedParens -= 1;
-      } else if (nth === '[') {
+      } else if (nth === "[") {
         unClosedBraces += 1;
-      } else if (nth === ']' && unClosedBraces === 0) {
+      } else if (nth === "]" && unClosedBraces === 0) {
         break;
-      } else if (nth === ']') {
+      } else if (nth === "]") {
         unClosedBraces -= 1;
       }
 
@@ -174,13 +174,13 @@ function TocLexer(reader: any) {
   }
 
   function printTokens() {
-    tokens.map(k => {
+    tokens.map((k) => {
       log.info(`type: ${TokenType[k.type]} lexeme: ${k.lexeme}`);
     });
   }
 
   function printTokenType() {
-    tokens.map(k => {
+    tokens.map((k) => {
       log.info(`${TokenType[k.type]}`);
     });
   }
@@ -190,24 +190,24 @@ function TocLexer(reader: any) {
 
 function TocParser(lexer: any) {
   function hr() {
-    return { type: 'hr', indent: 0 };
+    return { type: "hr", indent: 0 };
   }
 
   function header(text: string) {
-    return { type: 'header', text, indent: 0 };
+    return { type: "header", text, indent: 0 };
   }
 
-  function link(title: string, ref: string = '') {
-    return { type: 'link', title, ref, indent: 0 };
+  function link(title: string, ref: string = "") {
+    return { type: "link", title, ref, indent: 0 };
   }
 
   function list(children: any[] = []) {
-    return { type: 'list', children };
+    return { type: "list", children };
   }
 
-  function listItem(title: string, ref: string = '', indent: number): any {
+  function listItem(title: string, ref: string = "", indent: number): any {
     return {
-      type: 'listItem',
+      type: "listItem",
       title,
       ref,
       indent,
@@ -225,7 +225,7 @@ function TocParser(lexer: any) {
         listRefs[v.indent].children.push(v);
       } else {
         listRefs[v.indent] = {
-          type: 'list',
+          type: "list",
           children: [v],
         };
 
@@ -247,7 +247,7 @@ function TocParser(lexer: any) {
     }
 
     return {
-      files: statements.filter(t => ['listItem', 'link'].includes(t.type)),
+      files: statements.filter((t) => ["listItem", "link"].includes(t.type)),
       ast: createAST(statements),
     };
   }
@@ -285,7 +285,7 @@ function TocParser(lexer: any) {
       lexer.peek(2) === TokenType.RIGHT_BRACE
     ) {
       const title = lexer.consume(1);
-      let ref = '';
+      let ref = "";
       if (lexer.peek(2) === TokenType.STRING) {
         ref = lexer.consume(2);
       }
@@ -317,17 +317,17 @@ function TocRender(site: Site, ast: any, currentFileName: string) {
 
   function formatUrl(currentFileName) {
     let link = stripExtension(currentFileName);
-    link = link.replace(site.paths.content, '');
+    link = link.replace(site.paths.content, "");
 
     return link;
   }
 
   function stripExtension(url) {
     let link = path.relative(site.paths.content, url);
-    link = path.join('/', path.dirname(url), path.basename(url, '.md'));
+    link = path.join("/", path.dirname(url), path.basename(url, ".md"));
 
     if (site.uglyURLs) {
-      link += '.html';
+      link += ".html";
     }
 
     return link;
@@ -342,12 +342,12 @@ function TocRender(site: Site, ast: any, currentFileName: string) {
   }
 
   function link(e: any): any {
-    let ref = e.ref !== '' ? stripExtension(e.ref) : '';
-    const linkClass = ref === activePage ? 'active' : '';
+    let ref = e.ref !== "" ? stripExtension(e.ref) : "";
+    const linkClass = ref === activePage ? "active" : "";
 
     // We treat index.md in root file differently
-    if (ref === '/index') {
-      ref = '/';
+    if (ref === "/index") {
+      ref = "/";
     }
 
     return ref
@@ -356,19 +356,19 @@ function TocRender(site: Site, ast: any, currentFileName: string) {
   }
 
   function listItem(e: any, order: number[]) {
-    let ref = e.ref !== '' ? stripExtension(e.ref) : '';
+    let ref = e.ref !== "" ? stripExtension(e.ref) : "";
 
-    const linkClass = ref === activePage ? 'active' : '';
+    const linkClass = ref === activePage ? "active" : "";
 
     // We treat index.md in root file differently
-    if (ref === '/index') {
-      ref = '/';
+    if (ref === "/index") {
+      ref = "/";
     }
 
     return ref
       ? `
       <li class="chapter-item">
-        <strong>${[...order, ''].join('.')}</strong>
+        <strong>${[...order, ""].join(".")}</strong>
         &nbsp;
         <a class="${linkClass}"
            href="${ref}">${e.title}</a>
@@ -376,7 +376,7 @@ function TocRender(site: Site, ast: any, currentFileName: string) {
     `
       : `
       <li class="chapter-item draft">
-        <strong>${[...order, ''].join('.')}</strong>
+        <strong>${[...order, ""].join(".")}</strong>
         &nbsp;
         ${e.title}
       </li>
@@ -387,35 +387,39 @@ function TocRender(site: Site, ast: any, currentFileName: string) {
     return `
         <li>
           <ol class="section">
-            ${e.children
-              .map((node: any, i: number) =>
-                node.type === 'list'
-                  ? list(node, [...order, i + 1])
-                  : listItem(node, [...order, i + 1]),
-              )
-              .join('')}
+            ${
+      e.children
+        .map((node: any, i: number) =>
+          node.type === "list"
+            ? list(node, [...order, i + 1])
+            : listItem(node, [...order, i + 1])
+        )
+        .join("")
+    }
           </ol>
         </li>
       `;
   }
 
   let order = 0;
-  return `<ol class="toc">${ast.children
-    .map((e: any) => {
-      switch (e.type) {
-        case 'hr':
-          return hr();
-        case 'header':
-          return header(e);
-        case 'link':
-          return link(e);
-        case 'listItem':
-          order += 1;
-          return listItem(e, [order]);
-        case 'list':
-          return list(e, [order]);
-        default:
-      }
-    })
-    .join('')}</ol>`;
+  return `<ol class="toc">${
+    ast.children
+      .map((e: any) => {
+        switch (e.type) {
+          case "hr":
+            return hr();
+          case "header":
+            return header(e);
+          case "link":
+            return link(e);
+          case "listItem":
+            order += 1;
+            return listItem(e, [order]);
+          case "list":
+            return list(e, [order]);
+          default:
+        }
+      })
+      .join("")
+  }</ol>`;
 }

@@ -1,18 +1,18 @@
-import { log } from '../../deps.ts';
-import { serve } from 'https://deno.land/std@0.83.0/http/server.ts';
+import { log } from "../../deps.ts";
+import { serve } from "https://deno.land/std@0.83.0/http/server.ts";
 import {
   acceptWebSocket,
   isWebSocketCloseEvent,
   WebSocket,
-} from 'https://deno.land/std@0.83.0/ws/mod.ts';
+} from "https://deno.land/std@0.83.0/ws/mod.ts";
 
-import { events } from './event.ts';
-import { Site } from './config.ts';
+import { events } from "./event.ts";
+import { Site } from "./config.ts";
 
 export { websocket };
 
 async function websocket(site: Site) {
-  const port = site.serve.wsPort || '5001';
+  const port = site.serve.wsPort || "5001";
   log.debug(`websocket server is running on ${port}`);
 
   for await (const req of serve(`:${port}`)) {
@@ -25,7 +25,7 @@ async function websocket(site: Site) {
       headers,
     })
       .then(handleWs)
-      .catch(async err => {
+      .catch(async (err) => {
         log.error(`Failed to accept websocket: ${err}`);
         await req.respond({ status: 400 });
       });
@@ -33,20 +33,20 @@ async function websocket(site: Site) {
 }
 
 async function handleWs(sock: WebSocket) {
-  log.debug('socket connected!');
+  log.debug("socket connected!");
 
   const handler = async () => {
-    await sock.send(JSON.stringify({ type: 'build_complete' }));
+    await sock.send(JSON.stringify({ type: "build_complete" }));
   };
 
-  events.on('BUILD_COMPLETE', handler);
+  events.on("BUILD_COMPLETE", handler);
 
   try {
     for await (const ev of sock) {
       if (isWebSocketCloseEvent(ev)) {
         const { code, reason } = ev;
-        log.debug('ws:Close', code, reason);
-        events.off('BUILD_COMPLETE', handler);
+        log.debug("ws:Close", code, reason);
+        events.off("BUILD_COMPLETE", handler);
       }
     }
   } catch (err) {

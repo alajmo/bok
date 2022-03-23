@@ -1,7 +1,7 @@
-import { http, path, log } from "../../deps.ts";
+import { http, log, path } from "../../deps.ts";
 
 import { Site } from "./config.ts";
-import { exists, __dirname } from "./utils.ts";
+import { __dirname, exists } from "./utils.ts";
 
 export { server };
 
@@ -38,7 +38,7 @@ function contentType(p: string): string | undefined {
 
 async function serveStatic(
   req: http.ServerRequest,
-  filePath: string
+  filePath: string,
 ): Promise<http.Response> {
   let [file, fileInfo] = await Promise.all([
     Deno.open(filePath),
@@ -73,7 +73,7 @@ async function serveStatic(
 async function serveFallback(
   paths: any,
   req: http.ServerRequest,
-  e: Error
+  e: Error,
 ): Promise<http.Response> {
   if (e instanceof Deno.errors.NotFound) {
     const fsPath = path.join(paths.output, "404", "index.html");

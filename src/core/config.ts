@@ -1,14 +1,14 @@
-import { fs, path, log } from '../../deps.ts';
-import { __dirname } from './utils.ts';
+import { fs, log, path } from "../../deps.ts";
+import { __dirname } from "./utils.ts";
 
 export {
   getSiteConfig,
   readSiteConfig,
+  SearchFilesType,
   Site,
+  SiteHooks,
   SitePaths,
   SiteServe,
-  SiteHooks,
-  SearchFilesType,
 };
 
 interface Site {
@@ -59,15 +59,15 @@ interface SiteHooks {
 }
 
 export const THEMES: any = {
-  basic: path.join(__dirname(), '../../themes/basic/config.ts'),
-  book: path.join(__dirname(), '../../themes/book/config.ts'),
+  basic: path.join(__dirname(), "../../themes/basic/config.ts"),
+  book: path.join(__dirname(), "../../themes/book/config.ts"),
 };
 
 /**
  * Parse, validate config and return Site object.
  */
 async function getSiteConfig(
-  config: string = 'config.ts',
+  config: string = "config.ts",
   options?: any,
 ): Promise<Site> {
   // 1. Read the config file
@@ -116,25 +116,25 @@ function extendWithDefaultConfig(siteConfig: any, siteDir: string) {
   siteConfig.paths.content = setSitePath(
     siteConfig.paths.content,
     siteDir,
-    'content',
+    "content",
   );
 
   siteConfig.paths.output = setSitePath(
     siteConfig.paths.output,
     siteDir,
-    'site',
+    "site",
   );
 
   siteConfig.paths.assets = setSitePath(
     siteConfig.paths.assets,
     siteDir,
-    'assets',
+    "assets",
   );
 
   siteConfig.paths.layout = setSitePath(
     siteConfig.paths.layout,
     siteDir,
-    'layout',
+    "layout",
   );
 
   siteConfig.uglyURLs = siteConfig.uglyURLs ?? false;
@@ -187,19 +187,19 @@ async function extendWithThemeConfig(siteConfig: any) {
   siteConfig.paths.assets = setSitePath(
     themeConfig.paths.assets,
     themeDir,
-    'assets',
+    "assets",
   );
 
   siteConfig.paths.layout = setSitePath(
     themeConfig.paths.layout,
     themeDir,
-    'layout',
+    "layout",
   );
 
   siteConfig.paths.defaultLayout = setSitePath(
     themeConfig.paths.defaultLayout,
     siteConfig.paths.layout,
-    'index.ts',
+    "index.ts",
   );
 
   siteConfig.uglyURLs = themeConfig.uglyURLs ?? siteConfig.uglyURLs;
@@ -254,14 +254,14 @@ async function readSiteConfig(siteConfigPath: string): Promise<any, string> {
 
 function validateConfig(paths: any) {
   if (!fs.existsSync(paths.content)) {
-    log.error('error: content directory is missing');
+    log.error("error: content directory is missing");
   }
 
   if (!fs.existsSync(paths.assets)) {
-    log.error('error: assets directory is missing');
+    log.error("error: assets directory is missing");
   }
 
   if (!fs.existsSync(paths.layout)) {
-    log.error('error: layout directory is missing');
+    log.error("error: layout directory is missing");
   }
 }

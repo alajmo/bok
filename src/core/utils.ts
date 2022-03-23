@@ -1,7 +1,7 @@
-import { fs, path } from '../../deps.ts';
+import { fs, path } from "../../deps.ts";
 
-export const sleep = milliseconds => {
-  return new Promise(resolve => setTimeout(resolve, milliseconds));
+export const sleep = (milliseconds) => {
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
 
 export const __dirname = () => path.dirname(path.fromFileUrl(import.meta.url));

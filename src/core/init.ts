@@ -1,4 +1,4 @@
-import { fs, path, log } from "../../deps.ts";
+import { fs, log, path } from "../../deps.ts";
 import { readSiteConfig, THEMES } from "./config.ts";
 
 export { init };
