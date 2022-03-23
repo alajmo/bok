@@ -14,8 +14,9 @@
         <link rel="stylesheet" type="text/css" href="/assets/css/prism.css" />
         <link rel="stylesheet" type="text/css" href="/assets/fonts/fonts.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/variables.css" />
-        <link rel="stylesheet" type="text/css" href="/assets/css/tufte.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/base.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/typography.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/list.css" />
       </head>
 
       <body>
@@ -132,14 +133,18 @@
 
         <div class="page-content">
           <h1>markBook</h1>
-<p><code>bok</code> is a simple static site generator implemented as a command line tool in <code>Deno</code>. It converts Markdown (CommonMark specification) files to HTML files via Javascript Template Literals.</p>
-<p>It comes with a theme for creating HTML books from Markdown, see <a href="https://google.com">docz.demo.com</a>.</p>
+<p><code>bok</code> is a simple static site generator implemented as a command line tool in
+<code>Deno</code>. It converts Markdown (CommonMark specification) files to HTML files via
+Javascript Template Literals.</p>
+<p>It comes with a theme for creating HTML books from Markdown, see
+<a href="https://google.com">docz.demo.com</a>.</p>
 <p>Main use cases for <code>bok</code> are personal blogs, documentation sites, etc.</p>
 <h2>Features</h2>
 <ul>
 <li>Simple and minimal API</li>
 <li>Supports Markdown (with Front-matter)</li>
-<li>Vanilla JS Templating (or bring your own templating system and invoke it via Javascript)</li>
+<li>Vanilla JS Templating (or bring your own templating system and invoke it via
+Javascript)</li>
 <li>Easily extendable</li>
 <li>Auto-refresh browser client on file change</li>
 <li>Documentation Theme</li>
@@ -149,7 +154,11 @@
 <p>In the beginning, all you want is results.</p>
 <p>In the end, all you want is control.</p>
 </blockquote>
-<p>markBook single purpose is to transform <strong>Markdown</strong> documents to <strong>HTML</strong> documents. As such, it should be easy for someone to download markBook, run a command, and get quickly from Markdown to a presentable HTML document. Later, if the user wants to extend his HTML somehow, there shouldn't be tons of configuration necessary for him to read.</p>
+<p>markBook single purpose is to transform <strong>Markdown</strong> documents to <strong>HTML</strong>
+documents. As such, it should be easy for someone to download markBook, run a
+command, and get quickly from Markdown to a presentable HTML document. Later, if
+the user wants to extend his HTML somehow, there shouldn't be tons of
+configuration necessary for him to read.</p>
 <ul>
 <li>Explicit over implicit</li>
 <li>Keep the core small</li>

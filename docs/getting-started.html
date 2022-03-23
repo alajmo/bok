@@ -14,8 +14,9 @@
         <link rel="stylesheet" type="text/css" href="/assets/css/prism.css" />
         <link rel="stylesheet" type="text/css" href="/assets/fonts/fonts.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/variables.css" />
-        <link rel="stylesheet" type="text/css" href="/assets/css/tufte.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/base.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/typography.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/list.css" />
       </head>
 
       <body>
@@ -142,19 +143,20 @@
 
         <div class="page-content">
           <h2>Install</h2>
-<p><code>bok</code> is based on Deno, so until the single-binary executable is available (and stable) in Deno, we need to install Deno first:</p>
+<p><code>bok</code> is based on Deno, so until the single-binary executable is available (and
+stable) in Deno, we need to install Deno first:</p>
 <pre><code>curl -fsSL https://deno.land/x/install/install.sh | sh
 </code></pre>
 <p>Then install the latest version of <code>bok</code></p>
-<pre><code>deno install --force --no-check --unstable --allow-all --name=docz https://deno.land/x/docz/mod.ts
+<pre><code>deno install --force --no-check --unstable --allow-all --name=bok https://deno.land/x/bok/mod.ts
 </code></pre>
 <h2>Getting Started</h2>
 <p>Run the following command to generate a new site.</p>
 <pre><code class="language-sh"># Create your site (outputs a config.ts)
-docz init
+bok init
 
 # Start a HTTP server with auto-refresh on file changes
-docz serve config.ts
+bok serve config.ts
 </code></pre>
 
         </div>

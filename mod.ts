@@ -1,5 +1,5 @@
 import { Command, Confirm, Input, log, prompt, Select } from "./deps.ts";
-import { bok } from "./src/mod.ts";
+import { Bok } from "./src/mod.ts";
 
 if (import.meta.main) {
   const bok = Bok();

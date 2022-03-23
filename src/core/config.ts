@@ -93,7 +93,7 @@ async function getSiteConfig(
   const site: Site = {
     files: siteConfig.files,
     paths: siteConfig.paths,
-    public: siteConfig.public,
+    public: siteConfig.public || [],
     serve: siteConfig.serve,
     hooks: siteConfig.hooks,
     uglyURLs: siteConfig.uglyURLs,

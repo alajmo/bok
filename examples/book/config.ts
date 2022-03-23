@@ -3,6 +3,10 @@ export default {
 
   uglyURLs: true,
 
+  paths: {
+    output: "../../docs",
+  },
+
   params: {
     title: "Docs",
     author: "Samir Alajmovic",
