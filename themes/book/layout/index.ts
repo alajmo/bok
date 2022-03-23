@@ -44,7 +44,7 @@ export default function (site, page, pages) {
 function PrevPageNav({ rootUrl, prevUrl }) {
   return prevUrl
     ? `
-    <a href="${prevUrl}" id="page-nav-prev" class="page-nav page-nav-prev">
+    <a href="${rootUrl}${prevUrl}" id="page-nav-prev" class="page-nav page-nav-prev">
       <img
         class="page-nav-icon"
         src="${rootUrl}/assets/img/svg/chevron-left.svg"
@@ -60,7 +60,7 @@ function PrevPageNav({ rootUrl, prevUrl }) {
 function NextPageNav({ rootUrl, nextUrl }) {
   return nextUrl
     ? `
-    <a href="${nextUrl}" id="page-nav-next" class="page-nav page-nav-next">
+    <a href="${rootUrl}${nextUrl}" id="page-nav-next" class="page-nav page-nav-next">
       <img
         class="page-nav-icon"
         src="${rootUrl}/assets/img/svg/chevron-right.svg"
