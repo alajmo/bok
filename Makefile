@@ -4,7 +4,7 @@ serve:
 	deno run --unstable --allow-all mod.ts serve themes/book/config.ts
 
 serve-debug:
-	deno run --no-check --unstable --watch --allow-all mod.ts serve themes/book/config.ts
+	deno run --unstable --no-check --watch --allow-all mod.ts serve themes/book/config.ts
 
 build:
 	deno run --unstable --no-check --allow-all mod.ts build examples/book/config.ts

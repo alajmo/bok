@@ -1,7 +1,8 @@
-export * as fs from "https://deno.land/std@0.93.0/fs/mod.ts";
-export * as path from "https://deno.land/std@0.93.0/path/mod.ts";
-export * as log from "https://deno.land/std@0.93.0/log/mod.ts";
-export * as http from "https://deno.land/std@0.93.0/http/mod.ts";
+export * as fs from "https://deno.land/std@0.131.0/fs/mod.ts";
+export * as path from "https://deno.land/std@0.131.0/path/mod.ts";
+export * as log from "https://deno.land/std@0.131.0/log/mod.ts";
+export * as http from "https://deno.land/std@0.131.0/http/mod.ts";
+// TODO: Upgrade https://doc.deno.land/deno/stable@v1.18.2/~/Deno.upgradeWebSocket
 export * as ws from "https://deno.land/std@0.83.0/ws/mod.ts";
 
 import { Command } from "https://deno.land/x/cliffy@v0.16.0/command/mod.ts";

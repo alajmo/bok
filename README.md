@@ -6,8 +6,7 @@
 `Deno`. It converts Markdown (CommonMark specification) files to HTML files via
 Javascript Template Literals.
 
-It comes with a theme for creating HTML books from Markdown, see
-[bok.demo.com](https://google.com).
+It comes with a theme for creating HTML books from Markdown, checkout [demo](https://alajmo.github.io/bok).
 
 Main use cases for `bok` are personal blogs, documentation sites, etc.
 

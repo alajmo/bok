@@ -37,9 +37,9 @@ function contentType(p: string): string | undefined {
 }
 
 async function serveStatic(
-  req: http.ServerRequest,
+  req: ServerRequest,
   filePath: string,
-): Promise<http.Response> {
+): Promise<Response> {
   let [file, fileInfo] = await Promise.all([
     Deno.open(filePath),
     Deno.stat(filePath),
@@ -62,8 +62,8 @@ async function serveStatic(
   }
 
   const res = {
-    status: 200,
     body,
+    status: 200,
     headers,
   };
 
@@ -72,9 +72,9 @@ async function serveStatic(
 
 async function serveFallback(
   paths: any,
-  req: http.ServerRequest,
+  req: ServerRequest,
   e: Error,
-): Promise<http.Response> {
+): Promise<Response> {
   if (e instanceof Deno.errors.NotFound) {
     const fsPath = path.join(paths.output, "404", "index.html");
     const notFoundPageExists = await exists(fsPath);
@@ -94,7 +94,7 @@ async function serveFallback(
   }
 }
 
-function serverLog(req: http.ServerRequest, res: http.Response): void {
+function serverLog(req: ServerRequest, res: Response): void {
   const d = new Date().toISOString();
   const dateFmt = `[${d.slice(0, 10)} ${d.slice(11, 19)}]`;
   const s = `${dateFmt} "${req.method} ${req.url} ${req.proto}" ${res.status}`;
@@ -105,8 +105,10 @@ function server(site: Site) {
     initWSClientCode();
   }
 
-  const handler = async (req: http.ServerRequest): Promise<void> => {
+  const handler = async (req: Request): Promise<Response> => {
     let normalizedUrl = path.normalize(req.url);
+
+    console.log(req.url);
 
     try {
       normalizedUrl = decodeURIComponent(normalizedUrl);
@@ -117,8 +119,9 @@ function server(site: Site) {
     }
 
     let fsPath = path.join(site.paths.output, normalizedUrl);
+    console.log(site.paths, normalizedUrl)
 
-    let response: http.Response | undefined;
+    let response: Response;
     try {
       const info = await Deno.stat(fsPath);
       if (info.isDirectory) {
@@ -130,7 +133,9 @@ function server(site: Site) {
       response = await serveFallback(site.paths, req, e);
     } finally {
       serverLog(req, response!);
-      req.respond(response!);
+      return new Response(response.body, { status: response.status, header: response.header });
+      // return new Response(response!);
+      // req.respond(response!);
     }
   };
 
