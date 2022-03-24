@@ -1,7 +1,5 @@
-import { fs, log, MarkdownIt, path } from "../../deps.ts";
+import { fs, log, MarkdownIt, MarkdownItAnchor, path } from "../../deps.ts";
 
-/* import { Marked } from '../../marked/index.ts'; */
-/* import { parseMarkdown } from 'https://deno.land/x/markdown_wasm@1.1.2/mod.ts'; */
 import { parseToc, TocRender } from "../plugins/toc.ts";
 
 import { parseFrontMatter } from "./front-matter.ts";
@@ -15,7 +13,7 @@ export { build };
 const MD = MarkdownIt({
   html: true,
   linkify: true,
-});
+}).use(MarkdownItAnchor);
 
 /**
  * Main function for generating a static site.

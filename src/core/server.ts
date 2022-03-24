@@ -46,19 +46,19 @@ async function serveStatic(
   ]);
 
   const headers = new Headers();
-  /* headers.set('content-length', fileInfo.size.toString()); */
 
   const ct = contentType(filePath);
   let body;
+  // Handle html and assets (js, css, json, .etc differently)
   if (ct === "text/html") {
     body = await Deno.readTextFile(filePath);
     body += `<script>${WS_CLIENT_CODE}</script>`;
   } else {
-    body = file;
+    body = await Deno.readFile(filePath);
   }
 
   if (ct) {
-    headers.set("content-type", ct);
+    headers.set("content-type", `${ct}; charset=utf-8`);
   }
 
   const res = {
@@ -106,9 +106,8 @@ function server(site: Site) {
   }
 
   const handler = async (req: Request): Promise<Response> => {
-    let normalizedUrl = path.normalize(req.url);
-
-    console.log(req.url);
+    const url = req.url.replace(`http://localhost:${site.serve?.port}`, '');
+    let normalizedUrl = path.normalize(url);
 
     try {
       normalizedUrl = decodeURIComponent(normalizedUrl);
@@ -119,7 +118,6 @@ function server(site: Site) {
     }
 
     let fsPath = path.join(site.paths.output, normalizedUrl);
-    console.log(site.paths, normalizedUrl)
 
     let response: Response;
     try {
@@ -132,10 +130,8 @@ function server(site: Site) {
     } catch (e) {
       response = await serveFallback(site.paths, req, e);
     } finally {
-      serverLog(req, response!);
-      return new Response(response.body, { status: response.status, header: response.header });
-      // return new Response(response!);
-      // req.respond(response!);
+      serverLog(req, response);
+      return new Response(response.body, { status: response.status, headers: response.headers });
     }
   };
 
