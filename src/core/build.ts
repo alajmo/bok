@@ -132,8 +132,6 @@ function processPage(site: Site, file: any, opts?: any) {
 }
 
 async function copyAssets(site: Site) {
-  console.log(site);
-
   await fs.copy(
     site.paths.assets,
     path.join(site.paths.output, path.basename(site.paths.assets)),
