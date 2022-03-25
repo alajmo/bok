@@ -14,7 +14,6 @@ export {
 interface Site {
   theme?: string;
   paths: SitePaths;
-  public: string[];
   files: SiteFiles;
   serve?: SiteServe;
   hooks: SiteHooks;
@@ -24,7 +23,11 @@ interface Site {
 }
 
 interface SitePaths {
-  assets: string;
+  root: string;
+
+  assets: string; // Theme defined assets
+
+  public: string[]; // User defined assets
 
   content: string;
   toc?: string;
@@ -94,7 +97,7 @@ async function getSiteConfig(
   const site: Site = {
     files: siteConfig.files,
     paths: siteConfig.paths,
-    public: siteConfig.public || [],
+    public: siteConfig.paths.public,
     serve: siteConfig.serve,
     hooks: siteConfig.hooks,
     rootUrl: siteConfig.rootUrl,
@@ -114,6 +117,8 @@ function overrideWithOptions(siteConfig: any, options: any) {
 function extendWithDefaultConfig(siteConfig: any, siteDir: string) {
   // Paths
   siteConfig.paths = siteConfig.paths ?? {};
+
+  siteConfig.paths.root = siteDir;
 
   siteConfig.paths.content = setSitePath(
     siteConfig.paths.content,
@@ -138,6 +143,22 @@ function extendWithDefaultConfig(siteConfig: any, siteDir: string) {
     siteDir,
     "layout",
   );
+
+  if (siteConfig.paths.public) {
+    const publicPaths = [];
+    siteConfig.paths.public.forEach(p => {
+
+      if (path.isAbsolute(p)) {
+        publicPaths.push(p);
+      } else {
+        publicPaths.push(path.resolve(siteDir, p));
+      }
+    });
+
+    siteConfig.paths.public = publicPaths;
+  } else {
+    siteConfig.paths.public = [];
+  }
 
   siteConfig.rootUrl = siteConfig.rootUrl ?? '';
 
