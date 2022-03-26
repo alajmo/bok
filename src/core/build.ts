@@ -82,9 +82,8 @@ function getPages(site: Site): Page[] {
   return pages;
 }
 
-function parseLink(site: Site, filename: string): string {
-  let link = path.relative(site.paths.content, filename);
-  link = path.join("/", path.dirname(link), path.basename(link, ".md"));
+function parseLink(site: Site, filepath: string): string {
+  const link = path.join("/", path.dirname(filepath), path.basename(filepath, ".md"));
 
   if (site.uglyURLs) {
     link += ".html";

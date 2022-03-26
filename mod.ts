@@ -74,7 +74,7 @@ if (import.meta.main) {
 
   await new Command()
     .name("bok")
-    .version("0.1.2")
+    .version("0.1.3")
     .description("Static Site Generator")
     .command("init", init)
     .command("build", build)
