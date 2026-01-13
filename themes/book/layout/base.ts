@@ -15,6 +15,8 @@ export default function ({ rootUrl }, content) {
         <link rel="stylesheet" type="text/css" href="${rootUrl}/assets/css/prism.css" />
         <link rel="stylesheet" type="text/css" href="${rootUrl}/assets/fonts/fonts.css" />
         <link rel="stylesheet" type="text/css" href="${rootUrl}/assets/css/variables.css" />
+        <link rel="stylesheet" type="text/css" href="${rootUrl}/assets/css/general.css" />
+        <link rel="stylesheet" type="text/css" href="${rootUrl}/assets/css/chrome.css" />
         <link rel="stylesheet" type="text/css" href="${rootUrl}/assets/css/base.css" />
         <link rel="stylesheet" type="text/css" href="${rootUrl}/assets/css/typography.css" />
         <link rel="stylesheet" type="text/css" href="${rootUrl}/assets/css/list.css" />

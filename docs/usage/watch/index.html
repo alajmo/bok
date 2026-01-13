@@ -14,6 +14,8 @@
         <link rel="stylesheet" type="text/css" href="/assets/css/prism.css" />
         <link rel="stylesheet" type="text/css" href="/assets/fonts/fonts.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/variables.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/general.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/chrome.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/base.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/typography.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/list.css" />
@@ -29,19 +31,19 @@
     </script>
 
     <aside id="sidebar" class="sidebar">
-      <ol class="toc"><li class="part-title">markBook</li><li><a class=""  href="/">About</a></li>
+      <ol class="toc"><li class="part-title">bok</li><li><a class=""  href="/">Introduction</a></li>
       <li class="chapter-item">
         <strong>1.</strong>
         &nbsp;
         <a class=""
-           href="/getting-started">Getting Start</a>
+           href="/getting-started">Getting Started</a>
       </li>
-    <li class="spacer"></li><li class="part-title">Documentation</li>
+    <li class="spacer"></li><li class="part-title">Reference</li>
       <li class="chapter-item">
         <strong>2.</strong>
         &nbsp;
         <a class=""
-           href="/usage/usage">CLI Usage</a>
+           href="/usage/usage">CLI Commands</a>
       </li>
     
         <li>
@@ -85,26 +87,69 @@
           </ol>
         </li>
       
-      <li class="chapter-item draft">
+      <li class="chapter-item">
         <strong>3.</strong>
         &nbsp;
-        Configuration
+        <a class=""
+           href="/configuration/configuration">Configuration</a>
       </li>
     
         <li>
           <ol class="section">
             
-      <li class="chapter-item draft">
+      <li class="chapter-item">
         <strong>3.1.</strong>
         &nbsp;
-        Table of Contents Format
+        <a class=""
+           href="/configuration/site-config">Site Config</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>3.2.</strong>
+        &nbsp;
+        <a class=""
+           href="/configuration/toc-format">TOC Format</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>3.3.</strong>
+        &nbsp;
+        <a class=""
+           href="/configuration/front-matter">Front Matter</a>
+      </li>
+    
+          </ol>
+        </li>
+      
+      <li class="chapter-item">
+        <strong>4.</strong>
+        &nbsp;
+        <a class=""
+           href="/themes/themes">Themes</a>
+      </li>
+    
+        <li>
+          <ol class="section">
+            
+      <li class="chapter-item">
+        <strong>4.1.</strong>
+        &nbsp;
+        <a class=""
+           href="/themes/book-theme">Book Theme</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>4.2.</strong>
+        &nbsp;
+        <a class=""
+           href="/themes/creating-themes">Creating Themes</a>
       </li>
     
           </ol>
         </li>
       <li class="spacer"></li><li class="part-title">Development</li>
       <li class="chapter-item">
-        <strong>4.</strong>
+        <strong>5.</strong>
         &nbsp;
         <a class=""
            href="/contributing">Contributing</a>
@@ -143,7 +188,88 @@
   
 
           <div class="page-content">
-            
+            <h1 id="watch" tabindex="-1">watch</h1>
+<p>Build your site and automatically rebuild when files change.</p>
+<h2 id="usage" tabindex="-1">Usage</h2>
+<pre><code class="language-bash">bok watch [config]
+</code></pre>
+<h2 id="arguments" tabindex="-1">Arguments</h2>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>config</code></td>
+<td>Path to config file</td>
+<td><code>config.ts</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="what-it-does" tabindex="-1">What It Does</h2>
+<ol>
+<li>Performs an initial <a href="build.md">build</a></li>
+<li>Watches these directories for changes:
+<ul>
+<li><code>content/</code> - Your markdown files</li>
+<li><code>assets/</code> - Theme assets</li>
+<li><code>layout/</code> - Template files</li>
+</ul>
+</li>
+<li>Rebuilds when any file changes</li>
+</ol>
+<h2 id="debouncing" tabindex="-1">Debouncing</h2>
+<p>Changes are debounced with a 500ms interval to prevent multiple rapid rebuilds when saving multiple files.</p>
+<h2 id="differences-from-serve" tabindex="-1">Differences from <code>serve</code></h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th><code>watch</code></th>
+<th><code>serve</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Builds on change</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>HTTP server</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Live reload</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<p>Use <code>watch</code> when you:</p>
+<ul>
+<li>Have your own HTTP server</li>
+<li>Just want to rebuild files</li>
+<li>Are building for deployment</li>
+</ul>
+<p>Use <code>serve</code> when you:</p>
+<ul>
+<li>Want a complete development environment</li>
+<li>Need live reload in browser</li>
+</ul>
+<h2 id="examples" tabindex="-1">Examples</h2>
+<pre><code class="language-bash"># Watch with default config
+bok watch
+
+# Watch specific config
+bok watch ./docs/config.ts
+</code></pre>
+
           </div>
 
           
@@ -159,7 +285,9 @@
   
         </div>
 
-        
+        <aside class="right-toc"><nav class="right-toc-nav">
+    <h4 class="right-toc-title">On this page</h4>
+    <ul class="right-toc-list"><li><a href="#usage">Usage</a></li><li><a href="#arguments">Arguments</a></li><li><a href="#what-it-does">What It Does</a></li><li><a href="#debouncing">Debouncing</a></li><li><a href="#differences-from-serve">Differences from serve</a></li><li><a href="#examples">Examples</a></li></ul></nav></aside>
       </div>
     </main>
   

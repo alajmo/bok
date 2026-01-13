@@ -1,0 +1,28 @@
+{
+  "name": "bok",
+  "version": "0.1.3",
+  "type": "module",
+  "bin": { "bok": "./mod.ts" },
+  "scripts": {
+    "serve": "bun run mod.ts serve examples/book/config.ts",
+    "serve:theme": "bun run mod.ts serve themes/book/config.ts",
+    "serve:watch": "bun --watch run mod.ts serve examples/book/config.ts",
+    "build": "bun run mod.ts build examples/book/config.ts",
+    "compile": "bun build --compile --outfile ~/.local/bin/bok mod.ts"
+  },
+  "dependencies": {
+    "commander": "^12.1.0",
+    "@inquirer/prompts": "^7.0.0",
+    "cli-table3": "^0.6.5",
+    "markdown-it": "^14.1.0",
+    "markdown-it-anchor": "^9.2.0",
+    "glob": "^11.0.0",
+    "fs-extra": "^11.2.0",
+    "chokidar": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/markdown-it": "^14.1.2",
+    "@types/fs-extra": "^11.0.4"
+  }
+}

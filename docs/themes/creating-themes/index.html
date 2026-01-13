@@ -1,0 +1,387 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="description" rel="shortcut icon" content="" />
+
+        <link rel="icon" href="/assets/img/ico/favicon.ico" />
+        <link rel="apple-touch-icon-precomposed" href="/assets/img/ico/favicon.ico" />
+        <meta name="msapplication-TileImage" content="/assets/img/ico/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <link rel="stylesheet" type="text/css" href="/assets/css/reset.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/prism.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/fonts/fonts.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/variables.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/general.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/chrome.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/base.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/typography.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/list.css" />
+      </head>
+
+      <body>
+        <div class="book">
+          
+    <script type="text/javascript">
+      const html = document.querySelector('html');
+      const showSidebar = window.sessionStorage.getItem('showSidebar');
+      html.setAttribute('data-show-sidebar', showSidebar);
+    </script>
+
+    <aside id="sidebar" class="sidebar">
+      <ol class="toc"><li class="part-title">bok</li><li><a class=""  href="/">Introduction</a></li>
+      <li class="chapter-item">
+        <strong>1.</strong>
+        &nbsp;
+        <a class=""
+           href="/getting-started">Getting Started</a>
+      </li>
+    <li class="spacer"></li><li class="part-title">Reference</li>
+      <li class="chapter-item">
+        <strong>2.</strong>
+        &nbsp;
+        <a class=""
+           href="/usage/usage">CLI Commands</a>
+      </li>
+    
+        <li>
+          <ol class="section">
+            
+      <li class="chapter-item">
+        <strong>2.1.</strong>
+        &nbsp;
+        <a class=""
+           href="/usage/init">init</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>2.2.</strong>
+        &nbsp;
+        <a class=""
+           href="/usage/build">build</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>2.3.</strong>
+        &nbsp;
+        <a class=""
+           href="/usage/watch">watch</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>2.4.</strong>
+        &nbsp;
+        <a class=""
+           href="/usage/serve">serve</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>2.5.</strong>
+        &nbsp;
+        <a class=""
+           href="/usage/clean">clean</a>
+      </li>
+    
+          </ol>
+        </li>
+      
+      <li class="chapter-item">
+        <strong>3.</strong>
+        &nbsp;
+        <a class=""
+           href="/configuration/configuration">Configuration</a>
+      </li>
+    
+        <li>
+          <ol class="section">
+            
+      <li class="chapter-item">
+        <strong>3.1.</strong>
+        &nbsp;
+        <a class=""
+           href="/configuration/site-config">Site Config</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>3.2.</strong>
+        &nbsp;
+        <a class=""
+           href="/configuration/toc-format">TOC Format</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>3.3.</strong>
+        &nbsp;
+        <a class=""
+           href="/configuration/front-matter">Front Matter</a>
+      </li>
+    
+          </ol>
+        </li>
+      
+      <li class="chapter-item">
+        <strong>4.</strong>
+        &nbsp;
+        <a class=""
+           href="/themes/themes">Themes</a>
+      </li>
+    
+        <li>
+          <ol class="section">
+            
+      <li class="chapter-item">
+        <strong>4.1.</strong>
+        &nbsp;
+        <a class=""
+           href="/themes/book-theme">Book Theme</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>4.2.</strong>
+        &nbsp;
+        <a class="active"
+           href="/themes/creating-themes">Creating Themes</a>
+      </li>
+    
+          </ol>
+        </li>
+      <li class="spacer"></li><li class="part-title">Development</li>
+      <li class="chapter-item">
+        <strong>5.</strong>
+        &nbsp;
+        <a class=""
+           href="/contributing">Contributing</a>
+      </li>
+    </ol>
+    </aside>
+
+    <main id="content" class="content">
+      <div class="menu">
+          <button title="Toggle sidebar"
+                  type="button"
+                  class="icon-button"
+                  onclick="sidebar.toggle();">
+            <img
+              class="menu-icon"
+              src="/assets/img/svg/menu.svg"
+              alt="menu"
+              width="auto"
+              height="20"
+            />
+          </button>
+      </div>
+
+      <div class="page-wrapper">
+        <div class="page">
+          
+    <a href="/themes/book-theme" id="page-nav-prev" class="page-nav page-nav-prev">
+      <img
+        class="page-nav-icon"
+        src="/assets/img/svg/chevron-left.svg"
+        alt="Previous chapter"
+        width="auto"
+        height="40"
+      />
+    </a>
+  
+
+          <div class="page-content">
+            <h1 id="creating-themes" tabindex="-1">Creating Themes</h1>
+<p>Build custom themes for your bok sites.</p>
+<h2 id="theme-structure" tabindex="-1">Theme Structure</h2>
+<pre><code>my-theme/
+├── config.ts       # Required: theme configuration
+├── layout/         # Required: template files
+│   └── index.ts    # Required: default layout
+├── assets/         # Optional: static files
+└── content/        # Optional: example content
+</code></pre>
+<h2 id="theme-config" tabindex="-1">Theme Config</h2>
+<p>Create <code>config.ts</code>:</p>
+<pre><code class="language-typescript">export default {
+  name: &quot;my-theme&quot;,
+
+  // File discovery mode
+  files: {
+    type: &quot;walk&quot;,  // or &quot;toc&quot;, &quot;glob&quot;
+  },
+
+  // Path defaults (relative to this file)
+  paths: {
+    assets: &quot;assets&quot;,
+    layout: &quot;layout&quot;,
+    defaultLayout: &quot;index.ts&quot;,
+  },
+
+  // Dev server defaults
+  serve: {
+    reload: true,
+    port: 5000,
+    wsPort: 5001,
+  },
+
+  // Lifecycle hooks
+  hooks: {
+    async beforeSite(site, pages, opts) {},
+    async afterSite(site, pages, opts) {},
+    async beforePage(site, page, i, pages, opts) {},
+    async afterPage(site, page, i, pages, opts) {},
+  },
+
+  // Default params (users can override)
+  params: {
+    title: &quot;My Theme&quot;,
+  },
+};
+</code></pre>
+<h2 id="layout-templates" tabindex="-1">Layout Templates</h2>
+<p>Layouts are TypeScript files that export a function:</p>
+<pre><code class="language-typescript">// layout/index.ts
+export default function(site, page, pages) {
+  return `
+    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+      &lt;head&gt;
+        &lt;title&gt;${page.params.title || site.params.title}&lt;/title&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;${site.rootUrl}/assets/css/style.css&quot;&gt;
+      &lt;/head&gt;
+      &lt;body&gt;
+        &lt;main&gt;
+          ${page.htmlContent}
+        &lt;/main&gt;
+      &lt;/body&gt;
+    &lt;/html&gt;
+  `;
+}
+</code></pre>
+<h3 id="template-parameters" tabindex="-1">Template Parameters</h3>
+<h4 id="site" tabindex="-1">site</h4>
+<p>The site configuration object:</p>
+<pre><code class="language-typescript">site.rootUrl      // URL prefix
+site.params       // Site params from config
+site.paths        // Directory paths
+site.uglyURLs     // URL style boolean
+</code></pre>
+<h4 id="page" tabindex="-1">page</h4>
+<p>The current page being rendered:</p>
+<pre><code class="language-typescript">page.name         // Filename
+page.path         // Full file path
+page.link         // URL path (e.g., &quot;/getting-started&quot;)
+page.params       // Front matter data
+page.htmlContent  // Rendered markdown HTML
+page.tokens       // markdown-it AST tokens
+page.toc          // Left sidebar HTML (if using TOC mode)
+page.rightToc     // Right-side TOC HTML
+page.prevPage     // Previous page URL
+page.nextPage     // Next page URL
+</code></pre>
+<h4 id="pages" tabindex="-1">pages</h4>
+<p>Array of all pages in the site.</p>
+<h2 id="composable-templates" tabindex="-1">Composable Templates</h2>
+<p>Split templates into reusable parts:</p>
+<pre><code class="language-typescript">// layout/base.ts
+export default function({ title, rootUrl }, content) {
+  return `
+    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+      &lt;head&gt;
+        &lt;title&gt;${title}&lt;/title&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;${rootUrl}/assets/css/style.css&quot;&gt;
+      &lt;/head&gt;
+      &lt;body&gt;
+        ${content}
+      &lt;/body&gt;
+    &lt;/html&gt;
+  `;
+}
+
+// layout/index.ts
+import base from &quot;./base.ts&quot;;
+
+export default function(site, page, pages) {
+  return base(
+    { title: page.params.title, rootUrl: site.rootUrl },
+    `&lt;main&gt;${page.htmlContent}&lt;/main&gt;`
+  );
+}
+</code></pre>
+<h2 id="assets" tabindex="-1">Assets</h2>
+<p>Place static files in <code>assets/</code>:</p>
+<pre><code>assets/
+├── css/
+│   └── style.css
+├── js/
+│   └── main.js
+├── img/
+│   └── logo.svg
+└── fonts/
+    └── ...
+</code></pre>
+<p>Reference in templates:</p>
+<pre><code class="language-typescript">`&lt;link rel=&quot;stylesheet&quot; href=&quot;${site.rootUrl}/assets/css/style.css&quot;&gt;`
+`&lt;script src=&quot;${site.rootUrl}/assets/js/main.js&quot;&gt;&lt;/script&gt;`
+</code></pre>
+<h2 id="hooks" tabindex="-1">Hooks</h2>
+<p>Use hooks for advanced processing:</p>
+<pre><code class="language-typescript">hooks: {
+  // Generate sitemap after build
+  async afterSite(site, pages, opts) {
+    const sitemap = pages
+      .map(p =&gt; `&lt;url&gt;&lt;loc&gt;https://example.com${p.link}&lt;/loc&gt;&lt;/url&gt;`)
+      .join(&quot;\n&quot;);
+
+    await Bun.write(
+      `${site.paths.output}/sitemap.xml`,
+      `&lt;?xml version=&quot;1.0&quot;?&gt;&lt;urlset&gt;${sitemap}&lt;/urlset&gt;`
+    );
+  },
+
+  // Add build timestamp to each page
+  async beforePage(site, page, i, pages, opts) {
+    page.params.buildTime = new Date().toISOString();
+  },
+}
+</code></pre>
+<h2 id="using-your-theme" tabindex="-1">Using Your Theme</h2>
+<p>Reference by path:</p>
+<pre><code class="language-typescript">export default {
+  extends: &quot;/path/to/my-theme/config.ts&quot;,
+  params: {
+    title: &quot;My Site&quot;,
+  },
+};
+</code></pre>
+<p>Or initialize with it:</p>
+<pre><code class="language-bash">bok init --mode extend --theme path --theme-path /path/to/my-theme/config.ts
+</code></pre>
+
+          </div>
+
+          
+    <a href="/contributing" id="page-nav-next" class="page-nav page-nav-next">
+      <img
+        class="page-nav-icon"
+        src="/assets/img/svg/chevron-right.svg"
+        alt="Previous chapter"
+        width="auto"
+        height="40"
+      />
+    </a>
+  
+        </div>
+
+        <aside class="right-toc"><nav class="right-toc-nav">
+    <h4 class="right-toc-title">On this page</h4>
+    <ul class="right-toc-list"><li><a href="#theme-structure">Theme Structure</a></li><li><a href="#theme-config">Theme Config</a></li><li><a href="#layout-templates">Layout Templates</a></li><li class="right-toc-indent-1"><a href="#template-parameters">Template Parameters</a></li><li><a href="#composable-templates">Composable Templates</a></li><li><a href="#assets">Assets</a></li><li><a href="#hooks">Hooks</a></li><li><a href="#using-your-theme">Using Your Theme</a></li></ul></nav></aside>
+      </div>
+    </main>
+  
+        </div>
+
+        <script defer src="/assets/js/index.js"></script>
+        <script defer src="/assets/js/prism.min.js"></script>
+      </body>
+    </html>
+  

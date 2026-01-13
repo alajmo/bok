@@ -4,27 +4,21 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-`bok` is a Deno-based static site generator CLI that converts Markdown files to HTML using TypeScript template literals. It includes a documentation/book theme similar to Rust's mdBook.
+`bok` is a Bun-based static site generator CLI that converts Markdown files to HTML using TypeScript template literals. It includes a documentation/book theme similar to Rust's mdBook.
 
 ## Development Commands
 
 ```bash
-# Development server with live reload (uses examples/book/)
-make serve-debug
-
-# Build static site
-make build
-
-# Install globally as 'bok' command
-make install
-
-# Compile to native binary at ~/.local/bin/bok
-make compile
+bun install           # Install dependencies
+bun run serve         # Dev server with live reload (examples/book/)
+bun run build         # Build static site
+bun link              # Install globally as 'bok' command
+bun run compile       # Compile to native binary at ~/.local/bin/bok
 ```
 
 Direct CLI usage:
 ```bash
-deno run --unstable --allow-all mod.ts <command> [config.ts]
+bun run mod.ts <command> [config.ts]
 ```
 
 Commands: `init`, `build`, `watch`, `serve`, `clean`
@@ -57,4 +51,12 @@ Pages have: `name`, `path`, `link`, `params` (front-matter), `htmlContent`, `tok
 
 ### Dependencies
 
-All external imports centralized in `deps.ts`: Deno stdlib (fs, path, http, ws), cliffy (CLI framework), markdown-it
+Dependencies managed via `package.json`:
+- `node:fs`, `node:path` - File system operations
+- `fs-extra` - Extended file utilities
+- `commander` - CLI framework
+- `@inquirer/prompts` - Interactive prompts
+- `cli-table3` - Table formatting
+- `markdown-it`, `markdown-it-anchor` - Markdown rendering
+- `chokidar` - File watching
+- `glob` - Glob pattern matching

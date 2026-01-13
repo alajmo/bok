@@ -14,6 +14,8 @@
         <link rel="stylesheet" type="text/css" href="/assets/css/prism.css" />
         <link rel="stylesheet" type="text/css" href="/assets/fonts/fonts.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/variables.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/general.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/chrome.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/base.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/typography.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/list.css" />
@@ -29,19 +31,19 @@
     </script>
 
     <aside id="sidebar" class="sidebar">
-      <ol class="toc"><li class="part-title">markBook</li><li><a class=""  href="/">About</a></li>
+      <ol class="toc"><li class="part-title">bok</li><li><a class=""  href="/">Introduction</a></li>
       <li class="chapter-item">
         <strong>1.</strong>
         &nbsp;
         <a class=""
-           href="/getting-started">Getting Start</a>
+           href="/getting-started">Getting Started</a>
       </li>
-    <li class="spacer"></li><li class="part-title">Documentation</li>
+    <li class="spacer"></li><li class="part-title">Reference</li>
       <li class="chapter-item">
         <strong>2.</strong>
         &nbsp;
         <a class=""
-           href="/usage/usage">CLI Usage</a>
+           href="/usage/usage">CLI Commands</a>
       </li>
     
         <li>
@@ -85,26 +87,69 @@
           </ol>
         </li>
       
-      <li class="chapter-item draft">
+      <li class="chapter-item">
         <strong>3.</strong>
         &nbsp;
-        Configuration
+        <a class=""
+           href="/configuration/configuration">Configuration</a>
       </li>
     
         <li>
           <ol class="section">
             
-      <li class="chapter-item draft">
+      <li class="chapter-item">
         <strong>3.1.</strong>
         &nbsp;
-        Table of Contents Format
+        <a class=""
+           href="/configuration/site-config">Site Config</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>3.2.</strong>
+        &nbsp;
+        <a class=""
+           href="/configuration/toc-format">TOC Format</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>3.3.</strong>
+        &nbsp;
+        <a class=""
+           href="/configuration/front-matter">Front Matter</a>
+      </li>
+    
+          </ol>
+        </li>
+      
+      <li class="chapter-item">
+        <strong>4.</strong>
+        &nbsp;
+        <a class=""
+           href="/themes/themes">Themes</a>
+      </li>
+    
+        <li>
+          <ol class="section">
+            
+      <li class="chapter-item">
+        <strong>4.1.</strong>
+        &nbsp;
+        <a class=""
+           href="/themes/book-theme">Book Theme</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>4.2.</strong>
+        &nbsp;
+        <a class=""
+           href="/themes/creating-themes">Creating Themes</a>
       </li>
     
           </ol>
         </li>
       <li class="spacer"></li><li class="part-title">Development</li>
       <li class="chapter-item">
-        <strong>4.</strong>
+        <strong>5.</strong>
         &nbsp;
         <a class=""
            href="/contributing">Contributing</a>
@@ -144,6 +189,85 @@
 
           <div class="page-content">
             <h1 id="init" tabindex="-1">init</h1>
+<p>Initialize a new bok site in the current directory.</p>
+<h2 id="usage" tabindex="-1">Usage</h2>
+<pre><code class="language-bash">bok init [options]
+</code></pre>
+<h2 id="options" tabindex="-1">Options</h2>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--mode &lt;string&gt;</code></td>
+<td>Create mode: <code>extend</code> or <code>create</code></td>
+</tr>
+<tr>
+<td><code>--theme &lt;string&gt;</code></td>
+<td>Theme to use: <code>basic</code>, <code>book</code>, or <code>path</code></td>
+</tr>
+<tr>
+<td><code>--theme-path &lt;string&gt;</code></td>
+<td>Path to custom theme config (when theme is <code>path</code>)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modes" tabindex="-1">Modes</h2>
+<h3 id="extend-mode-(recommended)" tabindex="-1">Extend Mode (Recommended)</h3>
+<p>Extends an existing theme. Creates a minimal <code>config.ts</code> and copies the theme's content directory.</p>
+<pre><code class="language-bash">bok init --mode extend --theme book
+</code></pre>
+<p>This creates:</p>
+<ul>
+<li><code>config.ts</code> - References the theme, lets you override params</li>
+<li><code>content/</code> - Copy of the theme's example content</li>
+</ul>
+<p>Your config will look like:</p>
+<pre><code class="language-typescript">export default {
+  extends: &quot;book&quot;,
+  params: {
+    title: &quot;My Site&quot;,
+  },
+};
+</code></pre>
+<h3 id="create-mode" tabindex="-1">Create Mode</h3>
+<p>Copies all theme files into your project for full customization.</p>
+<pre><code class="language-bash">bok init --mode create --theme book
+</code></pre>
+<p>This creates:</p>
+<ul>
+<li><code>config.ts</code> - Full configuration</li>
+<li><code>content/</code> - Content directory</li>
+<li><code>layout/</code> - Template files</li>
+<li><code>assets/</code> - CSS, JS, images</li>
+</ul>
+<h2 id="interactive-mode" tabindex="-1">Interactive Mode</h2>
+<p>Run without options to use interactive prompts:</p>
+<pre><code class="language-bash">bok init
+</code></pre>
+<p>You'll be asked:</p>
+<ol>
+<li><strong>Mode</strong>: Extend or create from scratch?</li>
+<li><strong>Theme</strong>: Which theme to use?</li>
+</ol>
+<h2 id="using-a-custom-theme" tabindex="-1">Using a Custom Theme</h2>
+<p>Point to your own theme config:</p>
+<pre><code class="language-bash">bok init --mode extend --theme path --theme-path /path/to/theme/config.ts
+</code></pre>
+<h2 id="examples" tabindex="-1">Examples</h2>
+<pre><code class="language-bash"># Interactive mode
+bok init
+
+# Quick start with book theme
+bok init --mode extend --theme book
+
+# Full theme customization
+bok init --mode create --theme basic
+</code></pre>
 
           </div>
 
@@ -160,7 +284,9 @@
   
         </div>
 
-        
+        <aside class="right-toc"><nav class="right-toc-nav">
+    <h4 class="right-toc-title">On this page</h4>
+    <ul class="right-toc-list"><li><a href="#usage">Usage</a></li><li><a href="#options">Options</a></li><li><a href="#modes">Modes</a></li><li class="right-toc-indent-1"><a href="#extend-mode-(recommended)">Extend Mode (Recommended)</a></li><li class="right-toc-indent-1"><a href="#create-mode">Create Mode</a></li><li><a href="#interactive-mode">Interactive Mode</a></li><li><a href="#using-a-custom-theme">Using a Custom Theme</a></li><li><a href="#examples">Examples</a></li></ul></nav></aside>
       </div>
     </main>
   

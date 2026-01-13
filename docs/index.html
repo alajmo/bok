@@ -14,6 +14,8 @@
         <link rel="stylesheet" type="text/css" href="/assets/css/prism.css" />
         <link rel="stylesheet" type="text/css" href="/assets/fonts/fonts.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/variables.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/general.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/chrome.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/base.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/typography.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/list.css" />
@@ -29,19 +31,19 @@
     </script>
 
     <aside id="sidebar" class="sidebar">
-      <ol class="toc"><li class="part-title">markBook</li><li><a class="active"  href="/">About</a></li>
+      <ol class="toc"><li class="part-title">bok</li><li><a class="active"  href="/">Introduction</a></li>
       <li class="chapter-item">
         <strong>1.</strong>
         &nbsp;
         <a class=""
-           href="/getting-started">Getting Start</a>
+           href="/getting-started">Getting Started</a>
       </li>
-    <li class="spacer"></li><li class="part-title">Documentation</li>
+    <li class="spacer"></li><li class="part-title">Reference</li>
       <li class="chapter-item">
         <strong>2.</strong>
         &nbsp;
         <a class=""
-           href="/usage/usage">CLI Usage</a>
+           href="/usage/usage">CLI Commands</a>
       </li>
     
         <li>
@@ -85,26 +87,69 @@
           </ol>
         </li>
       
-      <li class="chapter-item draft">
+      <li class="chapter-item">
         <strong>3.</strong>
         &nbsp;
-        Configuration
+        <a class=""
+           href="/configuration/configuration">Configuration</a>
       </li>
     
         <li>
           <ol class="section">
             
-      <li class="chapter-item draft">
+      <li class="chapter-item">
         <strong>3.1.</strong>
         &nbsp;
-        Table of Contents Format
+        <a class=""
+           href="/configuration/site-config">Site Config</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>3.2.</strong>
+        &nbsp;
+        <a class=""
+           href="/configuration/toc-format">TOC Format</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>3.3.</strong>
+        &nbsp;
+        <a class=""
+           href="/configuration/front-matter">Front Matter</a>
+      </li>
+    
+          </ol>
+        </li>
+      
+      <li class="chapter-item">
+        <strong>4.</strong>
+        &nbsp;
+        <a class=""
+           href="/themes/themes">Themes</a>
+      </li>
+    
+        <li>
+          <ol class="section">
+            
+      <li class="chapter-item">
+        <strong>4.1.</strong>
+        &nbsp;
+        <a class=""
+           href="/themes/book-theme">Book Theme</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>4.2.</strong>
+        &nbsp;
+        <a class=""
+           href="/themes/creating-themes">Creating Themes</a>
       </li>
     
           </ol>
         </li>
       <li class="spacer"></li><li class="part-title">Development</li>
       <li class="chapter-item">
-        <strong>4.</strong>
+        <strong>5.</strong>
         &nbsp;
         <a class=""
            href="/contributing">Contributing</a>
@@ -133,35 +178,52 @@
           <div class="page-nav page-nav-prev"></div>
 
           <div class="page-content">
-            <h1 id="markbook" tabindex="-1">markBook</h1>
-<p><code>bok</code> is a simple static site generator implemented as a command line tool in
-<code>Deno</code>. It converts Markdown (CommonMark specification) files to HTML files via
-Javascript Template Literals. Main use cases for <code>bok</code> are personal blogs, documentation sites, etc.</p>
-<p>It comes with a theme for creating HTML books from Markdown.</p>
+            <h1 id="bok" tabindex="-1">bok</h1>
+<p><strong>bok</strong> is a fast, minimal static site generator built with Bun. It converts Markdown files to HTML using TypeScript template literals, with a focus on documentation sites and books.</p>
 <h2 id="features" tabindex="-1">Features</h2>
 <ul>
-<li>Simple and minimal API</li>
-<li>Supports Markdown (with Front-matter)</li>
-<li>Vanilla JS Templating (or bring your own templating system and invoke it via
-Javascript)</li>
-<li>Easily extendable</li>
-<li>Auto-refresh browser client on file change</li>
-<li>Book Theme</li>
+<li><strong>Fast</strong> - Built on Bun for quick builds and hot reloading</li>
+<li><strong>Simple</strong> - Markdown in, HTML out, minimal configuration</li>
+<li><strong>Flexible Templates</strong> - Use TypeScript template literals for layouts</li>
+<li><strong>Live Reload</strong> - Auto-refresh browser on file changes</li>
+<li><strong>Book Theme</strong> - Built-in theme inspired by mdBook/GitBook</li>
+<li><strong>Table of Contents</strong> - Define page order with a simple TOC file</li>
+<li><strong>Right-side Navigation</strong> - Auto-generated on-page heading navigation</li>
+<li><strong>Front Matter</strong> - Add metadata to pages with simple key-value pairs</li>
 </ul>
+<h2 id="quick-start" tabindex="-1">Quick Start</h2>
+<pre><code class="language-bash"># Install bun if you haven't already
+curl -fsSL https://bun.sh/install | bash
+
+# Clone and install
+git clone https://github.com/alajmo/bok
+cd bok
+bun install
+
+# Create a new site
+bun run mod.ts init
+
+# Start development server
+bun run mod.ts serve config.ts
+</code></pre>
+<h2 id="how-it-works" tabindex="-1">How It Works</h2>
+<ol>
+<li><strong>Configuration</strong> - Define your site in <code>config.ts</code></li>
+<li><strong>Content</strong> - Write pages in Markdown in the <code>content/</code> directory</li>
+<li><strong>TOC</strong> - Define page order in <code>content/toc.md</code></li>
+<li><strong>Build</strong> - Run <code>bok build</code> to generate static HTML</li>
+<li><strong>Serve</strong> - Run <code>bok serve</code> for development with live reload</li>
+</ol>
 <h2 id="philosophy" tabindex="-1">Philosophy</h2>
 <blockquote>
-<p>In the beginning, all you want is results.</p>
-<p>In the end, all you want is control.</p>
+<p>In the beginning, all you want is results.
+In the end, all you want is control.</p>
 </blockquote>
-<p>markBook single purpose is to transform <strong>Markdown</strong> documents to <strong>HTML</strong>
-documents. As such, it should be easy for someone to download markBook, run a
-command, and get quickly from Markdown to a presentable HTML document. Later, if
-the user wants to extend his HTML somehow, there shouldn't be tons of
-configuration necessary for him to read.</p>
+<p>bok aims to be:</p>
 <ul>
-<li>Explicit over implicit</li>
-<li>Keep the core small</li>
-<li>Use plugins to extend behavior</li>
+<li><strong>Explicit over implicit</strong> - No magic, clear configuration</li>
+<li><strong>Minimal core</strong> - Do one thing well: Markdown to HTML</li>
+<li><strong>Extensible</strong> - Hooks and custom layouts for advanced use cases</li>
 </ul>
 
           </div>
@@ -181,7 +243,7 @@ configuration necessary for him to read.</p>
 
         <aside class="right-toc"><nav class="right-toc-nav">
     <h4 class="right-toc-title">On this page</h4>
-    <ul class="right-toc-list"><li><a href="#features">Features</a></li><li><a href="#philosophy">Philosophy</a></li></ul></nav></aside>
+    <ul class="right-toc-list"><li><a href="#features">Features</a></li><li><a href="#quick-start">Quick Start</a></li><li><a href="#how-it-works">How It Works</a></li><li><a href="#philosophy">Philosophy</a></li></ul></nav></aside>
       </div>
     </main>
   

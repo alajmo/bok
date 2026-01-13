@@ -1,0 +1,348 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="description" rel="shortcut icon" content="" />
+
+        <link rel="icon" href="/assets/img/ico/favicon.ico" />
+        <link rel="apple-touch-icon-precomposed" href="/assets/img/ico/favicon.ico" />
+        <meta name="msapplication-TileImage" content="/assets/img/ico/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <link rel="stylesheet" type="text/css" href="/assets/css/reset.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/prism.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/fonts/fonts.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/variables.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/general.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/chrome.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/base.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/typography.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/list.css" />
+      </head>
+
+      <body>
+        <div class="book">
+          
+    <script type="text/javascript">
+      const html = document.querySelector('html');
+      const showSidebar = window.sessionStorage.getItem('showSidebar');
+      html.setAttribute('data-show-sidebar', showSidebar);
+    </script>
+
+    <aside id="sidebar" class="sidebar">
+      <ol class="toc"><li class="part-title">bok</li><li><a class=""  href="/">Introduction</a></li>
+      <li class="chapter-item">
+        <strong>1.</strong>
+        &nbsp;
+        <a class=""
+           href="/getting-started">Getting Started</a>
+      </li>
+    <li class="spacer"></li><li class="part-title">Reference</li>
+      <li class="chapter-item">
+        <strong>2.</strong>
+        &nbsp;
+        <a class=""
+           href="/usage/usage">CLI Commands</a>
+      </li>
+    
+        <li>
+          <ol class="section">
+            
+      <li class="chapter-item">
+        <strong>2.1.</strong>
+        &nbsp;
+        <a class=""
+           href="/usage/init">init</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>2.2.</strong>
+        &nbsp;
+        <a class=""
+           href="/usage/build">build</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>2.3.</strong>
+        &nbsp;
+        <a class=""
+           href="/usage/watch">watch</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>2.4.</strong>
+        &nbsp;
+        <a class=""
+           href="/usage/serve">serve</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>2.5.</strong>
+        &nbsp;
+        <a class=""
+           href="/usage/clean">clean</a>
+      </li>
+    
+          </ol>
+        </li>
+      
+      <li class="chapter-item">
+        <strong>3.</strong>
+        &nbsp;
+        <a class="active"
+           href="/configuration/configuration">Configuration</a>
+      </li>
+    
+        <li>
+          <ol class="section">
+            
+      <li class="chapter-item">
+        <strong>3.1.</strong>
+        &nbsp;
+        <a class=""
+           href="/configuration/site-config">Site Config</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>3.2.</strong>
+        &nbsp;
+        <a class=""
+           href="/configuration/toc-format">TOC Format</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>3.3.</strong>
+        &nbsp;
+        <a class=""
+           href="/configuration/front-matter">Front Matter</a>
+      </li>
+    
+          </ol>
+        </li>
+      
+      <li class="chapter-item">
+        <strong>4.</strong>
+        &nbsp;
+        <a class=""
+           href="/themes/themes">Themes</a>
+      </li>
+    
+        <li>
+          <ol class="section">
+            
+      <li class="chapter-item">
+        <strong>4.1.</strong>
+        &nbsp;
+        <a class=""
+           href="/themes/book-theme">Book Theme</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>4.2.</strong>
+        &nbsp;
+        <a class=""
+           href="/themes/creating-themes">Creating Themes</a>
+      </li>
+    
+          </ol>
+        </li>
+      <li class="spacer"></li><li class="part-title">Development</li>
+      <li class="chapter-item">
+        <strong>5.</strong>
+        &nbsp;
+        <a class=""
+           href="/contributing">Contributing</a>
+      </li>
+    </ol>
+    </aside>
+
+    <main id="content" class="content">
+      <div class="menu">
+          <button title="Toggle sidebar"
+                  type="button"
+                  class="icon-button"
+                  onclick="sidebar.toggle();">
+            <img
+              class="menu-icon"
+              src="/assets/img/svg/menu.svg"
+              alt="menu"
+              width="auto"
+              height="20"
+            />
+          </button>
+      </div>
+
+      <div class="page-wrapper">
+        <div class="page">
+          
+    <a href="/usage/clean" id="page-nav-prev" class="page-nav page-nav-prev">
+      <img
+        class="page-nav-icon"
+        src="/assets/img/svg/chevron-left.svg"
+        alt="Previous chapter"
+        width="auto"
+        height="40"
+      />
+    </a>
+  
+
+          <div class="page-content">
+            <h1 id="configuration" tabindex="-1">Configuration</h1>
+<p>bok uses a TypeScript configuration file (<code>config.ts</code>) to define your site settings.</p>
+<h2 id="basic-config" tabindex="-1">Basic Config</h2>
+<pre><code class="language-typescript">export default {
+  extends: &quot;book&quot;,
+
+  paths: {
+    output: &quot;site&quot;,
+  },
+
+  params: {
+    title: &quot;My Documentation&quot;,
+    author: &quot;Your Name&quot;,
+  },
+};
+</code></pre>
+<h2 id="configuration-options" tabindex="-1">Configuration Options</h2>
+<h3 id="extends" tabindex="-1">extends</h3>
+<p>Extend a built-in or custom theme.</p>
+<pre><code class="language-typescript">extends: &quot;book&quot;        // Built-in theme
+extends: &quot;basic&quot;       // Built-in theme
+extends: &quot;/path/to/theme/config.ts&quot;  // Custom theme
+</code></pre>
+<h3 id="rooturl" tabindex="-1">rootUrl</h3>
+<p>Base URL prefix for all links. Useful when deploying to a subdirectory.</p>
+<pre><code class="language-typescript">rootUrl: &quot;/docs&quot;  // Site served at example.com/docs/
+rootUrl: &quot;&quot;       // Site served at root (default)
+</code></pre>
+<h3 id="uglyurls" tabindex="-1">uglyURLs</h3>
+<p>Use <code>.html</code> extensions instead of directory-based URLs.</p>
+<pre><code class="language-typescript">uglyURLs: false  // /about/ (default)
+uglyURLs: true   // /about.html
+</code></pre>
+<h3 id="paths" tabindex="-1">paths</h3>
+<p>Configure directory locations.</p>
+<pre><code class="language-typescript">paths: {
+  content: &quot;content&quot;,     // Markdown files location
+  output: &quot;site&quot;,         // Build output directory
+  assets: &quot;assets&quot;,       // Theme assets (CSS, JS, images)
+  layout: &quot;layout&quot;,       // Template files
+  defaultLayout: &quot;index.ts&quot;,  // Default page template
+  public: [&quot;public&quot;],     // Additional directories to copy
+}
+</code></pre>
+<p>All paths are relative to the config file location.</p>
+<h3 id="files" tabindex="-1">files</h3>
+<p>Configure how pages are discovered.</p>
+<pre><code class="language-typescript">// Table of contents mode (recommended for books)
+files: {
+  type: &quot;toc&quot;,
+  file: &quot;toc.md&quot;,
+}
+
+// Walk all markdown files
+files: {
+  type: &quot;walk&quot;,
+}
+
+// Glob pattern
+files: {
+  type: &quot;glob&quot;,
+  glob: &quot;**/*.md&quot;,
+}
+</code></pre>
+<h3 id="serve" tabindex="-1">serve</h3>
+<p>Development server settings.</p>
+<pre><code class="language-typescript">serve: {
+  reload: true,   // Enable live reload
+  port: 5000,     // HTTP server port
+  wsPort: 5001,   // WebSocket port
+}
+</code></pre>
+<h3 id="hooks" tabindex="-1">hooks</h3>
+<p>Lifecycle hooks for custom processing.</p>
+<pre><code class="language-typescript">hooks: {
+  async beforeSite(site, pages, opts) {
+    // Called before building any pages
+  },
+  async afterSite(site, pages, opts) {
+    // Called after all pages are built
+  },
+  async beforePage(site, page, index, pages, opts) {
+    // Called before each page is processed
+  },
+  async afterPage(site, page, index, pages, opts) {
+    // Called after each page is processed
+  },
+}
+</code></pre>
+<h3 id="params" tabindex="-1">params</h3>
+<p>Custom parameters passed to templates.</p>
+<pre><code class="language-typescript">params: {
+  title: &quot;My Site&quot;,
+  author: &quot;Your Name&quot;,
+  description: &quot;Site description&quot;,
+  // Any custom data you need in templates
+}
+</code></pre>
+<h2 id="full-example" tabindex="-1">Full Example</h2>
+<pre><code class="language-typescript">export default {
+  extends: &quot;book&quot;,
+
+  rootUrl: &quot;&quot;,
+  uglyURLs: false,
+
+  paths: {
+    output: &quot;dist&quot;,
+    public: [&quot;images&quot;, &quot;downloads&quot;],
+  },
+
+  serve: {
+    reload: true,
+    port: 3000,
+    wsPort: 3001,
+  },
+
+  params: {
+    title: &quot;My Documentation&quot;,
+    author: &quot;Your Name&quot;,
+    description: &quot;Comprehensive guide&quot;,
+    rightToc: {
+      enabled: true,
+      title: &quot;On this page&quot;,
+      minHeadings: 2,
+      levels: [2, 3],
+    },
+  },
+};
+</code></pre>
+
+          </div>
+
+          
+    <a href="/configuration/site-config" id="page-nav-next" class="page-nav page-nav-next">
+      <img
+        class="page-nav-icon"
+        src="/assets/img/svg/chevron-right.svg"
+        alt="Previous chapter"
+        width="auto"
+        height="40"
+      />
+    </a>
+  
+        </div>
+
+        <aside class="right-toc"><nav class="right-toc-nav">
+    <h4 class="right-toc-title">On this page</h4>
+    <ul class="right-toc-list"><li><a href="#basic-config">Basic Config</a></li><li><a href="#configuration-options">Configuration Options</a></li><li class="right-toc-indent-1"><a href="#extends">extends</a></li><li class="right-toc-indent-1"><a href="#rooturl">rootUrl</a></li><li class="right-toc-indent-1"><a href="#uglyurls">uglyURLs</a></li><li class="right-toc-indent-1"><a href="#paths">paths</a></li><li class="right-toc-indent-1"><a href="#files">files</a></li><li class="right-toc-indent-1"><a href="#serve">serve</a></li><li class="right-toc-indent-1"><a href="#hooks">hooks</a></li><li class="right-toc-indent-1"><a href="#params">params</a></li><li><a href="#full-example">Full Example</a></li></ul></nav></aside>
+      </div>
+    </main>
+  
+        </div>
+
+        <script defer src="/assets/js/index.js"></script>
+        <script defer src="/assets/js/prism.min.js"></script>
+      </body>
+    </html>
+  

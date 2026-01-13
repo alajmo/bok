@@ -1,0 +1,294 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="description" rel="shortcut icon" content="" />
+
+        <link rel="icon" href="/assets/img/ico/favicon.ico" />
+        <link rel="apple-touch-icon-precomposed" href="/assets/img/ico/favicon.ico" />
+        <meta name="msapplication-TileImage" content="/assets/img/ico/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <link rel="stylesheet" type="text/css" href="/assets/css/reset.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/prism.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/fonts/fonts.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/variables.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/general.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/chrome.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/base.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/typography.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/list.css" />
+      </head>
+
+      <body>
+        <div class="book">
+          
+    <script type="text/javascript">
+      const html = document.querySelector('html');
+      const showSidebar = window.sessionStorage.getItem('showSidebar');
+      html.setAttribute('data-show-sidebar', showSidebar);
+    </script>
+
+    <aside id="sidebar" class="sidebar">
+      <ol class="toc"><li class="part-title">bok</li><li><a class=""  href="/">Introduction</a></li>
+      <li class="chapter-item">
+        <strong>1.</strong>
+        &nbsp;
+        <a class=""
+           href="/getting-started">Getting Started</a>
+      </li>
+    <li class="spacer"></li><li class="part-title">Reference</li>
+      <li class="chapter-item">
+        <strong>2.</strong>
+        &nbsp;
+        <a class=""
+           href="/usage/usage">CLI Commands</a>
+      </li>
+    
+        <li>
+          <ol class="section">
+            
+      <li class="chapter-item">
+        <strong>2.1.</strong>
+        &nbsp;
+        <a class=""
+           href="/usage/init">init</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>2.2.</strong>
+        &nbsp;
+        <a class=""
+           href="/usage/build">build</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>2.3.</strong>
+        &nbsp;
+        <a class=""
+           href="/usage/watch">watch</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>2.4.</strong>
+        &nbsp;
+        <a class=""
+           href="/usage/serve">serve</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>2.5.</strong>
+        &nbsp;
+        <a class=""
+           href="/usage/clean">clean</a>
+      </li>
+    
+          </ol>
+        </li>
+      
+      <li class="chapter-item">
+        <strong>3.</strong>
+        &nbsp;
+        <a class=""
+           href="/configuration/configuration">Configuration</a>
+      </li>
+    
+        <li>
+          <ol class="section">
+            
+      <li class="chapter-item">
+        <strong>3.1.</strong>
+        &nbsp;
+        <a class=""
+           href="/configuration/site-config">Site Config</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>3.2.</strong>
+        &nbsp;
+        <a class=""
+           href="/configuration/toc-format">TOC Format</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>3.3.</strong>
+        &nbsp;
+        <a class=""
+           href="/configuration/front-matter">Front Matter</a>
+      </li>
+    
+          </ol>
+        </li>
+      
+      <li class="chapter-item">
+        <strong>4.</strong>
+        &nbsp;
+        <a class="active"
+           href="/themes/themes">Themes</a>
+      </li>
+    
+        <li>
+          <ol class="section">
+            
+      <li class="chapter-item">
+        <strong>4.1.</strong>
+        &nbsp;
+        <a class=""
+           href="/themes/book-theme">Book Theme</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>4.2.</strong>
+        &nbsp;
+        <a class=""
+           href="/themes/creating-themes">Creating Themes</a>
+      </li>
+    
+          </ol>
+        </li>
+      <li class="spacer"></li><li class="part-title">Development</li>
+      <li class="chapter-item">
+        <strong>5.</strong>
+        &nbsp;
+        <a class=""
+           href="/contributing">Contributing</a>
+      </li>
+    </ol>
+    </aside>
+
+    <main id="content" class="content">
+      <div class="menu">
+          <button title="Toggle sidebar"
+                  type="button"
+                  class="icon-button"
+                  onclick="sidebar.toggle();">
+            <img
+              class="menu-icon"
+              src="/assets/img/svg/menu.svg"
+              alt="menu"
+              width="auto"
+              height="20"
+            />
+          </button>
+      </div>
+
+      <div class="page-wrapper">
+        <div class="page">
+          
+    <a href="/configuration/front-matter" id="page-nav-prev" class="page-nav page-nav-prev">
+      <img
+        class="page-nav-icon"
+        src="/assets/img/svg/chevron-left.svg"
+        alt="Previous chapter"
+        width="auto"
+        height="40"
+      />
+    </a>
+  
+
+          <div class="page-content">
+            <h1 id="themes" tabindex="-1">Themes</h1>
+<p>Themes control the look and feel of your bok site. They provide layouts, styles, and default configuration.</p>
+<h2 id="built-in-themes" tabindex="-1">Built-in Themes</h2>
+<h3 id="basic" tabindex="-1">basic</h3>
+<p>A minimal theme with just the essentials.</p>
+<pre><code class="language-typescript">export default {
+  extends: &quot;basic&quot;,
+};
+</code></pre>
+<p>Features:</p>
+<ul>
+<li>Simple HTML structure</li>
+<li>No styling</li>
+<li>Good starting point for custom themes</li>
+</ul>
+<h3 id="book" tabindex="-1">book</h3>
+<p>A documentation theme inspired by mdBook and GitBook.</p>
+<pre><code class="language-typescript">export default {
+  extends: &quot;book&quot;,
+};
+</code></pre>
+<p>Features:</p>
+<ul>
+<li>Sidebar navigation</li>
+<li>Previous/next page links</li>
+<li>Right-side table of contents</li>
+<li>Responsive design</li>
+<li>Syntax highlighting</li>
+</ul>
+<p>See <a href="book-theme.md">Book Theme</a> for details.</p>
+<h2 id="theme-structure" tabindex="-1">Theme Structure</h2>
+<p>A theme consists of:</p>
+<pre><code>my-theme/
+├── config.ts       # Theme configuration
+├── layout/         # Template files
+│   ├── index.ts    # Default layout
+│   └── base.ts     # Base HTML wrapper
+├── assets/         # Static assets
+│   ├── css/
+│   ├── js/
+│   ├── img/
+│   └── fonts/
+└── content/        # Example content (for init)
+    ├── toc.md
+    └── index.md
+</code></pre>
+<h2 id="extending-vs-creating" tabindex="-1">Extending vs Creating</h2>
+<h3 id="extend-(recommended)" tabindex="-1">Extend (Recommended)</h3>
+<p>Use the theme's layouts and assets, customize only what you need:</p>
+<pre><code class="language-typescript">export default {
+  extends: &quot;book&quot;,
+  params: {
+    title: &quot;My Docs&quot;,
+  },
+};
+</code></pre>
+<h3 id="create" tabindex="-1">Create</h3>
+<p>Copy theme files for full customization:</p>
+<pre><code class="language-bash">bok init --mode create --theme book
+</code></pre>
+<p>This copies all theme files to your project.</p>
+<h2 id="custom-themes" tabindex="-1">Custom Themes</h2>
+<p>Create your own theme by:</p>
+<ol>
+<li>Creating a theme directory with the structure above</li>
+<li>Writing a <code>config.ts</code> with theme defaults</li>
+<li>Creating layout templates</li>
+<li>Adding assets</li>
+</ol>
+<p>Reference your custom theme:</p>
+<pre><code class="language-typescript">export default {
+  extends: &quot;/path/to/my-theme/config.ts&quot;,
+};
+</code></pre>
+<p>See <a href="creating-themes.md">Creating Themes</a> for a complete guide.</p>
+
+          </div>
+
+          
+    <a href="/themes/book-theme" id="page-nav-next" class="page-nav page-nav-next">
+      <img
+        class="page-nav-icon"
+        src="/assets/img/svg/chevron-right.svg"
+        alt="Previous chapter"
+        width="auto"
+        height="40"
+      />
+    </a>
+  
+        </div>
+
+        <aside class="right-toc"><nav class="right-toc-nav">
+    <h4 class="right-toc-title">On this page</h4>
+    <ul class="right-toc-list"><li><a href="#built-in-themes">Built-in Themes</a></li><li class="right-toc-indent-1"><a href="#basic">basic</a></li><li class="right-toc-indent-1"><a href="#book">book</a></li><li><a href="#theme-structure">Theme Structure</a></li><li><a href="#extending-vs-creating">Extending vs Creating</a></li><li class="right-toc-indent-1"><a href="#extend-(recommended)">Extend (Recommended)</a></li><li class="right-toc-indent-1"><a href="#create">Create</a></li><li><a href="#custom-themes">Custom Themes</a></li></ul></nav></aside>
+      </div>
+    </main>
+  
+        </div>
+
+        <script defer src="/assets/js/index.js"></script>
+        <script defer src="/assets/js/prism.min.js"></script>
+      </body>
+    </html>
+  

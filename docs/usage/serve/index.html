@@ -14,6 +14,8 @@
         <link rel="stylesheet" type="text/css" href="/assets/css/prism.css" />
         <link rel="stylesheet" type="text/css" href="/assets/fonts/fonts.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/variables.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/general.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/chrome.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/base.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/typography.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/list.css" />
@@ -29,19 +31,19 @@
     </script>
 
     <aside id="sidebar" class="sidebar">
-      <ol class="toc"><li class="part-title">markBook</li><li><a class=""  href="/">About</a></li>
+      <ol class="toc"><li class="part-title">bok</li><li><a class=""  href="/">Introduction</a></li>
       <li class="chapter-item">
         <strong>1.</strong>
         &nbsp;
         <a class=""
-           href="/getting-started">Getting Start</a>
+           href="/getting-started">Getting Started</a>
       </li>
-    <li class="spacer"></li><li class="part-title">Documentation</li>
+    <li class="spacer"></li><li class="part-title">Reference</li>
       <li class="chapter-item">
         <strong>2.</strong>
         &nbsp;
         <a class=""
-           href="/usage/usage">CLI Usage</a>
+           href="/usage/usage">CLI Commands</a>
       </li>
     
         <li>
@@ -85,26 +87,69 @@
           </ol>
         </li>
       
-      <li class="chapter-item draft">
+      <li class="chapter-item">
         <strong>3.</strong>
         &nbsp;
-        Configuration
+        <a class=""
+           href="/configuration/configuration">Configuration</a>
       </li>
     
         <li>
           <ol class="section">
             
-      <li class="chapter-item draft">
+      <li class="chapter-item">
         <strong>3.1.</strong>
         &nbsp;
-        Table of Contents Format
+        <a class=""
+           href="/configuration/site-config">Site Config</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>3.2.</strong>
+        &nbsp;
+        <a class=""
+           href="/configuration/toc-format">TOC Format</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>3.3.</strong>
+        &nbsp;
+        <a class=""
+           href="/configuration/front-matter">Front Matter</a>
+      </li>
+    
+          </ol>
+        </li>
+      
+      <li class="chapter-item">
+        <strong>4.</strong>
+        &nbsp;
+        <a class=""
+           href="/themes/themes">Themes</a>
+      </li>
+    
+        <li>
+          <ol class="section">
+            
+      <li class="chapter-item">
+        <strong>4.1.</strong>
+        &nbsp;
+        <a class=""
+           href="/themes/book-theme">Book Theme</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>4.2.</strong>
+        &nbsp;
+        <a class=""
+           href="/themes/creating-themes">Creating Themes</a>
       </li>
     
           </ol>
         </li>
       <li class="spacer"></li><li class="part-title">Development</li>
       <li class="chapter-item">
-        <strong>4.</strong>
+        <strong>5.</strong>
         &nbsp;
         <a class=""
            href="/contributing">Contributing</a>
@@ -143,7 +188,104 @@
   
 
           <div class="page-content">
-            
+            <h1 id="serve" tabindex="-1">serve</h1>
+<p>Build, serve, and live reload your site during development.</p>
+<h2 id="usage" tabindex="-1">Usage</h2>
+<pre><code class="language-bash">bok serve [options] [config]
+</code></pre>
+<h2 id="arguments" tabindex="-1">Arguments</h2>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>config</code></td>
+<td>Path to config file</td>
+<td><code>config.ts</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="options" tabindex="-1">Options</h2>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--port &lt;port&gt;</code></td>
+<td>HTTP server port</td>
+<td><code>5000</code></td>
+</tr>
+<tr>
+<td><code>--ws-port &lt;port&gt;</code></td>
+<td>WebSocket port for live reload</td>
+<td><code>5001</code></td>
+</tr>
+<tr>
+<td><code>--reload</code></td>
+<td>Enable live reload</td>
+<td><code>true</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="what-it-does" tabindex="-1">What It Does</h2>
+<ol>
+<li>Performs an initial <a href="build.md">build</a></li>
+<li>Starts an HTTP server to serve your site</li>
+<li>Starts a WebSocket server for live reload</li>
+<li>Watches for file changes and rebuilds</li>
+<li>Notifies the browser to reload after rebuilds</li>
+</ol>
+<h2 id="live-reload" tabindex="-1">Live Reload</h2>
+<p>When <code>--reload</code> is enabled (default), bok:</p>
+<ol>
+<li>Injects a small JavaScript snippet into HTML pages</li>
+<li>Opens a WebSocket connection to the dev server</li>
+<li>Listens for build completion events</li>
+<li>Automatically reloads the page when content changes</li>
+</ol>
+<h2 id="server-details" tabindex="-1">Server Details</h2>
+<p>The HTTP server:</p>
+<ul>
+<li>Serves static files from the output directory</li>
+<li>Returns <code>index.html</code> for directory requests</li>
+<li>Serves <code>404/index.html</code> for missing pages (if it exists)</li>
+<li>Logs all requests to the console</li>
+</ul>
+<h2 id="examples" tabindex="-1">Examples</h2>
+<pre><code class="language-bash"># Start with defaults (port 5000)
+bok serve config.ts
+
+# Custom HTTP port
+bok serve --port 3000 config.ts
+
+# Custom WebSocket port
+bok serve --ws-port 3001 config.ts
+
+# Disable live reload
+bok serve --reload=false config.ts
+</code></pre>
+<h2 id="configuration" tabindex="-1">Configuration</h2>
+<p>You can also set serve options in your config file:</p>
+<pre><code class="language-typescript">export default {
+  serve: {
+    reload: true,
+    port: 5000,
+    wsPort: 5001,
+  },
+};
+</code></pre>
+<p>Command-line options override config file settings.</p>
+
           </div>
 
           
@@ -159,7 +301,9 @@
   
         </div>
 
-        
+        <aside class="right-toc"><nav class="right-toc-nav">
+    <h4 class="right-toc-title">On this page</h4>
+    <ul class="right-toc-list"><li><a href="#usage">Usage</a></li><li><a href="#arguments">Arguments</a></li><li><a href="#options">Options</a></li><li><a href="#what-it-does">What It Does</a></li><li><a href="#live-reload">Live Reload</a></li><li><a href="#server-details">Server Details</a></li><li><a href="#examples">Examples</a></li><li><a href="#configuration">Configuration</a></li></ul></nav></aside>
       </div>
     </main>
   

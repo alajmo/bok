@@ -1,4 +1,6 @@
-import { fs, log, path } from "../../deps.ts";
+import * as path from "node:path";
+import { fs } from "./fs.ts";
+import { log } from "./log.ts";
 import { __dirname } from "./utils.ts";
 
 export {
@@ -145,8 +147,8 @@ function extendWithDefaultConfig(siteConfig: any, siteDir: string) {
   );
 
   if (siteConfig.paths.public) {
-    const publicPaths = [];
-    siteConfig.paths.public.forEach(p => {
+    const publicPaths: string[] = [];
+    siteConfig.paths.public.forEach((p: string) => {
 
       if (path.isAbsolute(p)) {
         publicPaths.push(p);
@@ -262,13 +264,13 @@ function setSitePath(
   return path.join(siteDir, defaultValue);
 }
 
-async function readSiteConfig(siteConfigPath: string): Promise<any, string> {
+async function readSiteConfig(siteConfigPath: string): Promise<any> {
   if (!fs.existsSync(siteConfigPath)) {
     log.error(`Could not find config file ${siteConfigPath}`);
-    Deno.exit(1);
+    process.exit(1);
   }
 
-  const realSitePath = Deno.realPathSync(siteConfigPath);
+  const realSitePath = fs.realpathSync(siteConfigPath);
   const siteDir = path.dirname(realSitePath);
 
   try {
@@ -278,7 +280,7 @@ async function readSiteConfig(siteConfigPath: string): Promise<any, string> {
   } catch (error) {
     log.error(`Configuration file is malformed:`);
     log.error(error);
-    Deno.exit(1);
+    process.exit(1);
   }
 }
 

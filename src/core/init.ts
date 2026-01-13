@@ -1,4 +1,7 @@
-import { fs, log, path } from "../../deps.ts";
+import * as path from "node:path";
+import { promises as fsPromises } from "node:fs";
+import { fs } from "./fs.ts";
+import { log } from "./log.ts";
 import { readSiteConfig, THEMES } from "./config.ts";
 
 export { init };
@@ -13,9 +16,9 @@ async function init(mode: string, theme: string, themePath: string) {
   const { siteConfig: config, siteDir } = await readSiteConfig(configPath);
 
   if (mode === "extend") {
-    extendSite(theme === "path" ? themePath : theme, config, siteDir);
+    await extendSite(theme === "path" ? themePath : theme, config, siteDir);
   } else if (mode === "create") {
-    createSite(configPath);
+    await createSite(configPath);
   }
 
   successfulCreateMessage(configPath);
@@ -29,28 +32,30 @@ export default {
   params: ${JSON.stringify(config.params, null, 2)},
 };`;
 
-  await Deno.writeTextFile("config.ts", site);
+  await fsPromises.writeFile("config.ts", site);
 
-  const contentPath = path.join(Deno.cwd(), "content");
+  const contentPath = path.join(process.cwd(), "content");
 
   exitIfPathExists(contentPath);
 
   await fs.copy(path.join(siteDir, "content"), contentPath);
 
-  const p = Deno.run({
-    cmd: ["deno", "fmt", "config.ts", "--quiet"],
+  // Format the config file using Bun
+  const proc = Bun.spawn(["bun", "x", "prettier", "--write", "config.ts"], {
+    stdout: "ignore",
+    stderr: "ignore",
   });
 
-  await p.status();
+  await proc.exited;
 }
 
 async function createSite(configPath: string) {
   const dirname = path.dirname(configPath);
 
-  for await (const entry of fs.walk(dirname, { maxDepth: 1 })) {
+  for (const entry of fs.walkSync(dirname, { maxDepth: 1 })) {
     // Just ignore the first result from fs.walk, which is the root directory of dirname
     if (entry.path !== dirname) {
-      const p = path.join(Deno.cwd(), entry.name);
+      const p = path.join(process.cwd(), entry.name);
       exitIfPathExists(p);
       await fs.copy(entry.path, p);
     }
@@ -70,6 +75,6 @@ function exitIfPathExists(p: string) {
     log.error(`
 It seems ${p} already exists in the current directory.
 Remove it or choose a different directory to initialize a new site in.`);
-    Deno.exit(1);
+    process.exit(1);
   }
 }

@@ -14,6 +14,8 @@
         <link rel="stylesheet" type="text/css" href="/assets/css/prism.css" />
         <link rel="stylesheet" type="text/css" href="/assets/fonts/fonts.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/variables.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/general.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/chrome.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/base.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/typography.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/list.css" />
@@ -29,19 +31,19 @@
     </script>
 
     <aside id="sidebar" class="sidebar">
-      <ol class="toc"><li class="part-title">markBook</li><li><a class=""  href="/">About</a></li>
+      <ol class="toc"><li class="part-title">bok</li><li><a class=""  href="/">Introduction</a></li>
       <li class="chapter-item">
         <strong>1.</strong>
         &nbsp;
         <a class=""
-           href="/getting-started">Getting Start</a>
+           href="/getting-started">Getting Started</a>
       </li>
-    <li class="spacer"></li><li class="part-title">Documentation</li>
+    <li class="spacer"></li><li class="part-title">Reference</li>
       <li class="chapter-item">
         <strong>2.</strong>
         &nbsp;
         <a class=""
-           href="/usage/usage">CLI Usage</a>
+           href="/usage/usage">CLI Commands</a>
       </li>
     
         <li>
@@ -85,26 +87,69 @@
           </ol>
         </li>
       
-      <li class="chapter-item draft">
+      <li class="chapter-item">
         <strong>3.</strong>
         &nbsp;
-        Configuration
+        <a class=""
+           href="/configuration/configuration">Configuration</a>
       </li>
     
         <li>
           <ol class="section">
             
-      <li class="chapter-item draft">
+      <li class="chapter-item">
         <strong>3.1.</strong>
         &nbsp;
-        Table of Contents Format
+        <a class=""
+           href="/configuration/site-config">Site Config</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>3.2.</strong>
+        &nbsp;
+        <a class=""
+           href="/configuration/toc-format">TOC Format</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>3.3.</strong>
+        &nbsp;
+        <a class=""
+           href="/configuration/front-matter">Front Matter</a>
+      </li>
+    
+          </ol>
+        </li>
+      
+      <li class="chapter-item">
+        <strong>4.</strong>
+        &nbsp;
+        <a class=""
+           href="/themes/themes">Themes</a>
+      </li>
+    
+        <li>
+          <ol class="section">
+            
+      <li class="chapter-item">
+        <strong>4.1.</strong>
+        &nbsp;
+        <a class=""
+           href="/themes/book-theme">Book Theme</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>4.2.</strong>
+        &nbsp;
+        <a class=""
+           href="/themes/creating-themes">Creating Themes</a>
       </li>
     
           </ol>
         </li>
       <li class="spacer"></li><li class="part-title">Development</li>
       <li class="chapter-item">
-        <strong>4.</strong>
+        <strong>5.</strong>
         &nbsp;
         <a class="active"
            href="/contributing">Contributing</a>
@@ -131,7 +176,7 @@
       <div class="page-wrapper">
         <div class="page">
           
-    <a href="/usage/clean" id="page-nav-prev" class="page-nav page-nav-prev">
+    <a href="/themes/creating-themes" id="page-nav-prev" class="page-nav page-nav-prev">
       <img
         class="page-nav-icon"
         src="/assets/img/svg/chevron-left.svg"
@@ -144,13 +189,108 @@
 
           <div class="page-content">
             <h1 id="contributing" tabindex="-1">Contributing</h1>
+<p>Contributions to bok are welcome!</p>
+<h2 id="development-setup" tabindex="-1">Development Setup</h2>
+<pre><code class="language-bash"># Clone the repository
+git clone https://github.com/alajmo/bok
+cd bok
+
+# Install dependencies
+bun install
+
+# Run the example site
+make serve-debug
+</code></pre>
+<h2 id="project-structure" tabindex="-1">Project Structure</h2>
+<pre><code>bok/
+├── mod.ts              # CLI entry point
+├── deps.ts             # Centralized dependencies
+├── src/
+│   ├── mod.ts          # Main exports
+│   ├── core/
+│   │   ├── build.ts    # Build pipeline
+│   │   ├── config.ts   # Configuration loading
+│   │   ├── init.ts     # Site initialization
+│   │   ├── server.ts   # HTTP server
+│   │   ├── watch.ts    # File watching
+│   │   ├── ws-server.ts # WebSocket server
+│   │   └── utils.ts    # Utilities
+│   └── plugins/
+│       └── toc.ts      # TOC parser
+├── themes/
+│   ├── basic/          # Minimal theme
+│   └── book/           # Documentation theme
+└── examples/
+    └── book/           # Example site
+</code></pre>
+<h2 id="key-files" tabindex="-1">Key Files</h2>
+<h3 id="deps.ts" tabindex="-1">deps.ts</h3>
+<p>All external dependencies are centralized here. This makes it easy to swap implementations.</p>
+<h3 id="src%2Fcore%2Fbuild.ts" tabindex="-1">src/core/build.ts</h3>
+<p>The main build pipeline:</p>
+<ol>
+<li>Clean output directory</li>
+<li>Discover pages (walk/glob/toc)</li>
+<li>Process each page (front matter → markdown → template)</li>
+<li>Copy assets</li>
+</ol>
+<h3 id="src%2Fcore%2Fconfig.ts" tabindex="-1">src/core/config.ts</h3>
+<p>Configuration loading and merging:</p>
+<ul>
+<li>Read user config</li>
+<li>Apply defaults</li>
+<li>Merge with theme config</li>
+<li>Validate paths</li>
+</ul>
+<h3 id="src%2Fplugins%2Ftoc.ts" tabindex="-1">src/plugins/toc.ts</h3>
+<p>Custom lexer and parser for the TOC format:</p>
+<ul>
+<li><code>TocReader</code> - Character stream</li>
+<li><code>TocLexer</code> - Tokenizer</li>
+<li><code>TocParser</code> - AST builder</li>
+<li><code>TocRender</code> - HTML generator</li>
+</ul>
+<h2 id="making-changes" tabindex="-1">Making Changes</h2>
+<ol>
+<li>Fork the repository</li>
+<li>Create a feature branch</li>
+<li>Make your changes</li>
+<li>Test with the example site</li>
+<li>Submit a pull request</li>
+</ol>
+<h2 id="testing" tabindex="-1">Testing</h2>
+<p>Run the example site to test changes:</p>
+<pre><code class="language-bash"># Development server
+make serve-debug
+
+# Build only
+make build
+</code></pre>
+<h2 id="code-style" tabindex="-1">Code Style</h2>
+<ul>
+<li>TypeScript for all source files</li>
+<li>Use template literals for HTML generation</li>
+<li>Keep dependencies minimal</li>
+<li>Prefer explicit over implicit</li>
+</ul>
+<h2 id="reporting-issues" tabindex="-1">Reporting Issues</h2>
+<p>Open an issue on GitHub with:</p>
+<ul>
+<li>bok version</li>
+<li>Bun version</li>
+<li>Operating system</li>
+<li>Steps to reproduce</li>
+<li>Expected vs actual behavior</li>
+</ul>
 
           </div>
 
           <div class="page-nav page-nav-next"></div>
         </div>
 
-        
+        <aside class="right-toc"><nav class="right-toc-nav">
+    <h4 class="right-toc-title">On this page</h4>
+    <ul class="right-toc-list"><li><a href="#development-setup">Development Setup</a></li><li><a href="#project-structure">Project Structure</a></li><li><a href="#key-files">Key Files</a></li><li class="right-toc-indent-1"><a href="#deps.ts">deps.ts</a></li><li class="right-toc-indent-1"><a href="#src%2Fcore%2Fbuild.ts">src/core/build.ts</a></li><li class="right-toc-indent-1"><a href="#src%2Fcore%2Fconfig.ts">src/core/config.ts</a></li><li class="right-toc-indent-1"><a href="#src%2Fplugins%2Ftoc.ts">src/plugins/toc.ts</a></li><li><a href="#making-changes">Making Changes</a></li><li><a href="#testing">Testing</a></li><li><a href="#code-style">Code Style</a></li><li><a href="#reporting-issues">Reporting Issues</a></li></ul></nav></aside>
       </div>
     </main>
   

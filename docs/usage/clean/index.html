@@ -14,6 +14,8 @@
         <link rel="stylesheet" type="text/css" href="/assets/css/prism.css" />
         <link rel="stylesheet" type="text/css" href="/assets/fonts/fonts.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/variables.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/general.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/chrome.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/base.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/typography.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/list.css" />
@@ -29,19 +31,19 @@
     </script>
 
     <aside id="sidebar" class="sidebar">
-      <ol class="toc"><li class="part-title">markBook</li><li><a class=""  href="/">About</a></li>
+      <ol class="toc"><li class="part-title">bok</li><li><a class=""  href="/">Introduction</a></li>
       <li class="chapter-item">
         <strong>1.</strong>
         &nbsp;
         <a class=""
-           href="/getting-started">Getting Start</a>
+           href="/getting-started">Getting Started</a>
       </li>
-    <li class="spacer"></li><li class="part-title">Documentation</li>
+    <li class="spacer"></li><li class="part-title">Reference</li>
       <li class="chapter-item">
         <strong>2.</strong>
         &nbsp;
         <a class=""
-           href="/usage/usage">CLI Usage</a>
+           href="/usage/usage">CLI Commands</a>
       </li>
     
         <li>
@@ -85,26 +87,69 @@
           </ol>
         </li>
       
-      <li class="chapter-item draft">
+      <li class="chapter-item">
         <strong>3.</strong>
         &nbsp;
-        Configuration
+        <a class=""
+           href="/configuration/configuration">Configuration</a>
       </li>
     
         <li>
           <ol class="section">
             
-      <li class="chapter-item draft">
+      <li class="chapter-item">
         <strong>3.1.</strong>
         &nbsp;
-        Table of Contents Format
+        <a class=""
+           href="/configuration/site-config">Site Config</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>3.2.</strong>
+        &nbsp;
+        <a class=""
+           href="/configuration/toc-format">TOC Format</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>3.3.</strong>
+        &nbsp;
+        <a class=""
+           href="/configuration/front-matter">Front Matter</a>
+      </li>
+    
+          </ol>
+        </li>
+      
+      <li class="chapter-item">
+        <strong>4.</strong>
+        &nbsp;
+        <a class=""
+           href="/themes/themes">Themes</a>
+      </li>
+    
+        <li>
+          <ol class="section">
+            
+      <li class="chapter-item">
+        <strong>4.1.</strong>
+        &nbsp;
+        <a class=""
+           href="/themes/book-theme">Book Theme</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>4.2.</strong>
+        &nbsp;
+        <a class=""
+           href="/themes/creating-themes">Creating Themes</a>
       </li>
     
           </ol>
         </li>
       <li class="spacer"></li><li class="part-title">Development</li>
       <li class="chapter-item">
-        <strong>4.</strong>
+        <strong>5.</strong>
         &nbsp;
         <a class=""
            href="/contributing">Contributing</a>
@@ -143,11 +188,50 @@
   
 
           <div class="page-content">
-            
+            <h1 id="clean" tabindex="-1">clean</h1>
+<p>Remove the output directory.</p>
+<h2 id="usage" tabindex="-1">Usage</h2>
+<pre><code class="language-bash">bok clean [config]
+</code></pre>
+<h2 id="arguments" tabindex="-1">Arguments</h2>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>config</code></td>
+<td>Path to config file</td>
+<td><code>config.ts</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="what-it-does" tabindex="-1">What It Does</h2>
+<p>Deletes the entire output directory (default: <code>site/</code>).</p>
+<p>This is useful for:</p>
+<ul>
+<li>Cleaning up before a fresh build</li>
+<li>Removing stale files from deleted pages</li>
+<li>Resetting your project state</li>
+</ul>
+<h2 id="note" tabindex="-1">Note</h2>
+<p>The <code>build</code> command already cleans the output directory before building, so you typically don't need to run <code>clean</code> manually.</p>
+<h2 id="examples" tabindex="-1">Examples</h2>
+<pre><code class="language-bash"># Clean with default config
+bok clean
+
+# Clean specific project
+bok clean ./docs/config.ts
+</code></pre>
+
           </div>
 
           
-    <a href="/contributing" id="page-nav-next" class="page-nav page-nav-next">
+    <a href="/configuration/configuration" id="page-nav-next" class="page-nav page-nav-next">
       <img
         class="page-nav-icon"
         src="/assets/img/svg/chevron-right.svg"
@@ -159,7 +243,9 @@
   
         </div>
 
-        
+        <aside class="right-toc"><nav class="right-toc-nav">
+    <h4 class="right-toc-title">On this page</h4>
+    <ul class="right-toc-list"><li><a href="#usage">Usage</a></li><li><a href="#arguments">Arguments</a></li><li><a href="#what-it-does">What It Does</a></li><li><a href="#note">Note</a></li><li><a href="#examples">Examples</a></li></ul></nav></aside>
       </div>
     </main>
   

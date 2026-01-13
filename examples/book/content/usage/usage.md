@@ -1,28 +1,47 @@
-# Usage
+# CLI Commands
 
-`markBook` strives to use a simple API and leaves a lot of the implementation to
-the user.
+bok provides a simple command-line interface for building and serving your site.
 
-## Commands
+## Usage
 
-```sh
- Usage:   bok
- Version: v0.1.0
+```bash
+bok <command> [config]
+```
 
- Description:
+All commands except `init` accept an optional path to your config file. If not provided, it defaults to `config.ts` in the current directory.
 
-   Static Site Generator
+## Available Commands
 
- Options:
+| Command | Description |
+|---------|-------------|
+| [init](init.md) | Initialize a new site |
+| [build](build.md) | Build static HTML files |
+| [watch](watch.md) | Build and rebuild on file changes |
+| [serve](serve.md) | Build, serve, and live reload |
+| [clean](clean.md) | Remove the output directory |
 
-   -h, --help     - Show this help.
-   -V, --version  - Show the version number for this program.
+## Global Options
 
- Commands:
+```bash
+bok --help     # Show help
+bok --version  # Show version
+```
 
-   init                    - Build a static website
-   build  [config:string]  - Build a static website
-   watch  [config:string]  - Build a static website and rebuild on file changes
-   serve  [config:string]  - Build a static website, serve it and rebuild on file changes
-   clean  [config:string]  - Clean output directory
+## Examples
+
+```bash
+# Initialize a new site
+bok init
+
+# Build using default config.ts
+bok build
+
+# Build with explicit config path
+bok build ./my-site/config.ts
+
+# Start development server
+bok serve config.ts
+
+# Start server with custom port
+bok serve --port 3000 config.ts
 ```

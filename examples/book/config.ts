@@ -9,9 +9,9 @@ export default {
   },
 
   params: {
-    title: "Docs",
+    title: "bok",
     author: "Samir Alajmovic",
-    description: "This is the documentation theme",
-    url: "https://github.com/alajmo/docs",
+    description: "A fast, minimal static site generator built with Bun",
+    url: "https://github.com/alajmo/bok",
   },
 };

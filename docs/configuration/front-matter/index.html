@@ -1,0 +1,317 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="description" rel="shortcut icon" content="" />
+
+        <link rel="icon" href="/assets/img/ico/favicon.ico" />
+        <link rel="apple-touch-icon-precomposed" href="/assets/img/ico/favicon.ico" />
+        <meta name="msapplication-TileImage" content="/assets/img/ico/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <link rel="stylesheet" type="text/css" href="/assets/css/reset.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/prism.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/fonts/fonts.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/variables.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/general.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/chrome.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/base.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/typography.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/list.css" />
+      </head>
+
+      <body>
+        <div class="book">
+          
+    <script type="text/javascript">
+      const html = document.querySelector('html');
+      const showSidebar = window.sessionStorage.getItem('showSidebar');
+      html.setAttribute('data-show-sidebar', showSidebar);
+    </script>
+
+    <aside id="sidebar" class="sidebar">
+      <ol class="toc"><li class="part-title">bok</li><li><a class=""  href="/">Introduction</a></li>
+      <li class="chapter-item">
+        <strong>1.</strong>
+        &nbsp;
+        <a class=""
+           href="/getting-started">Getting Started</a>
+      </li>
+    <li class="spacer"></li><li class="part-title">Reference</li>
+      <li class="chapter-item">
+        <strong>2.</strong>
+        &nbsp;
+        <a class=""
+           href="/usage/usage">CLI Commands</a>
+      </li>
+    
+        <li>
+          <ol class="section">
+            
+      <li class="chapter-item">
+        <strong>2.1.</strong>
+        &nbsp;
+        <a class=""
+           href="/usage/init">init</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>2.2.</strong>
+        &nbsp;
+        <a class=""
+           href="/usage/build">build</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>2.3.</strong>
+        &nbsp;
+        <a class=""
+           href="/usage/watch">watch</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>2.4.</strong>
+        &nbsp;
+        <a class=""
+           href="/usage/serve">serve</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>2.5.</strong>
+        &nbsp;
+        <a class=""
+           href="/usage/clean">clean</a>
+      </li>
+    
+          </ol>
+        </li>
+      
+      <li class="chapter-item">
+        <strong>3.</strong>
+        &nbsp;
+        <a class=""
+           href="/configuration/configuration">Configuration</a>
+      </li>
+    
+        <li>
+          <ol class="section">
+            
+      <li class="chapter-item">
+        <strong>3.1.</strong>
+        &nbsp;
+        <a class=""
+           href="/configuration/site-config">Site Config</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>3.2.</strong>
+        &nbsp;
+        <a class=""
+           href="/configuration/toc-format">TOC Format</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>3.3.</strong>
+        &nbsp;
+        <a class="active"
+           href="/configuration/front-matter">Front Matter</a>
+      </li>
+    
+          </ol>
+        </li>
+      
+      <li class="chapter-item">
+        <strong>4.</strong>
+        &nbsp;
+        <a class=""
+           href="/themes/themes">Themes</a>
+      </li>
+    
+        <li>
+          <ol class="section">
+            
+      <li class="chapter-item">
+        <strong>4.1.</strong>
+        &nbsp;
+        <a class=""
+           href="/themes/book-theme">Book Theme</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>4.2.</strong>
+        &nbsp;
+        <a class=""
+           href="/themes/creating-themes">Creating Themes</a>
+      </li>
+    
+          </ol>
+        </li>
+      <li class="spacer"></li><li class="part-title">Development</li>
+      <li class="chapter-item">
+        <strong>5.</strong>
+        &nbsp;
+        <a class=""
+           href="/contributing">Contributing</a>
+      </li>
+    </ol>
+    </aside>
+
+    <main id="content" class="content">
+      <div class="menu">
+          <button title="Toggle sidebar"
+                  type="button"
+                  class="icon-button"
+                  onclick="sidebar.toggle();">
+            <img
+              class="menu-icon"
+              src="/assets/img/svg/menu.svg"
+              alt="menu"
+              width="auto"
+              height="20"
+            />
+          </button>
+      </div>
+
+      <div class="page-wrapper">
+        <div class="page">
+          
+    <a href="/configuration/toc-format" id="page-nav-prev" class="page-nav page-nav-prev">
+      <img
+        class="page-nav-icon"
+        src="/assets/img/svg/chevron-left.svg"
+        alt="Previous chapter"
+        width="auto"
+        height="40"
+      />
+    </a>
+  
+
+          <div class="page-content">
+            <h1 id="front-matter" tabindex="-1">Front Matter</h1>
+<p>Front matter lets you add metadata to individual pages.</p>
+<h2 id="syntax" tabindex="-1">Syntax</h2>
+<p>Add key-value pairs at the top of your markdown file, followed by <code>---</code>:</p>
+<pre><code class="language-markdown">title: My Page Title
+layout: custom.ts
+author: John Doe
+---
+
+# Page Content
+
+Your markdown content here...
+</code></pre>
+<h2 id="available-properties" tabindex="-1">Available Properties</h2>
+<h3 id="layout" tabindex="-1">layout</h3>
+<p>Override the default layout template for this page.</p>
+<pre><code>layout: my-layout.ts
+</code></pre>
+<p>The path is relative to the <code>layout/</code> directory.</p>
+<h3 id="custom-properties" tabindex="-1">Custom Properties</h3>
+<p>Add any custom properties you need:</p>
+<pre><code class="language-markdown">title: Getting Started
+description: Learn how to get started with bok
+author: Your Name
+date: 2024-01-15
+tags: tutorial, beginner
+draft: true
+---
+</code></pre>
+<p>Access these in templates via <code>page.params</code>:</p>
+<pre><code class="language-typescript">export default function(site, page, pages) {
+  return `
+    &lt;article&gt;
+      &lt;h1&gt;${page.params.title}&lt;/h1&gt;
+      &lt;p&gt;By ${page.params.author}&lt;/p&gt;
+      ${page.htmlContent}
+    &lt;/article&gt;
+  `;
+}
+</code></pre>
+<h2 id="parser-details" tabindex="-1">Parser Details</h2>
+<p>The front matter parser:</p>
+<ul>
+<li>Reads lines until it hits <code>---</code></li>
+<li>Splits each line on the first <code>:</code></li>
+<li>Trims whitespace from keys and values</li>
+<li>All values are strings</li>
+</ul>
+<pre><code class="language-markdown">key: value with spaces
+another: value: with: colons
+---
+</code></pre>
+<p>Results in:</p>
+<pre><code class="language-javascript">{
+  key: &quot;value with spaces&quot;,
+  another: &quot;value: with: colons&quot;
+}
+</code></pre>
+<h2 id="examples" tabindex="-1">Examples</h2>
+<h3 id="blog-post" tabindex="-1">Blog Post</h3>
+<pre><code class="language-markdown">title: My First Post
+date: 2024-01-15
+author: Jane Doe
+tags: announcement, news
+---
+
+# Welcome to My Blog
+
+This is my first post...
+</code></pre>
+<h3 id="custom-layout" tabindex="-1">Custom Layout</h3>
+<pre><code class="language-markdown">layout: landing.ts
+---
+
+# Welcome
+
+This page uses a custom landing page layout.
+</code></pre>
+<h3 id="documentation-page" tabindex="-1">Documentation Page</h3>
+<pre><code class="language-markdown">title: API Reference
+description: Complete API documentation
+order: 5
+---
+
+# API Reference
+
+...
+</code></pre>
+<h2 id="no-front-matter" tabindex="-1">No Front Matter</h2>
+<p>Front matter is optional. If omitted, the page uses:</p>
+<ul>
+<li>Default layout from config</li>
+<li>Empty <code>params</code> object</li>
+</ul>
+<pre><code class="language-markdown"># Just Content
+
+This page has no front matter.
+</code></pre>
+
+          </div>
+
+          
+    <a href="/themes/themes" id="page-nav-next" class="page-nav page-nav-next">
+      <img
+        class="page-nav-icon"
+        src="/assets/img/svg/chevron-right.svg"
+        alt="Previous chapter"
+        width="auto"
+        height="40"
+      />
+    </a>
+  
+        </div>
+
+        <aside class="right-toc"><nav class="right-toc-nav">
+    <h4 class="right-toc-title">On this page</h4>
+    <ul class="right-toc-list"><li><a href="#syntax">Syntax</a></li><li><a href="#available-properties">Available Properties</a></li><li class="right-toc-indent-1"><a href="#layout">layout</a></li><li class="right-toc-indent-1"><a href="#custom-properties">Custom Properties</a></li><li><a href="#parser-details">Parser Details</a></li><li><a href="#examples">Examples</a></li><li class="right-toc-indent-1"><a href="#blog-post">Blog Post</a></li><li class="right-toc-indent-1"><a href="#custom-layout">Custom Layout</a></li><li class="right-toc-indent-1"><a href="#documentation-page">Documentation Page</a></li><li><a href="#no-front-matter">No Front Matter</a></li></ul></nav></aside>
+      </div>
+    </main>
+  
+        </div>
+
+        <script defer src="/assets/js/index.js"></script>
+        <script defer src="/assets/js/prism.min.js"></script>
+      </body>
+    </html>
+  

@@ -14,6 +14,8 @@
         <link rel="stylesheet" type="text/css" href="/assets/css/prism.css" />
         <link rel="stylesheet" type="text/css" href="/assets/fonts/fonts.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/variables.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/general.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/chrome.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/base.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/typography.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/list.css" />
@@ -29,19 +31,19 @@
     </script>
 
     <aside id="sidebar" class="sidebar">
-      <ol class="toc"><li class="part-title">markBook</li><li><a class=""  href="/">About</a></li>
+      <ol class="toc"><li class="part-title">bok</li><li><a class=""  href="/">Introduction</a></li>
       <li class="chapter-item">
         <strong>1.</strong>
         &nbsp;
         <a class=""
-           href="/getting-started">Getting Start</a>
+           href="/getting-started">Getting Started</a>
       </li>
-    <li class="spacer"></li><li class="part-title">Documentation</li>
+    <li class="spacer"></li><li class="part-title">Reference</li>
       <li class="chapter-item">
         <strong>2.</strong>
         &nbsp;
         <a class=""
-           href="/usage/usage">CLI Usage</a>
+           href="/usage/usage">CLI Commands</a>
       </li>
     
         <li>
@@ -85,26 +87,69 @@
           </ol>
         </li>
       
-      <li class="chapter-item draft">
+      <li class="chapter-item">
         <strong>3.</strong>
         &nbsp;
-        Configuration
+        <a class=""
+           href="/configuration/configuration">Configuration</a>
       </li>
     
         <li>
           <ol class="section">
             
-      <li class="chapter-item draft">
+      <li class="chapter-item">
         <strong>3.1.</strong>
         &nbsp;
-        Table of Contents Format
+        <a class=""
+           href="/configuration/site-config">Site Config</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>3.2.</strong>
+        &nbsp;
+        <a class=""
+           href="/configuration/toc-format">TOC Format</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>3.3.</strong>
+        &nbsp;
+        <a class=""
+           href="/configuration/front-matter">Front Matter</a>
+      </li>
+    
+          </ol>
+        </li>
+      
+      <li class="chapter-item">
+        <strong>4.</strong>
+        &nbsp;
+        <a class=""
+           href="/themes/themes">Themes</a>
+      </li>
+    
+        <li>
+          <ol class="section">
+            
+      <li class="chapter-item">
+        <strong>4.1.</strong>
+        &nbsp;
+        <a class=""
+           href="/themes/book-theme">Book Theme</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>4.2.</strong>
+        &nbsp;
+        <a class=""
+           href="/themes/creating-themes">Creating Themes</a>
       </li>
     
           </ol>
         </li>
       <li class="spacer"></li><li class="part-title">Development</li>
       <li class="chapter-item">
-        <strong>4.</strong>
+        <strong>5.</strong>
         &nbsp;
         <a class=""
            href="/contributing">Contributing</a>
@@ -143,7 +188,82 @@
   
 
           <div class="page-content">
-            
+            <h1 id="build" tabindex="-1">build</h1>
+<p>Build your site into static HTML files.</p>
+<h2 id="usage" tabindex="-1">Usage</h2>
+<pre><code class="language-bash">bok build [config]
+</code></pre>
+<h2 id="arguments" tabindex="-1">Arguments</h2>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>config</code></td>
+<td>Path to config file</td>
+<td><code>config.ts</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="what-it-does" tabindex="-1">What It Does</h2>
+<ol>
+<li><strong>Cleans</strong> the output directory</li>
+<li><strong>Discovers</strong> pages based on your file discovery mode (walk, glob, or toc)</li>
+<li><strong>Processes</strong> each page:
+<ul>
+<li>Extracts front matter</li>
+<li>Converts Markdown to HTML</li>
+<li>Generates right-side table of contents</li>
+<li>Applies the layout template</li>
+</ul>
+</li>
+<li><strong>Copies</strong> assets (theme assets + public directories)</li>
+<li><strong>Outputs</strong> a summary table</li>
+</ol>
+<h2 id="output" tabindex="-1">Output</h2>
+<p>After building, you'll see a summary:</p>
+<pre><code>[INFO] Building
+┌─────────┬────┐
+│         │ EN │
+├─────────┼────┤
+│ # Pages │ 12 │
+└─────────┴────┘
+</code></pre>
+<h2 id="output-directory" tabindex="-1">Output Directory</h2>
+<p>By default, files are output to <code>site/</code> relative to your config file. Configure this with <code>paths.output</code>:</p>
+<pre><code class="language-typescript">export default {
+  paths: {
+    output: &quot;dist&quot;,  // Output to dist/ instead
+  },
+};
+</code></pre>
+<h2 id="url-structure" tabindex="-1">URL Structure</h2>
+<h3 id="pretty-urls-(default)" tabindex="-1">Pretty URLs (default)</h3>
+<pre><code>content/getting-started.md  →  site/getting-started/index.html
+content/guide/intro.md      →  site/guide/intro/index.html
+content/index.md            →  site/index.html
+</code></pre>
+<h3 id="ugly-urls" tabindex="-1">Ugly URLs</h3>
+<p>Set <code>uglyURLs: true</code> in your config:</p>
+<pre><code>content/getting-started.md  →  site/getting-started.html
+content/guide/intro.md      →  site/guide/intro.html
+</code></pre>
+<h2 id="examples" tabindex="-1">Examples</h2>
+<pre><code class="language-bash"># Build with default config
+bok build
+
+# Build with explicit config
+bok build ./docs/config.ts
+
+# Build and then deploy
+bok build config.ts &amp;&amp; rsync -av site/ server:/var/www/
+</code></pre>
+
           </div>
 
           
@@ -159,7 +279,9 @@
   
         </div>
 
-        
+        <aside class="right-toc"><nav class="right-toc-nav">
+    <h4 class="right-toc-title">On this page</h4>
+    <ul class="right-toc-list"><li><a href="#usage">Usage</a></li><li><a href="#arguments">Arguments</a></li><li><a href="#what-it-does">What It Does</a></li><li><a href="#output">Output</a></li><li><a href="#output-directory">Output Directory</a></li><li><a href="#url-structure">URL Structure</a></li><li class="right-toc-indent-1"><a href="#pretty-urls-(default)">Pretty URLs (default)</a></li><li class="right-toc-indent-1"><a href="#ugly-urls">Ugly URLs</a></li><li><a href="#examples">Examples</a></li></ul></nav></aside>
       </div>
     </main>
   

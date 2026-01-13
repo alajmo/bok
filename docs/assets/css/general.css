@@ -114,7 +114,6 @@ h4 a.header:target {
 }
 .content ul {
   line-height: 1.45em;
-  background: red;
 }
 .content a {
   text-decoration: none;

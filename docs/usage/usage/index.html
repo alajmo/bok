@@ -14,6 +14,8 @@
         <link rel="stylesheet" type="text/css" href="/assets/css/prism.css" />
         <link rel="stylesheet" type="text/css" href="/assets/fonts/fonts.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/variables.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/general.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/chrome.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/base.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/typography.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/list.css" />
@@ -29,19 +31,19 @@
     </script>
 
     <aside id="sidebar" class="sidebar">
-      <ol class="toc"><li class="part-title">markBook</li><li><a class=""  href="/">About</a></li>
+      <ol class="toc"><li class="part-title">bok</li><li><a class=""  href="/">Introduction</a></li>
       <li class="chapter-item">
         <strong>1.</strong>
         &nbsp;
         <a class=""
-           href="/getting-started">Getting Start</a>
+           href="/getting-started">Getting Started</a>
       </li>
-    <li class="spacer"></li><li class="part-title">Documentation</li>
+    <li class="spacer"></li><li class="part-title">Reference</li>
       <li class="chapter-item">
         <strong>2.</strong>
         &nbsp;
         <a class="active"
-           href="/usage/usage">CLI Usage</a>
+           href="/usage/usage">CLI Commands</a>
       </li>
     
         <li>
@@ -85,26 +87,69 @@
           </ol>
         </li>
       
-      <li class="chapter-item draft">
+      <li class="chapter-item">
         <strong>3.</strong>
         &nbsp;
-        Configuration
+        <a class=""
+           href="/configuration/configuration">Configuration</a>
       </li>
     
         <li>
           <ol class="section">
             
-      <li class="chapter-item draft">
+      <li class="chapter-item">
         <strong>3.1.</strong>
         &nbsp;
-        Table of Contents Format
+        <a class=""
+           href="/configuration/site-config">Site Config</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>3.2.</strong>
+        &nbsp;
+        <a class=""
+           href="/configuration/toc-format">TOC Format</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>3.3.</strong>
+        &nbsp;
+        <a class=""
+           href="/configuration/front-matter">Front Matter</a>
+      </li>
+    
+          </ol>
+        </li>
+      
+      <li class="chapter-item">
+        <strong>4.</strong>
+        &nbsp;
+        <a class=""
+           href="/themes/themes">Themes</a>
+      </li>
+    
+        <li>
+          <ol class="section">
+            
+      <li class="chapter-item">
+        <strong>4.1.</strong>
+        &nbsp;
+        <a class=""
+           href="/themes/book-theme">Book Theme</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>4.2.</strong>
+        &nbsp;
+        <a class=""
+           href="/themes/creating-themes">Creating Themes</a>
       </li>
     
           </ol>
         </li>
       <li class="spacer"></li><li class="part-title">Development</li>
       <li class="chapter-item">
-        <strong>4.</strong>
+        <strong>5.</strong>
         &nbsp;
         <a class=""
            href="/contributing">Contributing</a>
@@ -143,29 +188,62 @@
   
 
           <div class="page-content">
-            <h1 id="usage" tabindex="-1">Usage</h1>
-<p><code>markBook</code> strives to use a simple API and leaves a lot of the implementation to
-the user.</p>
-<h2 id="commands" tabindex="-1">Commands</h2>
-<pre><code class="language-sh"> Usage:   bok
- Version: v0.1.0
+            <h1 id="cli-commands" tabindex="-1">CLI Commands</h1>
+<p>bok provides a simple command-line interface for building and serving your site.</p>
+<h2 id="usage" tabindex="-1">Usage</h2>
+<pre><code class="language-bash">bok &lt;command&gt; [config]
+</code></pre>
+<p>All commands except <code>init</code> accept an optional path to your config file. If not provided, it defaults to <code>config.ts</code> in the current directory.</p>
+<h2 id="available-commands" tabindex="-1">Available Commands</h2>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="init.md">init</a></td>
+<td>Initialize a new site</td>
+</tr>
+<tr>
+<td><a href="build.md">build</a></td>
+<td>Build static HTML files</td>
+</tr>
+<tr>
+<td><a href="watch.md">watch</a></td>
+<td>Build and rebuild on file changes</td>
+</tr>
+<tr>
+<td><a href="serve.md">serve</a></td>
+<td>Build, serve, and live reload</td>
+</tr>
+<tr>
+<td><a href="clean.md">clean</a></td>
+<td>Remove the output directory</td>
+</tr>
+</tbody>
+</table>
+<h2 id="global-options" tabindex="-1">Global Options</h2>
+<pre><code class="language-bash">bok --help     # Show help
+bok --version  # Show version
+</code></pre>
+<h2 id="examples" tabindex="-1">Examples</h2>
+<pre><code class="language-bash"># Initialize a new site
+bok init
 
- Description:
+# Build using default config.ts
+bok build
 
-   Static Site Generator
+# Build with explicit config path
+bok build ./my-site/config.ts
 
- Options:
+# Start development server
+bok serve config.ts
 
-   -h, --help     - Show this help.
-   -V, --version  - Show the version number for this program.
-
- Commands:
-
-   init                    - Build a static website
-   build  [config:string]  - Build a static website
-   watch  [config:string]  - Build a static website and rebuild on file changes
-   serve  [config:string]  - Build a static website, serve it and rebuild on file changes
-   clean  [config:string]  - Clean output directory
+# Start server with custom port
+bok serve --port 3000 config.ts
 </code></pre>
 
           </div>
@@ -183,7 +261,9 @@ the user.</p>
   
         </div>
 
-        
+        <aside class="right-toc"><nav class="right-toc-nav">
+    <h4 class="right-toc-title">On this page</h4>
+    <ul class="right-toc-list"><li><a href="#usage">Usage</a></li><li><a href="#available-commands">Available Commands</a></li><li><a href="#global-options">Global Options</a></li><li><a href="#examples">Examples</a></li></ul></nav></aside>
       </div>
     </main>
   

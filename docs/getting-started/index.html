@@ -14,6 +14,8 @@
         <link rel="stylesheet" type="text/css" href="/assets/css/prism.css" />
         <link rel="stylesheet" type="text/css" href="/assets/fonts/fonts.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/variables.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/general.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/chrome.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/base.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/typography.css" />
         <link rel="stylesheet" type="text/css" href="/assets/css/list.css" />
@@ -29,19 +31,19 @@
     </script>
 
     <aside id="sidebar" class="sidebar">
-      <ol class="toc"><li class="part-title">markBook</li><li><a class=""  href="/">About</a></li>
+      <ol class="toc"><li class="part-title">bok</li><li><a class=""  href="/">Introduction</a></li>
       <li class="chapter-item">
         <strong>1.</strong>
         &nbsp;
         <a class="active"
-           href="/getting-started">Getting Start</a>
+           href="/getting-started">Getting Started</a>
       </li>
-    <li class="spacer"></li><li class="part-title">Documentation</li>
+    <li class="spacer"></li><li class="part-title">Reference</li>
       <li class="chapter-item">
         <strong>2.</strong>
         &nbsp;
         <a class=""
-           href="/usage/usage">CLI Usage</a>
+           href="/usage/usage">CLI Commands</a>
       </li>
     
         <li>
@@ -85,26 +87,69 @@
           </ol>
         </li>
       
-      <li class="chapter-item draft">
+      <li class="chapter-item">
         <strong>3.</strong>
         &nbsp;
-        Configuration
+        <a class=""
+           href="/configuration/configuration">Configuration</a>
       </li>
     
         <li>
           <ol class="section">
             
-      <li class="chapter-item draft">
+      <li class="chapter-item">
         <strong>3.1.</strong>
         &nbsp;
-        Table of Contents Format
+        <a class=""
+           href="/configuration/site-config">Site Config</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>3.2.</strong>
+        &nbsp;
+        <a class=""
+           href="/configuration/toc-format">TOC Format</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>3.3.</strong>
+        &nbsp;
+        <a class=""
+           href="/configuration/front-matter">Front Matter</a>
+      </li>
+    
+          </ol>
+        </li>
+      
+      <li class="chapter-item">
+        <strong>4.</strong>
+        &nbsp;
+        <a class=""
+           href="/themes/themes">Themes</a>
+      </li>
+    
+        <li>
+          <ol class="section">
+            
+      <li class="chapter-item">
+        <strong>4.1.</strong>
+        &nbsp;
+        <a class=""
+           href="/themes/book-theme">Book Theme</a>
+      </li>
+    
+      <li class="chapter-item">
+        <strong>4.2.</strong>
+        &nbsp;
+        <a class=""
+           href="/themes/creating-themes">Creating Themes</a>
       </li>
     
           </ol>
         </li>
       <li class="spacer"></li><li class="part-title">Development</li>
       <li class="chapter-item">
-        <strong>4.</strong>
+        <strong>5.</strong>
         &nbsp;
         <a class=""
            href="/contributing">Contributing</a>
@@ -143,22 +188,83 @@
   
 
           <div class="page-content">
-            <h2 id="install" tabindex="-1">Install</h2>
-<p><code>bok</code> is based on Deno, so until the single-binary executable is available (and
-stable) in Deno, we need to install Deno first:</p>
-<pre><code>curl -fsSL https://deno.land/x/install/install.sh | sh
+            <h1 id="getting-started" tabindex="-1">Getting Started</h1>
+<p>This guide will help you create your first bok site.</p>
+<h2 id="prerequisites" tabindex="-1">Prerequisites</h2>
+<p>You need <a href="https://bun.sh">Bun</a> installed:</p>
+<pre><code class="language-bash">curl -fsSL https://bun.sh/install | bash
 </code></pre>
-<p>Then install the latest version of <code>bok</code></p>
-<pre><code>deno install --force --no-check --unstable --allow-all --name=bok https://deno.land/x/bok/mod.ts
+<h2 id="installation" tabindex="-1">Installation</h2>
+<h3 id="from-source" tabindex="-1">From Source</h3>
+<pre><code class="language-bash">git clone https://github.com/alajmo/bok
+cd bok
+bun install
 </code></pre>
-<h2 id="getting-started" tabindex="-1">Getting Started</h2>
-<p>Run the following command to generate a new site.</p>
-<pre><code class="language-sh"># Create your site (outputs a config.ts)
-bok init
+<h3 id="global-install" tabindex="-1">Global Install</h3>
+<p>After cloning, you can install bok globally:</p>
+<pre><code class="language-bash">make install
+</code></pre>
+<p>This creates a <code>bok</code> command you can run from anywhere.</p>
+<h2 id="create-a-new-site" tabindex="-1">Create a New Site</h2>
+<h3 id="interactive-mode" tabindex="-1">Interactive Mode</h3>
+<p>Run the init command and follow the prompts:</p>
+<pre><code class="language-bash">bok init
+</code></pre>
+<p>You'll be asked to:</p>
+<ol>
+<li>Choose <strong>extend</strong> (use existing theme) or <strong>create</strong> (copy theme files)</li>
+<li>Select a theme: <strong>basic</strong> or <strong>book</strong></li>
+</ol>
+<h3 id="non-interactive-mode" tabindex="-1">Non-Interactive Mode</h3>
+<pre><code class="language-bash"># Extend the book theme
+bok init --mode extend --theme book
+</code></pre>
+<h2 id="project-structure" tabindex="-1">Project Structure</h2>
+<p>After initialization, your project looks like this:</p>
+<pre><code>my-site/
+├── config.ts        # Site configuration
+└── content/
+    ├── toc.md       # Table of contents (page order)
+    ├── index.md     # Home page
+    └── ...          # Your markdown pages
+</code></pre>
+<h2 id="development-workflow" tabindex="-1">Development Workflow</h2>
+<h3 id="start-the-dev-server" tabindex="-1">Start the Dev Server</h3>
+<pre><code class="language-bash">bok serve config.ts
+</code></pre>
+<p>This will:</p>
+<ul>
+<li>Build your site to the output directory</li>
+<li>Start a local server at <a href="http://localhost:5000">http://localhost:5000</a></li>
+<li>Watch for file changes and rebuild automatically</li>
+<li>Reload your browser when files change</li>
+</ul>
+<h3 id="build-for-production" tabindex="-1">Build for Production</h3>
+<pre><code class="language-bash">bok build config.ts
+</code></pre>
+<p>The generated site will be in the <code>site/</code> directory (or whatever you configured as <code>paths.output</code>).</p>
+<h2 id="adding-pages" tabindex="-1">Adding Pages</h2>
+<ol>
+<li>Create a new <code>.md</code> file in <code>content/</code>:</li>
+</ol>
+<pre><code class="language-markdown"># My New Page
 
-# Start a HTTP server with auto-refresh on file changes
-bok serve config.ts
+This is my new page content.
 </code></pre>
+<ol start="2">
+<li>Add it to <code>content/toc.md</code>:</li>
+</ol>
+<pre><code class="language-markdown">- [My New Page](my-new-page.md)
+</code></pre>
+<ol start="3">
+<li>Save and watch the browser reload with your new page.</li>
+</ol>
+<h2 id="next-steps" tabindex="-1">Next Steps</h2>
+<ul>
+<li>Learn about <a href="usage/usage.md">CLI Commands</a></li>
+<li>Understand <a href="configuration/configuration.md">Configuration</a></li>
+<li>Explore the <a href="themes/book-theme.md">Book Theme</a></li>
+</ul>
 
           </div>
 
@@ -177,7 +283,7 @@ bok serve config.ts
 
         <aside class="right-toc"><nav class="right-toc-nav">
     <h4 class="right-toc-title">On this page</h4>
-    <ul class="right-toc-list"><li><a href="#install">Install</a></li><li><a href="#getting-started">Getting Started</a></li></ul></nav></aside>
+    <ul class="right-toc-list"><li><a href="#prerequisites">Prerequisites</a></li><li><a href="#installation">Installation</a></li><li class="right-toc-indent-1"><a href="#from-source">From Source</a></li><li class="right-toc-indent-1"><a href="#global-install">Global Install</a></li><li><a href="#create-a-new-site">Create a New Site</a></li><li class="right-toc-indent-1"><a href="#interactive-mode">Interactive Mode</a></li><li class="right-toc-indent-1"><a href="#non-interactive-mode">Non-Interactive Mode</a></li><li><a href="#project-structure">Project Structure</a></li><li><a href="#development-workflow">Development Workflow</a></li><li class="right-toc-indent-1"><a href="#start-the-dev-server">Start the Dev Server</a></li><li class="right-toc-indent-1"><a href="#build-for-production">Build for Production</a></li><li><a href="#adding-pages">Adding Pages</a></li><li><a href="#next-steps">Next Steps</a></li></ul></nav></aside>
       </div>
     </main>
   
