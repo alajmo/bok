@@ -102,7 +102,7 @@ async function build(site: Site) {
 function getPages(site: Site): Page[] {
   const pages: Page[] = [];
 
-  switch (SearchFilesType[site.files.type]) {
+  switch (site.files.type) {
     case SearchFilesType.toc:
       const { files, ast } = parseToc(site);
       const actualFiles = files.filter((f: any) => f.ref !== "");
@@ -128,7 +128,7 @@ function getPages(site: Site): Page[] {
     case SearchFilesType.glob:
       for (
         const file of fs.expandGlobSync(
-          path.join(site.paths.content, site.files.glob),
+          path.join(site.paths.content, site.files.glob!),
         )
       ) {
         if (file.isFile) {

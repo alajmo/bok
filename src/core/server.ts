@@ -44,7 +44,7 @@ async function serveStatic(
   const headers = new Headers();
 
   const ct = contentType(filePath);
-  let body: string | Uint8Array;
+  let body: BodyInit;
 
   // Handle html and assets (js, css, json, .etc differently)
   if (ct === "text/html") {

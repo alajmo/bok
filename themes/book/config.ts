@@ -1,3 +1,6 @@
+import type { Site } from "../../src/core/config.ts";
+import type { Page } from "../../src/core/page.ts";
+
 export default {
   name: "book",
 
@@ -19,10 +22,10 @@ export default {
   },
 
   hooks: {
-    async beforeSite(site, pages, opts) {},
-    async afterSite(site, page, pages, opts) {},
-    async beforePage(site, page, i, pages, opts) {},
-    async afterPage(site, page, i, pages, opts) {},
+    async beforeSite(_site: Site, _pages: Page[], _opts: any) {},
+    async afterSite(_site: Site, _page: Page, _pages: Page[], _opts: any) {},
+    async beforePage(_site: Site, _page: Page, _i: number, _pages: Page[], _opts: any) {},
+    async afterPage(_site: Site, _page: Page, _i: number, _pages: Page[], _opts: any) {},
   },
 
   params: {

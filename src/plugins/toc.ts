@@ -6,7 +6,7 @@ import { Site } from "../core/config.ts";
 export { parseToc, TocRender };
 
 function parseToc(site: Site): any {
-  const content = fs.readFileSync(site.files.file, 'utf-8');
+  const content = fs.readFileSync(site.files.file!, 'utf-8');
   const reader = TocReader(content);
   const lexer = TocLexer(reader);
   const { files, ast } = TocParser(lexer);

@@ -2,13 +2,20 @@
   "name": "bok",
   "version": "0.1.3",
   "type": "module",
-  "bin": { "bok": "./mod.ts" },
+  "bin": {
+    "bok": "./mod.ts"
+  },
+  "exports": {
+    ".": "./src/mod.ts",
+    "./markdown-it": "./src/exports/markdown-it.ts"
+  },
   "scripts": {
     "serve": "bun run mod.ts serve examples/book/config.ts",
     "serve:theme": "bun run mod.ts serve themes/book/config.ts",
     "serve:watch": "bun --watch run mod.ts serve examples/book/config.ts",
     "build": "bun run mod.ts build examples/book/config.ts",
-    "compile": "bun build --compile --outfile ~/.local/bin/bok mod.ts"
+    "compile": "bun build --compile --outfile ~/.local/bin/bok mod.ts",
+    "tsc": "tsc --noEmit"
   },
   "dependencies": {
     "commander": "^12.1.0",
@@ -22,7 +29,8 @@
   },
   "devDependencies": {
     "@types/bun": "latest",
+    "@types/fs-extra": "^11.0.4",
     "@types/markdown-it": "^14.1.2",
-    "@types/fs-extra": "^11.0.4"
+    "typescript": "^5.9.3"
   }
 }

@@ -1,4 +1,4 @@
-export default function ({ rootUrl }, content) {
+export default function ({ rootUrl }: { rootUrl: string }, content: string) {
   return `
     <!DOCTYPE html>
     <html lang="en">

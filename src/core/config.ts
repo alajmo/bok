@@ -19,7 +19,8 @@ interface Site {
   files: SiteFiles;
   serve?: SiteServe;
   hooks: SiteHooks;
-  rootUrl: string,
+  rootUrl: string;
+  url?: string;
   uglyURLs?: boolean;
   params?: any;
 }
@@ -39,6 +40,7 @@ interface SitePaths {
   defaultLayout?: string;
 
   output: string;
+  sitemap?: string;
 }
 
 enum SearchFilesType {
@@ -49,6 +51,8 @@ enum SearchFilesType {
 
 interface SiteFiles {
   type: SearchFilesType;
+  file?: string;
+  glob?: string;
 }
 
 interface SiteServe {
@@ -99,7 +103,6 @@ async function getSiteConfig(
   const site: Site = {
     files: siteConfig.files,
     paths: siteConfig.paths,
-    public: siteConfig.paths.public,
     serve: siteConfig.serve,
     hooks: siteConfig.hooks,
     rootUrl: siteConfig.rootUrl,
@@ -177,7 +180,7 @@ function extendWithDefaultConfig(siteConfig: any, siteDir: string) {
   // Files
   siteConfig.files = siteConfig.files ?? { type: SearchFilesType.walk };
 
-  if (SearchFilesType[siteConfig.files.type] === SearchFilesType.toc) {
+  if (siteConfig.files.type === SearchFilesType.toc) {
     siteConfig.files.file = path.join(
       siteConfig.paths.content,
       siteConfig.files.file,
@@ -234,7 +237,7 @@ async function extendWithThemeConfig(siteConfig: any) {
   if (themeConfig.files) {
     siteConfig.files = themeConfig.files;
 
-    if (SearchFilesType[siteConfig.files.type] === SearchFilesType.toc) {
+    if (siteConfig.files.type === SearchFilesType.toc) {
       siteConfig.files.file = path.join(
         siteConfig.paths.content,
         siteConfig.files.file,

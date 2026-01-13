@@ -1,6 +1,8 @@
+import type { Site } from "../../../src/core/config.ts";
+import type { Page } from "../../../src/core/page.ts";
 import base from "./base.ts";
 
-export default function (site, page, pages) {
+export default function (site: Site, page: Page, _pages: Page[]) {
   return base({ rootUrl: site.rootUrl }, `
     <script type="text/javascript">
       const html = document.querySelector('html');
@@ -45,7 +47,7 @@ export default function (site, page, pages) {
   `);
 }
 
-function PrevPageNav({ rootUrl, prevUrl }) {
+function PrevPageNav({ rootUrl, prevUrl }: { rootUrl: string; prevUrl?: string | null }) {
   return prevUrl
     ? `
     <a href="${rootUrl}${prevUrl}" id="page-nav-prev" class="page-nav page-nav-prev">
@@ -61,7 +63,7 @@ function PrevPageNav({ rootUrl, prevUrl }) {
     : `<div class="page-nav page-nav-prev"></div>`;
 }
 
-function NextPageNav({ rootUrl, nextUrl }) {
+function NextPageNav({ rootUrl, nextUrl }: { rootUrl: string; nextUrl?: string | null }) {
   return nextUrl
     ? `
     <a href="${rootUrl}${nextUrl}" id="page-nav-next" class="page-nav page-nav-next">

@@ -55,54 +55,46 @@
           <div class="page-nav page-nav-prev"></div>
 
           <div class="page-content">
-            <h1 id="clean" tabindex="-1">clean</h1>
-<p>Remove the output directory.</p>
-<h2 id="usage" tabindex="-1">Usage</h2>
-<pre><code class="language-bash">bok clean [config]
-</code></pre>
-<h2 id="arguments" tabindex="-1">Arguments</h2>
-<table>
-<thead>
-<tr>
-<th>Argument</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>config</code></td>
-<td>Path to config file</td>
-<td><code>config.ts</code></td>
-</tr>
-</tbody>
-</table>
-<h2 id="what-it-does" tabindex="-1">What It Does</h2>
-<p>Deletes the entire output directory (default: <code>site/</code>).</p>
-<p>This is useful for:</p>
+            <h1 id="reference" tabindex="-1">Reference</h1>
 <ul>
-<li>Cleaning up before a fresh build</li>
-<li>Removing stale files from deleted pages</li>
-<li>Resetting your project state</li>
+<li>
+<p><a href="usage/usage.md">CLI Commands</a></p>
+<ul>
+<li><a href="usage/init.md">init</a></li>
+<li><a href="usage/build.md">build</a></li>
+<li><a href="usage/watch.md">watch</a></li>
+<li><a href="usage/serve.md">serve</a></li>
+<li><a href="usage/clean.md">clean</a></li>
 </ul>
-<h2 id="note" tabindex="-1">Note</h2>
-<p>The <code>build</code> command already cleans the output directory before building, so you typically don't need to run <code>clean</code> manually.</p>
-<h2 id="examples" tabindex="-1">Examples</h2>
-<pre><code class="language-bash"># Clean with default config
-bok clean
-
-# Clean specific project
-bok clean ./docs/config.ts
-</code></pre>
+</li>
+<li>
+<p><a href="configuration/configuration.md">Configuration</a></p>
+<ul>
+<li><a href="configuration/site-config.md">Site Config</a></li>
+<li><a href="configuration/toc-format.md">TOC Format</a></li>
+<li><a href="configuration/front-matter.md">Front Matter</a></li>
+</ul>
+</li>
+<li>
+<p><a href="themes/themes.md">Themes</a></p>
+<ul>
+<li><a href="themes/book-theme.md">Book Theme</a></li>
+<li><a href="themes/creating-themes.md">Creating Themes</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="development" tabindex="-1">Development</h1>
+<ul>
+<li><a href="contributing.md">Contributing</a></li>
+</ul>
 
           </div>
 
           <div class="page-nav page-nav-next"></div>
         </div>
 
-        <aside class="right-toc"><nav class="right-toc-nav">
-    <h4 class="right-toc-title">On this page</h4>
-    <ul class="right-toc-list"><li><a href="#usage">Usage</a></li><li><a href="#arguments">Arguments</a></li><li><a href="#what-it-does">What It Does</a></li><li><a href="#note">Note</a></li><li><a href="#examples">Examples</a></li></ul></nav></aside>
+        
       </div>
     </main>
   

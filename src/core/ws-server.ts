@@ -41,9 +41,6 @@ function websocket(site: Site) {
         log.debug("ws:Close", code, reason);
         clients.delete(ws);
       },
-      error(ws, error) {
-        console.error("WebSocket error:", error);
-      },
     },
   });
 }
