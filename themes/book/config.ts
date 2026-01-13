@@ -27,5 +27,11 @@ export default {
 
   params: {
     title: "book",
+    rightToc: {
+      enabled: true,
+      title: "On this page",
+      minHeadings: 2,
+      levels: [2, 3],
+    },
   },
 };

@@ -28,14 +28,18 @@ export default function (site, page, pages) {
           </button>
       </div>
 
-      <div class="page">
-        ${PrevPageNav({ rootUrl: site.rootUrl, prevUrl: page.prevPage })}
+      <div class="page-wrapper">
+        <div class="page">
+          ${PrevPageNav({ rootUrl: site.rootUrl, prevUrl: page.prevPage })}
 
-        <div class="page-content">
-          ${page.htmlContent}
+          <div class="page-content">
+            ${page.htmlContent}
+          </div>
+
+          ${NextPageNav({ rootUrl: site.rootUrl, nextUrl: page.nextPage })}
         </div>
 
-        ${NextPageNav({ rootUrl: site.rootUrl, nextUrl: page.nextPage })}
+        ${page.rightToc ? `<aside class="right-toc">${page.rightToc}</aside>` : ""}
       </div>
     </main>
   `);

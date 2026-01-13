@@ -1,10 +1,9 @@
 let sidebar;
 
 window.addEventListener("DOMContentLoaded", (event) => {
-  console.log("DOM fully loaded and parsed");
-
   sidebar = Sidebar();
   window.addEventListener("keydown", shortcutHandler, false);
+  initRightTocScrollspy();
 });
 
 // let systemInitiatedDark = window.matchMedia('(prefers-color-scheme: dark)');
@@ -115,4 +114,60 @@ function nextChapter() {
   if (nextButton) {
     window.location.href = nextButton.href;
   }
+}
+
+function initRightTocScrollspy() {
+  const rightToc = document.querySelector(".right-toc");
+  if (!rightToc) return;
+
+  const tocLinks = rightToc.querySelectorAll("a[href^='#']");
+  if (tocLinks.length === 0) return;
+
+  const headingIds = Array.from(tocLinks).map((link) =>
+    link.getAttribute("href").slice(1)
+  );
+  const headings = headingIds
+    .map((id) => document.getElementById(id))
+    .filter((el) => el !== null);
+
+  if (headings.length === 0) return;
+
+  let activeLink = null;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          const link = rightToc.querySelector(`a[href="#${id}"]`);
+          if (link && link !== activeLink) {
+            if (activeLink) {
+              activeLink.classList.remove("active");
+            }
+            link.classList.add("active");
+            activeLink = link;
+          }
+        }
+      });
+    },
+    {
+      rootMargin: "-80px 0px -80% 0px",
+      threshold: 0,
+    }
+  );
+
+  headings.forEach((heading) => observer.observe(heading));
+
+  // Handle click on TOC links for smooth scroll
+  tocLinks.forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const targetId = link.getAttribute("href").slice(1);
+      const target = document.getElementById(targetId);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        history.pushState(null, null, `#${targetId}`);
+      }
+    });
+  });
 }

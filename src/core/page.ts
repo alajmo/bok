@@ -8,4 +8,5 @@ export interface Page {
   htmlContent: string;
   tokens: any[];
   build: boolean;
+  rightToc?: string;
 }

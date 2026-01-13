@@ -239,6 +239,11 @@ async function extendWithThemeConfig(siteConfig: any) {
       );
     }
   }
+
+  // Merge theme params with user params (user params take precedence)
+  if (themeConfig.params) {
+    siteConfig.params = { ...themeConfig.params, ...siteConfig.params };
+  }
 }
 
 function setSitePath(

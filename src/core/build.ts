@@ -15,6 +15,69 @@ const MD = MarkdownIt({
   linkify: true,
 }).use(MarkdownItAnchor);
 
+interface RightTocConfig {
+  enabled?: boolean;
+  title?: string;
+  minHeadings?: number;
+  levels?: number[];
+}
+
+const defaultRightTocConfig: RightTocConfig = {
+  enabled: true,
+  title: "On this page",
+  minHeadings: 2,
+  levels: [2, 3],
+};
+
+function generateRightToc(tokens: any[], config: RightTocConfig): string {
+  const cfg = { ...defaultRightTocConfig, ...config };
+
+  if (!cfg.enabled) {
+    return "";
+  }
+
+  const headings: { level: number; text: string; id: string }[] = [];
+
+  for (let i = 0; i < tokens.length; i++) {
+    const token = tokens[i];
+    if (token.type === "heading_open") {
+      const level = parseInt(token.tag.slice(1), 10);
+      if (cfg.levels!.includes(level)) {
+        const id = token.attrGet("id") || "";
+        const inlineToken = tokens[i + 1];
+        const text = inlineToken?.children
+          ?.filter((t: any) => t.type === "text" || t.type === "code_inline")
+          .map((t: any) => t.content)
+          .join("") || "";
+
+        if (text && id) {
+          headings.push({ level, text, id });
+        }
+      }
+    }
+  }
+
+  if (headings.length < cfg.minHeadings!) {
+    return "";
+  }
+
+  const minLevel = Math.min(...headings.map((h) => h.level));
+
+  let html = `<nav class="right-toc-nav">
+    <h4 class="right-toc-title">${cfg.title}</h4>
+    <ul class="right-toc-list">`;
+
+  for (const heading of headings) {
+    const indent = heading.level - minLevel;
+    const indentClass = indent > 0 ? ` class="right-toc-indent-${indent}"` : "";
+    html += `<li${indentClass}><a href="#${heading.id}">${heading.text}</a></li>`;
+  }
+
+  html += `</ul></nav>`;
+
+  return html;
+}
+
 /**
  * Main function for generating a static site.
  */
@@ -116,6 +179,9 @@ function processPage(site: Site, file: any, opts?: any) {
   let link = path.relative(site.paths.content, file.path);
   link = path.join("/", path.dirname(link), path.basename(link, ".md"));
 
+  const rightTocConfig = site.params?.rightToc || {};
+  const rightToc = generateRightToc(tokens, rightTocConfig);
+
   const page: Page = {
     name: path.basename(file.name),
     path: file.path,
@@ -124,6 +190,7 @@ function processPage(site: Site, file: any, opts?: any) {
     htmlContent: parsedData,
     tokens,
     build: true,
+    rightToc,
     ...opts,
   };
 
