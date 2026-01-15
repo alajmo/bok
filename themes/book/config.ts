@@ -30,6 +30,7 @@ export default {
 
   params: {
     title: "book",
+    viewTransitionAnimation: true,
     rightToc: {
       enabled: true,
       title: "On this page",

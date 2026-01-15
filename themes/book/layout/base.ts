@@ -1,10 +1,26 @@
-export default function ({ rootUrl }: { rootUrl: string }, content: string) {
+import { generateMetaTags } from "../../../src/core/meta.ts";
+import type { Site } from "../../../src/core/config.ts";
+import type { Page } from "../../../src/core/page.ts";
+
+export default function (
+  { rootUrl, site, page }: { rootUrl: string; site?: Site; page?: Page },
+  content: string
+) {
+  const metaTags = site && page ? generateMetaTags(site, page) : "";
+  const pageTitle = page?.params?.title || site?.params?.title || "";
+  const viewTransitionAnimation = site?.params?.viewTransitionAnimation !== false;
+
+  const noAnimationStyles = !viewTransitionAnimation
+    ? `<style>::view-transition-old(root), ::view-transition-new(root) { animation: none; }</style>`
+    : "";
+
   return `
     <!DOCTYPE html>
     <html lang="en">
       <head>
         <meta charset="UTF-8" />
-        <meta name="description" rel="shortcut icon" content="" />
+        <title>${pageTitle}</title>
+        ${metaTags}
 
         <link rel="icon" href="${rootUrl}/assets/img/ico/favicon.ico" />
         <link rel="apple-touch-icon-precomposed" href="${rootUrl}/assets/img/ico/favicon.ico" />
@@ -12,14 +28,9 @@ export default function ({ rootUrl }: { rootUrl: string }, content: string) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         <link rel="stylesheet" type="text/css" href="${rootUrl}/assets/css/reset.css" />
-        <link rel="stylesheet" type="text/css" href="${rootUrl}/assets/css/prism.css" />
         <link rel="stylesheet" type="text/css" href="${rootUrl}/assets/fonts/fonts.css" />
-        <link rel="stylesheet" type="text/css" href="${rootUrl}/assets/css/variables.css" />
-        <link rel="stylesheet" type="text/css" href="${rootUrl}/assets/css/general.css" />
-        <link rel="stylesheet" type="text/css" href="${rootUrl}/assets/css/chrome.css" />
-        <link rel="stylesheet" type="text/css" href="${rootUrl}/assets/css/base.css" />
-        <link rel="stylesheet" type="text/css" href="${rootUrl}/assets/css/typography.css" />
-        <link rel="stylesheet" type="text/css" href="${rootUrl}/assets/css/list.css" />
+        <link rel="stylesheet" type="text/css" href="${rootUrl}/assets/css/style.css" />
+        ${noAnimationStyles}
       </head>
 
       <body>

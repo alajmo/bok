@@ -10,4 +10,5 @@ export interface Page {
   build: boolean;
   rightToc?: string;
   toc?: string;
+  lastmod?: Date;
 }

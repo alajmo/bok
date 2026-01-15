@@ -11,5 +11,6 @@ export default function (site: Site, page: Page, _pages: Page[]) {
         ${page.htmlContent}
       </div>
     `,
+    page,
   );
 }

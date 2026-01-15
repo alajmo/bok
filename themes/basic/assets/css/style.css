@@ -1,3 +1,13 @@
+/* View Transitions API - MPA cross-document transitions */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.2s;
+}
+
 body,
 html {
   width: 100%;

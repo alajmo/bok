@@ -6,6 +6,9 @@ import { fs } from "./fs.ts";
 import { log } from "./log.ts";
 
 import { parseToc, TocRender } from "../plugins/toc.ts";
+import { generateSitemap } from "../plugins/sitemap.ts";
+import { generateRobotsTxt } from "../plugins/robots.ts";
+import { generateRssFeed } from "../plugins/rss.ts";
 
 import { parseFrontMatter } from "./front-matter.ts";
 import print from "./print.ts";
@@ -93,8 +96,57 @@ async function build(site: Site) {
   const pages = getPages(site);
   await createSite(site, pages);
   await copyAssets(site);
+  await generateSiteFiles(site, pages);
 
   print.build(site, pages);
+}
+
+/**
+ * Generate sitemap.xml, robots.txt, feed.xml, and print.html.
+ */
+async function generateSiteFiles(site: Site, pages: Page[]) {
+  await generatePrintPage(site, pages);
+
+  const baseUrl = site.url || site.params?.url;
+
+  if (!baseUrl) {
+    return;
+  }
+
+  const sitemap = generateSitemap(site, pages);
+  if (sitemap) {
+    const sitemapPath = site.paths.sitemap
+      ? path.join(site.paths.output, site.paths.sitemap)
+      : path.join(site.paths.output, "sitemap.xml");
+    await fsPromises.writeFile(sitemapPath, sitemap);
+    log.info(`Generated ${path.basename(sitemapPath)}`);
+  }
+
+  const robotsTxt = generateRobotsTxt(site);
+  await fsPromises.writeFile(path.join(site.paths.output, "robots.txt"), robotsTxt);
+  log.info("Generated robots.txt");
+
+  const rssFeed = generateRssFeed(site, pages);
+  if (rssFeed) {
+    await fsPromises.writeFile(path.join(site.paths.output, "feed.xml"), rssFeed);
+    log.info("Generated feed.xml");
+  }
+}
+
+/**
+ * Generate a combined print page with all content.
+ */
+async function generatePrintPage(site: Site, pages: Page[]) {
+  const printLayoutPath = path.join(site.paths.layout, "print.ts");
+  if (!fs.existsSync(printLayoutPath)) {
+    return;
+  }
+
+  const printLayout = await import(printLayoutPath);
+  const printHtml = printLayout.default(site, pages);
+  const printPath = path.join(site.paths.output, "print.html");
+  await fsPromises.writeFile(printPath, printHtml);
+  log.info("Generated print.html");
 }
 
 /**
@@ -170,6 +222,7 @@ function getPageNav(i: number, files: any, site: Site) {
 
 function processPage(site: Site, file: any, opts?: any) {
   const data = fs.readFileSync(file.path, 'utf-8');
+  const stat = fs.statSync(file.path);
 
   const { params, content } = parseFrontMatter(data);
 
@@ -196,6 +249,7 @@ function processPage(site: Site, file: any, opts?: any) {
     tokens,
     build: true,
     rightToc,
+    lastmod: stat.mtime,
     ...opts,
   };
 

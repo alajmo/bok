@@ -106,6 +106,7 @@ async function getSiteConfig(
     serve: siteConfig.serve,
     hooks: siteConfig.hooks,
     rootUrl: siteConfig.rootUrl,
+    url: siteConfig.url,
     uglyURLs: siteConfig.uglyURLs,
     params: siteConfig.params,
   };
@@ -180,6 +181,11 @@ function extendWithDefaultConfig(siteConfig: any, siteDir: string) {
   // Files
   siteConfig.files = siteConfig.files ?? { type: SearchFilesType.walk };
 
+  // Convert string type to enum if needed
+  if (typeof siteConfig.files.type === "string") {
+    siteConfig.files.type = SearchFilesType[siteConfig.files.type as keyof typeof SearchFilesType];
+  }
+
   if (siteConfig.files.type === SearchFilesType.toc) {
     siteConfig.files.file = path.join(
       siteConfig.paths.content,
@@ -235,7 +241,12 @@ async function extendWithThemeConfig(siteConfig: any) {
   siteConfig.uglyURLs = themeConfig.uglyURLs ?? siteConfig.uglyURLs;
 
   if (themeConfig.files) {
-    siteConfig.files = themeConfig.files;
+    siteConfig.files = { ...themeConfig.files };
+
+    // Convert string type to enum if needed
+    if (typeof siteConfig.files.type === "string") {
+      siteConfig.files.type = SearchFilesType[siteConfig.files.type as keyof typeof SearchFilesType];
+    }
 
     if (siteConfig.files.type === SearchFilesType.toc) {
       siteConfig.files.file = path.join(
