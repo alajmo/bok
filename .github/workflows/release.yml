@@ -67,8 +67,26 @@ jobs:
           done
           chmod +x release/*
 
+      - name: Extract release notes from changelog
+        id: changelog
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/v}
+          # Extract the section for this version from CHANGELOG.md
+          NOTES=$(awk -v ver="$VERSION" '
+            /^## \[/ {
+              if (found) exit
+              if ($0 ~ "\\[" ver "\\]") found=1
+              next
+            }
+            found {print}
+          ' CHANGELOG.md)
+          # Handle multi-line output
+          echo "notes<<EOF" >> $GITHUB_OUTPUT
+          echo "$NOTES" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
       - name: Create release
         uses: softprops/action-gh-release@v2
         with:
           files: release/*
-          generate_release_notes: true
+          body: ${{ steps.changelog.outputs.notes }}
