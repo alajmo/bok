@@ -26,7 +26,7 @@
         <style>::view-transition-old(root), ::view-transition-new(root) { animation: none; }</style>
       </head>
 
-      <body>
+      <body data-root-url="/bok">
         <div class="book">
           
     <script type="text/javascript">
@@ -201,6 +201,12 @@
         
 
         <div class="menu-right">
+          <button title="Search (Cmd+K)" type="button" class="icon-button" onclick="openSearch();">
+            <svg class="menu-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="M21 21l-4.35-4.35"/>
+            </svg>
+          </button>
           <button title="Toggle theme" type="button" class="icon-button theme-toggle" onclick="toggleTheme();">
             <svg class="menu-icon theme-icon-light" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 3a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V4a1 1 0 0 1 1-1zm0 15a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1zm9-6a1 1 0 0 1-1 1h-1a1 1 0 1 1 0-2h1a1 1 0 0 1 1 1zM5 12a1 1 0 0 1-1 1H3a1 1 0 1 1 0-2h1a1 1 0 0 1 1 1zm14.07-5.66a1 1 0 0 1 0 1.41l-.71.71a1 1 0 1 1-1.41-1.41l.71-.71a1 1 0 0 1 1.41 0zM7.05 17.66a1 1 0 0 1 0 1.41l-.71.71a1 1 0 1 1-1.41-1.41l.71-.71a1 1 0 0 1 1.41 0zm11.9 1.41a1 1 0 0 1-1.41 0l-.71-.71a1 1 0 1 1 1.41-1.41l.71.71a1 1 0 0 1 0 1.41zM7.05 6.34a1 1 0 0 1-1.41 0l-.71-.71a1 1 0 0 1 1.41-1.41l.71.71a1 1 0 0 1 0 1.41zM12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/>
@@ -298,6 +304,25 @@ bok clean ./docs/config.ts
       </div>
     </main>
   
+        </div>
+
+        <div id="search-modal" class="search-modal hidden">
+          <div class="search-backdrop" onclick="closeSearch();"></div>
+          <div class="search-dialog">
+            <div class="search-input-wrapper">
+              <svg class="search-input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="M21 21l-4.35-4.35"/>
+              </svg>
+              <input type="text" id="search-input" class="search-input" placeholder="Search..." autocomplete="off" />
+            </div>
+            <div id="search-results" class="search-results"></div>
+            <div class="search-footer">
+              <span class="search-hint"><kbd>↑</kbd><kbd>↓</kbd> navigate</span>
+              <span class="search-hint"><kbd>Enter</kbd> select</span>
+              <span class="search-hint"><kbd>Esc</kbd> close</span>
+            </div>
+          </div>
         </div>
 
         <script defer src="/bok/assets/js/index.js"></script>

@@ -52,9 +52,10 @@ async function serveStatic(
     body += `<script>${WS_CLIENT_CODE.replace('${wsPort}', String(wsPort))}</script>`;
   } else {
     body = fs.readFileSync(filePath);
-    // Cache static assets for 1 hour during dev
-    headers.set("cache-control", "max-age=3600");
   }
+
+  // Disable caching in dev mode
+  headers.set("cache-control", "no-cache, no-store, must-revalidate");
 
   if (ct) {
     headers.set("content-type", `${ct}; charset=utf-8`);
@@ -95,6 +96,8 @@ function server(site: Site) {
     initWSClientCode();
   }
 
+  const rootUrl = site.rootUrl || "";
+
   const bunServer = Bun.serve({
     port: site.serve?.port || 5000,
 
@@ -108,6 +111,11 @@ function server(site: Site) {
         if (!(e instanceof URIError)) {
           throw e;
         }
+      }
+
+      // Strip rootUrl prefix for local serving
+      if (rootUrl && normalizedUrl.startsWith(rootUrl)) {
+        normalizedUrl = normalizedUrl.slice(rootUrl.length) || "/";
       }
 
       let fsPath = path.join(site.paths.output, normalizedUrl);
