@@ -1,10 +1,28 @@
 # bok
 
-`bok` is a simple static site generator CLI. It converts Markdown (CommonMark) files to HTML using TypeScript template literals.
+A fast, minimal static site generator built with Bun. Converts Markdown (CommonMark) files to HTML using TypeScript template literals.
 
-It comes with a theme for creating HTML books from Markdown, checkout [demo](https://alajmo.github.io/bok).
+Comes with a documentation/book theme similar to Rust's mdBook. [View demo](https://alajmo.github.io/bok).
 
-## Development
+## Installation
+
+### From releases
+
+Download the latest binary from [GitHub Releases](https://github.com/alajmo/bok/releases).
+
+```bash
+# Linux (x64)
+curl -L https://github.com/alajmo/bok/releases/latest/download/bok-linux-x64 -o bok
+chmod +x bok
+sudo mv bok /usr/local/bin/
+
+# macOS (arm64)
+curl -L https://github.com/alajmo/bok/releases/latest/download/bok-darwin-arm64 -o bok
+chmod +x bok
+sudo mv bok /usr/local/bin/
+```
+
+### From source
 
 ```bash
 # Install Bun
@@ -15,20 +33,20 @@ git clone https://github.com/alajmo/bok
 cd bok
 bun install
 
-# Install globally
+# Install globally via bun
 bun link
 
 # Or compile to native binary
 bun run compile
 ```
 
-## Quickstart
+## Quick Start
 
-```sh
-# Create your site (outputs a config.ts)
+```bash
+# Create a new site (interactive prompts)
 bok init
 
-# Start a HTTP server with auto-refresh on file changes
+# Start dev server with live reload
 bok serve config.ts
 
 # Build static site
@@ -39,8 +57,6 @@ bok build config.ts
 
 ```
 Usage: bok [options] [command]
-
-Static Site Generator
 
 Options:
   -V, --version        output the version number
@@ -54,69 +70,159 @@ Commands:
   clean [config]       Clean output directory
 ```
 
-## Content
+## Configuration
 
-`bok` supports three methods for collecting content files:
-
-1. Iterate all files in the content directory recursively [default]
-2. Provide a glob string
-3. Specify files via a special markdown file (toc)
-
-## Layout
-
-There's three ways to specify which layout to use for markdown content, ordered by precedence:
-
-1. `layout` specified in front-matter
-2. `layout` specified in config
-3. `defaultLayout` specified in config
-
-## Config
-
-Configuration files are TypeScript:
+Configuration is done via TypeScript files, allowing type-safe configs with full IDE support.
 
 ```typescript
 export default {
-  extends: "book", // Extend a built-in theme (basic, book) or path to custom theme
+  // Extend a built-in theme ("basic", "book") or path to custom theme
+  extends: 'book',
+
+  // Base URL path (for sites not at root, e.g., GitHub Pages)
+  rootUrl: '/my-site',
+
+  // Full URL (enables sitemap, RSS, robots.txt generation)
+  url: 'https://example.com/my-site',
 
   paths: {
-    content: "content",
-    output: "site",
-    assets: "assets",
-    layout: "layout",
-    defaultLayout: "index.ts",
+    content: 'content', // Markdown files directory
+    output: 'site', // Build output directory
+    public: ['public'], // Additional assets to copy
   },
 
+  // Dev server options
   serve: {
-    reload: true,
+    reload: true, // Live reload on changes
     port: 5000,
     wsPort: 5001,
   },
 
+  // Build lifecycle hooks
   hooks: {
-    async beforeSite(site, pages) {},
-    async afterSite(site, page, pages) {},
-    async beforePage(site, page, pages) {},
-    async afterPage(site, page, pages) {},
+    async beforeSite(site, pages, opts) {},
+    async afterSite(site, pages, opts) {},
+    async beforePage(site, page, i, pages, opts) {},
+    async afterPage(site, page, i, pages, opts) {},
   },
 
+  // Custom parameters (available in templates)
   params: {
-    title: "My Site",
-    author: "Author Name",
-    description: "Site description",
+    title: 'My Site',
+    author: 'Author Name',
+    description: 'Site description',
+    github: 'https://github.com/user/repo',
   },
-};
+}
 ```
+
+## Content Discovery
+
+Three modes for collecting content files:
+
+### 1. Walk (default)
+
+Recursively iterate all `.md` files in the content directory.
+
+### 2. Glob
+
+Provide a glob pattern:
+
+```typescript
+export default {
+  files: {
+    type: 'glob',
+    glob: '**/*.md',
+  },
+}
+```
+
+### 3. TOC file
+
+Specify file order via a special markdown file. This enables:
+
+- Custom ordering and hierarchy in the sidebar
+- Section headers and separators
+- Previous/next page navigation
+
+```typescript
+export default {
+  files: {
+    type: 'toc',
+    file: 'toc.md',
+  },
+}
+```
+
+Example `toc.md`:
+
+```markdown
+# Book Title
+
+[Introduction](index.md)
+
+- [Getting Started](getting-started.md)
+
+---
+
+# Reference
+
+- [Configuration](config/configuration.md)
+  - [Options](config/options.md)
+  - [Hooks](config/hooks.md)
+```
+
+## Themes
+
+### Built-in Themes
+
+- **basic** - Minimal starting point
+- **book** - Documentation/book theme with sidebar navigation, dark mode, print view
+
+### Using a Theme
+
+```typescript
+export default {
+  extends: 'book',
+  params: {
+    title: 'My Docs',
+    github: 'https://github.com/user/repo',
+  },
+}
+```
+
+### Creating Custom Themes
+
+Themes define: `config.ts`, `layout/` (TypeScript template functions), `assets/` (CSS/JS/fonts).
+
+Layout templates receive the site config, current page, and all pages:
+
+```typescript
+export default function (site: Site, page: Page, pages: Page[]) {
+  return `<!DOCTYPE html>
+<html>
+  <head><title>${page.params.title || site.params.title}</title></head>
+  <body>${page.htmlContent}</body>
+</html>`
+}
+```
+
+## Layout Selection
+
+Layout precedence (highest to lowest):
+
+1. `layout` in front-matter
+2. Theme's `defaultLayout`
 
 ## Development
 
 ```bash
-bun install
-bun run serve    # Serve example book
-bun run build    # Build example book
+bun install              # Install dependencies
+bun run serve            # Dev server with examples/book/
+bun run build            # Build examples/book/
+bun run compile          # Compile to native binary
 ```
 
-## Similar Projects
+## License
 
-- [mdbook](https://github.com/rust-lang/mdBook)
-- [eleventy](https://github.com/11ty/eleventy)
-- [Gitbook](https://www.gitbook.com)
+MIT
