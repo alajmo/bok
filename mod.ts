@@ -11,7 +11,7 @@ if (isMain) {
 
   program
     .name("bok")
-    .version("0.1.3")
+    .version("0.1.0")
     .description("Static Site Generator");
 
   program
