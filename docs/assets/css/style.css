@@ -89,8 +89,18 @@ html[data-theme='dark'] {
    View Transitions
    ========================================================================== */
 
+/* stylelint-disable-next-line at-rule-no-unknown */
 @view-transition {
   navigation: auto;
+}
+
+.sidebar {
+  view-transition-name: sidebar;
+}
+
+::view-transition-old(sidebar),
+::view-transition-new(sidebar) {
+  animation: none;
 }
 
 /* ==========================================================================
@@ -120,8 +130,9 @@ html {
 }
 
 code {
-  font-family: 'Source Code Pro', Consolas, 'Ubuntu Mono', Menlo,
-    'DejaVu Sans Mono', monospace, monospace !important;
+  font-family:
+    'Source Code Pro', Consolas, 'Ubuntu Mono', Menlo, 'DejaVu Sans Mono',
+    monospace, monospace !important;
   font-size: 0.875em;
 }
 
@@ -503,7 +514,9 @@ html[data-focus-mode='true'] .right-toc {
   filter: blur(3px);
   opacity: 0.3;
   pointer-events: none;
-  transition: filter 0.3s ease, opacity 0.3s ease;
+  transition:
+    filter 0.3s ease,
+    opacity 0.3s ease;
 }
 
 html[data-focus-mode='true'] .focus-toggle {
@@ -512,7 +525,9 @@ html[data-focus-mode='true'] .focus-toggle {
 
 .sidebar,
 .right-toc {
-  transition: filter 0.3s ease, opacity 0.3s ease;
+  transition:
+    filter 0.3s ease,
+    opacity 0.3s ease;
 }
 
 /* Page Wrapper & Content */

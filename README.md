@@ -1,21 +1,10 @@
 # bok
 
-`bok` is a simple static site generator CLI built with Bun. It converts Markdown (CommonMark) files to HTML using TypeScript template literals.
+`bok` is a simple static site generator CLI. It converts Markdown (CommonMark) files to HTML using TypeScript template literals.
 
 It comes with a theme for creating HTML books from Markdown, checkout [demo](https://alajmo.github.io/bok).
 
-Main use cases for `bok` are personal blogs, documentation sites, etc.
-
-## Features
-
-- Simple and minimal API
-- Supports Markdown (with Front-matter)
-- Vanilla TS/JS Templating (or bring your own templating system)
-- Easily extendable
-- Auto-refresh browser on file change
-- Documentation/Book Theme, similar to rust's [mdbook](https://github.com/rust-lang/mdBook)
-
-## Install
+## Development
 
 ```bash
 # Install Bun
