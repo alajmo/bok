@@ -10,15 +10,23 @@ fi
 VERSION="$1"
 TAG="v$VERSION"
 
+# Check if tag already exists
+if git rev-parse "$TAG" >/dev/null 2>&1; then
+  echo "Error: Tag $TAG already exists"
+  exit 1
+fi
+
 # Update version in package.json
 sed -i "s/\"version\": \"[^\"]*\"/\"version\": \"$VERSION\"/" package.json
 
 # Update version in mod.ts
 sed -i "s/\.version(\"[^\"]*\")/.version(\"$VERSION\")/" mod.ts
 
-# Commit version bump
-git add package.json mod.ts
-git commit -m "Bump version to $VERSION"
+# Commit version bump if there are changes
+if ! git diff --quiet package.json mod.ts; then
+  git add package.json mod.ts
+  git commit -m "Bump version to $VERSION"
+fi
 
 # Create and push tag
 git tag "$TAG"
