@@ -1,6 +1,14 @@
-import { fs, log, MarkdownIt, MarkdownItAnchor, path } from "../../deps.ts";
+import * as path from "node:path";
+import { promises as fsPromises } from "node:fs";
+import MarkdownIt from "markdown-it";
+import MarkdownItAnchor from "markdown-it-anchor";
+import { fs } from "./fs.ts";
+import { log } from "./log.ts";
 
 import { parseToc, TocRender } from "../plugins/toc.ts";
+import { generateSitemap } from "../plugins/sitemap.ts";
+import { generateRobotsTxt } from "../plugins/robots.ts";
+import { generateRssFeed } from "../plugins/rss.ts";
 
 import { parseFrontMatter } from "./front-matter.ts";
 import print from "./print.ts";
@@ -88,8 +96,57 @@ async function build(site: Site) {
   const pages = getPages(site);
   await createSite(site, pages);
   await copyAssets(site);
+  await generateSiteFiles(site, pages);
 
   print.build(site, pages);
+}
+
+/**
+ * Generate sitemap.xml, robots.txt, feed.xml, and print.html.
+ */
+async function generateSiteFiles(site: Site, pages: Page[]) {
+  await generatePrintPage(site, pages);
+
+  const baseUrl = site.url || site.params?.url;
+
+  if (!baseUrl) {
+    return;
+  }
+
+  const sitemap = generateSitemap(site, pages);
+  if (sitemap) {
+    const sitemapPath = site.paths.sitemap
+      ? path.join(site.paths.output, site.paths.sitemap)
+      : path.join(site.paths.output, "sitemap.xml");
+    await fsPromises.writeFile(sitemapPath, sitemap);
+    log.info(`Generated ${path.basename(sitemapPath)}`);
+  }
+
+  const robotsTxt = generateRobotsTxt(site);
+  await fsPromises.writeFile(path.join(site.paths.output, "robots.txt"), robotsTxt);
+  log.info("Generated robots.txt");
+
+  const rssFeed = generateRssFeed(site, pages);
+  if (rssFeed) {
+    await fsPromises.writeFile(path.join(site.paths.output, "feed.xml"), rssFeed);
+    log.info("Generated feed.xml");
+  }
+}
+
+/**
+ * Generate a combined print page with all content.
+ */
+async function generatePrintPage(site: Site, pages: Page[]) {
+  const printLayoutPath = path.join(site.paths.layout, "print.ts");
+  if (!fs.existsSync(printLayoutPath)) {
+    return;
+  }
+
+  const printLayout = await import(printLayoutPath);
+  const printHtml = printLayout.default(site, pages);
+  const printPath = path.join(site.paths.output, "print.html");
+  await fsPromises.writeFile(printPath, printHtml);
+  log.info("Generated print.html");
 }
 
 /**
@@ -97,20 +154,20 @@ async function build(site: Site) {
 function getPages(site: Site): Page[] {
   const pages: Page[] = [];
 
-  switch (SearchFilesType[site.files.type]) {
+  switch (site.files.type) {
     case SearchFilesType.toc:
       const { files, ast } = parseToc(site);
-      const actualFiles = files.filter((f) => f.ref !== "");
+      const actualFiles = files.filter((f: any) => f.ref !== "");
 
       actualFiles.forEach((f: any, i: number) => {
         const filepath = path.join(site.paths.content, f.ref);
-        const stat = Deno.statSync(filepath);
+        const stat = fs.statSync(filepath);
         const file = {
           name: filepath,
           path: filepath,
         };
 
-        if (stat.isFile) {
+        if (stat.isFile()) {
           const { prevPage, nextPage } = getPageNav(i, actualFiles, site);
 
           // Render ToC for all pages since we need to highlight current page.
@@ -123,7 +180,7 @@ function getPages(site: Site): Page[] {
     case SearchFilesType.glob:
       for (
         const file of fs.expandGlobSync(
-          path.join(site.paths.content, site.files.glob),
+          path.join(site.paths.content, site.files.glob!),
         )
       ) {
         if (file.isFile) {
@@ -146,7 +203,7 @@ function getPages(site: Site): Page[] {
 }
 
 function parseLink(site: Site, filepath: string): string {
-  const link = path.join("/", path.dirname(filepath), path.basename(filepath, ".md"));
+  let link = path.join("/", path.dirname(filepath), path.basename(filepath, ".md"));
 
   if (site.uglyURLs) {
     link += ".html";
@@ -164,16 +221,17 @@ function getPageNav(i: number, files: any, site: Site) {
 }
 
 function processPage(site: Site, file: any, opts?: any) {
-  const data = Deno.readTextFileSync(file.path);
+  const data = fs.readFileSync(file.path, 'utf-8');
+  const stat = fs.statSync(file.path);
 
   const { params, content } = parseFrontMatter(data);
 
   // TODO: Fix this, possibly fork markdown-it, so render returns parsed data as well.
   const parsedData = MD.render(content);
-  let tokens = [];
+  let tokens: any[] = [];
 
   try {
-    tokens = MD.parse(content);
+    tokens = MD.parse(content, {});
   } catch (e) {}
 
   let link = path.relative(site.paths.content, file.path);
@@ -191,6 +249,7 @@ function processPage(site: Site, file: any, opts?: any) {
     tokens,
     build: true,
     rightToc,
+    lastmod: stat.mtime,
     ...opts,
   };
 
@@ -203,7 +262,7 @@ async function copyAssets(site: Site) {
     path.join(site.paths.output, path.basename(site.paths.assets)),
   );
 
-  await Promise.all(site.paths.public.map(async (dir) => {
+  await Promise.all(site.paths.public.map(async (dir: string) => {
     await fs.copy(
       dir,
       path.join(site.paths.output, path.basename(dir)),
@@ -216,7 +275,7 @@ async function buildHtml(site: Site, page: Page, pages: Page[], opts?: any) {
   if (typeof page.params.layout === "string") {
     let layoutPath = path.join(site.paths.layout, page.params.layout);
     if (fs.existsSync(layoutPath)) {
-      convertToHtml(site, page, pages, layoutPath, opts);
+      await convertToHtml(site, page, pages, layoutPath, opts);
     } else {
       log.error(`Encountered error when processing file ${page.path}.
 Could not find referenced layout: ${page.params.layout}
@@ -228,7 +287,7 @@ Could not find referenced layout: ${page.params.layout}
       typeof site.paths.defaultLayout === "string" &&
       fs.existsSync(site.paths.defaultLayout)
     ) {
-      convertToHtml(site, page, pages, site.paths.defaultLayout, opts);
+      await convertToHtml(site, page, pages, site.paths.defaultLayout, opts);
     } else {
       log.error(`Encountered error when processing file ${page.path}.
 Since there was no layout specified, it tried to use the default layout, but the default layout ${site.paths.defaultLayout}
@@ -273,7 +332,7 @@ async function convertToHtml(
   }
 
   await fs.ensureDir(path.dirname(outputPath));
-  await Deno.writeTextFile(outputPath, htmlContent);
+  await fsPromises.writeFile(outputPath, htmlContent);
 }
 
 async function createSite(site: Site, pages: Page[]) {
@@ -288,7 +347,7 @@ async function createSite(site: Site, pages: Page[]) {
       await site.hooks.beforePage(site, page, i, pages, opts);
 
       if (page.build) {
-        buildHtml(site, page, pages);
+        await buildHtml(site, page, pages);
       }
 
       await site.hooks.afterPage(site, page, i, pages, opts);

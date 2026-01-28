@@ -1,4 +1,5 @@
-import { SearchFilesType, Site } from "./config.ts";
+import chokidar from "chokidar";
+import { Site } from "./config.ts";
 import { websocket } from "./ws-server.ts";
 import { server } from "./server.ts";
 import { build } from "./build.ts";
@@ -13,15 +14,18 @@ async function watch(site: Site) {
 
   const dirs = [site.paths.assets, site.paths.content, site.paths.layout];
   let reloading = false;
-  for await (const event of Deno.watchFs(dirs)) {
-    if (event.kind === "modify" && !reloading) {
+
+  const watcher = chokidar.watch(dirs, {
+    ignoreInitial: true,
+  });
+
+  watcher.on('change', async () => {
+    if (!reloading) {
       reloading = true;
-
       await build(site);
-
       setTimeout(() => (reloading = false), INTERVAL);
     }
-  }
+  });
 }
 
 async function serve(site: Site) {
@@ -34,8 +38,13 @@ async function serve(site: Site) {
   const dirs = [site.paths.content, site.paths.assets, site.paths.layout];
 
   let reloading = false;
-  for await (const event of Deno.watchFs(dirs)) {
-    if (event.kind === "modify" && !reloading) {
+
+  const watcher = chokidar.watch(dirs, {
+    ignoreInitial: true,
+  });
+
+  watcher.on('change', async () => {
+    if (!reloading) {
       reloading = true;
 
       await build(site);
@@ -48,5 +57,5 @@ async function serve(site: Site) {
 
       setTimeout(() => (reloading = false), INTERVAL);
     }
-  }
+  });
 }

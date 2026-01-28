@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title><![CDATA[bok]]></title>
+    <link>https://github.com/alajmo/bok</link>
+    <description><![CDATA[A fast, minimal static site generator built with Bun]]></description>
+    <language>en</language>
+    <lastBuildDate>Wed, 28 Jan 2026 15:22:08 GMT</lastBuildDate>
+    <atom:link href="https://github.com/alajmo/bok/feed.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title><![CDATA[index]]></title>
+      <link>https://github.com/alajmo/bok/</link>
+      <guid>https://github.com/alajmo/bok/</guid>
+      <description><![CDATA[**bok** is a fast, minimal static site generator built with Bun. It converts Markdown files to HTML using TypeScript template literals, with a focus on documentation sites and books.]]></description>
+      <pubDate>Wed, 28 Jan 2026 15:22:08 GMT</pubDate>
+    </item>
+    <item>
+      <title><![CDATA[getting-started]]></title>
+      <link>https://github.com/alajmo/bok/getting-started/</link>
+      <guid>https://github.com/alajmo/bok/getting-started/</guid>
+      <description><![CDATA[This guide will help you create your first bok site.]]></description>
+      <pubDate>Wed, 28 Jan 2026 15:22:08 GMT</pubDate>
+    </item>
+    <item>
+      <title><![CDATA[usage]]></title>
+      <link>https://github.com/alajmo/bok/usage/usage/</link>
+      <guid>https://github.com/alajmo/bok/usage/usage/</guid>
+      <description><![CDATA[bok provides a simple command-line interface for building and serving your site.]]></description>
+      <pubDate>Wed, 28 Jan 2026 15:22:08 GMT</pubDate>
+    </item>
+    <item>
+      <title><![CDATA[init]]></title>
+      <link>https://github.com/alajmo/bok/usage/init/</link>
+      <guid>https://github.com/alajmo/bok/usage/init/</guid>
+      <description><![CDATA[Initialize a new bok site in the current directory.]]></description>
+      <pubDate>Wed, 28 Jan 2026 15:22:08 GMT</pubDate>
+    </item>
+    <item>
+      <title><![CDATA[build]]></title>
+      <link>https://github.com/alajmo/bok/usage/build/</link>
+      <guid>https://github.com/alajmo/bok/usage/build/</guid>
+      <description><![CDATA[Build your site into static HTML files.]]></description>
+      <pubDate>Wed, 28 Jan 2026 15:22:08 GMT</pubDate>
+    </item>
+    <item>
+      <title><![CDATA[watch]]></title>
+      <link>https://github.com/alajmo/bok/usage/watch/</link>
+      <guid>https://github.com/alajmo/bok/usage/watch/</guid>
+      <description><![CDATA[Build your site and automatically rebuild when files change.]]></description>
+      <pubDate>Wed, 28 Jan 2026 15:22:08 GMT</pubDate>
+    </item>
+    <item>
+      <title><![CDATA[serve]]></title>
+      <link>https://github.com/alajmo/bok/usage/serve/</link>
+      <guid>https://github.com/alajmo/bok/usage/serve/</guid>
+      <description><![CDATA[Build, serve, and live reload your site during development.]]></description>
+      <pubDate>Wed, 28 Jan 2026 15:22:08 GMT</pubDate>
+    </item>
+    <item>
+      <title><![CDATA[clean]]></title>
+      <link>https://github.com/alajmo/bok/usage/clean/</link>
+      <guid>https://github.com/alajmo/bok/usage/clean/</guid>
+      <description><![CDATA[Remove the output directory.]]></description>
+      <pubDate>Wed, 28 Jan 2026 15:22:08 GMT</pubDate>
+    </item>
+    <item>
+      <title><![CDATA[configuration]]></title>
+      <link>https://github.com/alajmo/bok/configuration/configuration/</link>
+      <guid>https://github.com/alajmo/bok/configuration/configuration/</guid>
+      <description><![CDATA[bok uses a TypeScript configuration file (`config.ts`) to define your site settings.]]></description>
+      <pubDate>Wed, 28 Jan 2026 15:22:08 GMT</pubDate>
+    </item>
+    <item>
+      <title><![CDATA[site-config]]></title>
+      <link>https://github.com/alajmo/bok/configuration/site-config/</link>
+      <guid>https://github.com/alajmo/bok/configuration/site-config/</guid>
+      <description><![CDATA[The `config.ts` file is the heart of your bok site. This page covers all configuration options in detail.]]></description>
+      <pubDate>Wed, 28 Jan 2026 15:22:08 GMT</pubDate>
+    </item>
+    <item>
+      <title><![CDATA[toc-format]]></title>
+      <link>https://github.com/alajmo/bok/configuration/toc-format/</link>
+      <guid>https://github.com/alajmo/bok/configuration/toc-format/</guid>
+      <description><![CDATA[Top-level links without list markers.]]></description>
+      <pubDate>Wed, 28 Jan 2026 15:22:08 GMT</pubDate>
+    </item>
+    <item>
+      <title><![CDATA[Front Matter]]></title>
+      <link>https://github.com/alajmo/bok/configuration/front-matter/</link>
+      <guid>https://github.com/alajmo/bok/configuration/front-matter/</guid>
+      <description><![CDATA[Front matter lets you add metadata to individual pages.]]></description>
+      <pubDate>Wed, 28 Jan 2026 15:22:08 GMT</pubDate>
+    </item>
+    <item>
+      <title><![CDATA[themes]]></title>
+      <link>https://github.com/alajmo/bok/themes/themes/</link>
+      <guid>https://github.com/alajmo/bok/themes/themes/</guid>
+      <description><![CDATA[Themes control the look and feel of your bok site. They provide layouts, styles, and default configuration.]]></description>
+      <pubDate>Wed, 28 Jan 2026 15:22:08 GMT</pubDate>
+    </item>
+    <item>
+      <title><![CDATA[book-theme]]></title>
+      <link>https://github.com/alajmo/bok/themes/book-theme/</link>
+      <guid>https://github.com/alajmo/bok/themes/book-theme/</guid>
+      <description><![CDATA[The book theme provides a complete documentation experience similar to mdBook or GitBook.]]></description>
+      <pubDate>Wed, 28 Jan 2026 15:22:08 GMT</pubDate>
+    </item>
+    <item>
+      <title><![CDATA[creating-themes]]></title>
+      <link>https://github.com/alajmo/bok/themes/creating-themes/</link>
+      <guid>https://github.com/alajmo/bok/themes/creating-themes/</guid>
+      <description><![CDATA[Build custom themes for your bok sites.]]></description>
+      <pubDate>Wed, 28 Jan 2026 15:22:08 GMT</pubDate>
+    </item>
+    <item>
+      <title><![CDATA[contributing]]></title>
+      <link>https://github.com/alajmo/bok/contributing/</link>
+      <guid>https://github.com/alajmo/bok/contributing/</guid>
+      <description><![CDATA[Contributions to bok are welcome!]]></description>
+      <pubDate>Wed, 28 Jan 2026 15:22:08 GMT</pubDate>
+    </item>
+  </channel>
+</rss>

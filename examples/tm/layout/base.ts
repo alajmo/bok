@@ -1,4 +1,6 @@
-export default function (site, content) {
+import type { Site } from "../../../src/core/config.ts";
+
+export default function (site: Site, content: string) {
   return `
     <!DOCTYPE html>
     <html lang="en">

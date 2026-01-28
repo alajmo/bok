@@ -1,10 +1,12 @@
-import { log, path } from "../../deps.ts";
+import * as path from "node:path";
+import { fs } from "../core/fs.ts";
+import { log } from "../core/log.ts";
 import { Site } from "../core/config.ts";
 
 export { parseToc, TocRender };
 
 function parseToc(site: Site): any {
-  const content = Deno.readTextFileSync(site.files.file);
+  const content = fs.readFileSync(site.files.file!, 'utf-8');
   const reader = TocReader(content);
   const lexer = TocLexer(reader);
   const { files, ast } = TocParser(lexer);
@@ -237,7 +239,7 @@ function TocParser(lexer: any) {
   }
 
   function parse() {
-    const statements = [];
+    const statements: any[] = [];
     while (!lexer.isEOF()) {
       const expr = expression();
 
@@ -285,7 +287,7 @@ function TocParser(lexer: any) {
       lexer.peek(2) === TokenType.RIGHT_BRACE
     ) {
       const title = lexer.consume(1);
-      let ref = "";
+      let ref: any = "";
       if (lexer.peek(2) === TokenType.STRING) {
         ref = lexer.consume(2);
       }
@@ -315,14 +317,14 @@ function TocParser(lexer: any) {
 function TocRender(site: Site, ast: any, currentFileName: string) {
   const activePage = formatUrl(currentFileName);
 
-  function formatUrl(currentFileName) {
+  function formatUrl(currentFileName: string) {
     let link = stripExtension(currentFileName);
     link = link.replace(site.paths.content, "");
 
     return link;
   }
 
-  function stripExtension(url) {
+  function stripExtension(url: string) {
     let link = path.relative(site.paths.content, url);
     link = path.join("/", path.dirname(url), path.basename(url, ".md"));
 

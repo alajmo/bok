@@ -1,14 +1,14 @@
-# markBook
+# bok
 
-[About](index.md)
+[Introduction](index.md)
 
-- [Getting Start](getting-started.md)
+- [Getting Started](getting-started.md)
 
 ---
 
-# Documentation
+# Reference
 
-- [CLI Usage](usage/usage.md)
+- [CLI Commands](usage/usage.md)
 
   - [init](usage/init.md)
   - [build](usage/build.md)
@@ -16,8 +16,14 @@
   - [serve](usage/serve.md)
   - [clean](usage/clean.md)
 
-- [Configuration]()
-  - [Table of Contents Format]()
+- [Configuration](configuration/configuration.md)
+  - [Site Config](configuration/site-config.md)
+  - [TOC Format](configuration/toc-format.md)
+  - [Front Matter](configuration/front-matter.md)
+
+- [Themes](themes/themes.md)
+  - [Book Theme](themes/book-theme.md)
+  - [Creating Themes](themes/creating-themes.md)
 
 ---
 

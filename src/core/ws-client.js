@@ -1,5 +1,5 @@
 (function connect() {
-  let ws = new WebSocket("ws://localhost:5001/websocket");
+  let ws = new WebSocket("ws://localhost:${wsPort}/websocket");
   let retryDelay = 1000;
 
   ws.onopen = (event) => {

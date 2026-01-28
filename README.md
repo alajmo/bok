@@ -1,44 +1,28 @@
 # bok
 
-## WORK IN-PROGRESS
-
-`bok` is a simple static site generator implemented as a command line tool in
-`Deno`. It converts Markdown (CommonMark specification) files to HTML files via
-Javascript Template Literals.
+`bok` is a simple static site generator CLI. It converts Markdown (CommonMark) files to HTML using TypeScript template literals.
 
 It comes with a theme for creating HTML books from Markdown, checkout [demo](https://alajmo.github.io/bok).
 
-Main use cases for `bok` are personal blogs, documentation sites, etc.
+## Development
 
-## Features
+```bash
+# Install Bun
+curl -fsSL https://bun.sh/install | bash
 
-- Simple and minimal API
-- Supports Markdown (with Front-matter)
-- Vanilla TS/JS Templating (or bring your own templating system and invoke it
-  via Javascript)
-- Easily extendable
-- Auto-refresh browser client on file change
-- Documentation/Book Theme, similar to rust's
-  [mdbook](https://github.com/rust-lang/mdBook)
+# Clone and install
+git clone https://github.com/alajmo/bok
+cd bok
+bun install
 
-## Install
+# Install globally
+bun link
 
-`bok` is based on Deno, so until the single-binary executable is available (and
-stable) in Deno, we need to install Deno first:
-
-```
-curl -fsSL https://deno.land/x/install/install.sh | sh
-```
-
-Then install the latest version of `bok`
-
-```
-deno install --force --no-check --unstable --allow-all --name=bok https://deno.land/x/bok/mod.ts
+# Or compile to native binary
+bun run compile
 ```
 
 ## Quickstart
-
-Run the following command to generate a new site.
 
 ```sh
 # Create your site (outputs a config.ts)
@@ -46,71 +30,66 @@ bok init
 
 # Start a HTTP server with auto-refresh on file changes
 bok serve config.ts
+
+# Build static site
+bok build config.ts
 ```
 
-## Documentation
+## Commands
 
-### Commands
+```
+Usage: bok [options] [command]
 
-```sh
- Usage:   bok
- Version: v0.1.0
+Static Site Generator
 
- Description:
+Options:
+  -V, --version        output the version number
+  -h, --help           display help for command
 
-   Static Site Generator
-
- Options:
-
-   -h, --help     - Show this help.
-   -V, --version  - Show the version number for this program.
-
- Commands:
-
-   init                    - Build a static website
-   build  [config:string]  - Build a static website
-   watch  [config:string]  - Build a static website and rebuild on file changes
-   serve  [config:string]  - Build a static website, serve it and rebuild on file changes
-   clean  [config:string]  - Clean output directory
+Commands:
+  init                 Initialize a site in current directory
+  build [config]       Build a static website
+  watch [config]       Build a static website and rebuild on file changes
+  serve [config]       Build a static website, serve it and rebuild on file changes
+  clean [config]       Clean output directory
 ```
 
-### Content
+## Content
 
-`bok` supports two methods for collecting content files:
+`bok` supports three methods for collecting content files:
 
 1. Iterate all files in the content directory recursively [default]
 2. Provide a glob string
-3. Specify files via a special markdown file
+3. Specify files via a special markdown file (toc)
 
-### Layout
+## Layout
 
-There's three ways to specify which layout to use for markdown content, ordered
-by precedence:
+There's three ways to specify which layout to use for markdown content, ordered by precedence:
 
 1. `layout` specified in front-matter
 2. `layout` specified in config
 3. `defaultLayout` specified in config
 
-### Config
+## Config
 
-Configuration files are regular Typescript.
+Configuration files are TypeScript:
 
 ```typescript
 export default {
-  theme: "name|path|url",
+  extends: "book", // Extend a built-in theme (basic, book) or path to custom theme
 
   paths: {
-    content: "content", // This is where you write your markdown files
-    output: "site", // This is where the site will be created
-    assets: "assets", // Public resources which will be copied to the output directory
-    layout: "layout", // Directory containing your layouts
-    defaultLayout: "index.ts", // If layout is not specified in the front-matter section of the markdown files, use this layout
+    content: "content",
+    output: "site",
+    assets: "assets",
+    layout: "layout",
+    defaultLayout: "index.ts",
   },
 
   serve: {
-    reload: true, // Reload site on file change
-    port: 5000, // Port to serve development on
-    wsPort: 5001, // Port to serve websocket
+    reload: true,
+    port: 5000,
+    wsPort: 5001,
   },
 
   hooks: {
@@ -121,21 +100,23 @@ export default {
   },
 
   params: {
-    title: "Docs",
-    author: "Samir Alajmovic",
-    description: "This is the documentation theme",
-    url: "https://github.com/alajmo/docs",
+    title: "My Site",
+    author: "Author Name",
+    description: "Site description",
   },
 };
+```
+
+## Development
+
+```bash
+bun install
+bun run serve    # Serve example book
+bun run build    # Build example book
 ```
 
 ## Similar Projects
 
 - [mdbook](https://github.com/rust-lang/mdBook)
-- [pagic](https://github.com/xcatliu/pagic)
 - [eleventy](https://github.com/11ty/eleventy)
 - [Gitbook](https://www.gitbook.com)
-
-## Development
-
-All contributions are welcome.

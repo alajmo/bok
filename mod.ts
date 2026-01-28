@@ -1,28 +1,39 @@
-import { Command, Confirm, Input, log, prompt, Select } from "./deps.ts";
+#!/usr/bin/env bun
+import { Command } from "commander";
+import { select, input } from "@inquirer/prompts";
 import { Bok } from "./src/mod.ts";
 
-if (import.meta.main) {
-  const bok = Bok();
+const isMain = import.meta.path === Bun.main;
 
-  const init = new Command()
+if (isMain) {
+  const bok = Bok();
+  const program = new Command();
+
+  program
+    .name("bok")
+    .version("0.1.3")
+    .description("Static Site Generator");
+
+  program
+    .command("init")
     .description("Initialize a site in current directory")
     .option("--mode <string>", "Create or extend a theme")
     .option("--theme <string>", "bok theme to base site on")
     .option("--theme-path <string>", "Path to site config")
     .action(async (options: any) => {
       const mode: string = options.mode ??
-        (await Select.prompt({
+        (await select({
           message: "Extend or create new site from scratch",
-          options: [
+          choices: [
             { name: "create", value: "create" },
             { name: "extend", value: "extend" },
           ],
         }));
 
       const theme: string = options.theme ??
-        (await Select.prompt({
+        (await select({
           message: "Choose template boilerplate",
-          options: [
+          choices: [
             { name: "basic (bare minimum to get started)", value: "basic" },
             { name: "book (a markdown book theme)", value: "book" },
             {
@@ -35,51 +46,46 @@ if (import.meta.main) {
       let themePath: string = "";
       if (theme === "path") {
         themePath = options.themePath ??
-          (await Input.prompt("Enter absolute path to theme config"));
+          (await input({ message: "Enter absolute path to theme config" }));
       }
 
       bok.init(mode, theme, themePath);
     });
 
-  const build = new Command()
+  program
+    .command("build")
     .description("Build a static website")
-    .arguments("[config]")
-    .action((options: any, args: any) => {
-      bok.build(options, args);
+    .argument("[config]", "Path to config file")
+    .action((config: string, options: any) => {
+      bok.build(options, config);
     });
 
-  const watch = new Command()
+  program
+    .command("watch")
     .description("Build a static website and rebuild on file changes")
-    .arguments("[config]")
-    .action((options: any, args: any) => {
-      bok.watch(options, args);
+    .argument("[config]", "Path to config file")
+    .action((config: string, options: any) => {
+      bok.watch(options, config);
     });
 
-  const serve = new Command()
+  program
+    .command("serve")
     .description("Build a static website, serve it and rebuild on file changes")
-    .option("--port <port:number>", "Specify local port of HTTP server")
-    .option("--ws-port <port:number>", "Specify local port of websocket server")
-    .option("--reload <reload:boolean>", "Live-reload browser on change")
-    .arguments("[config]")
-    .action((options: any, args: any) => {
-      bok.serve(options, args);
+    .option("--port <port>", "Specify local port of HTTP server", parseInt)
+    .option("--ws-port <port>", "Specify local port of websocket server", parseInt)
+    .option("--reload", "Live-reload browser on change")
+    .argument("[config]", "Path to config file")
+    .action((config: string, options: any) => {
+      bok.serve(options, config);
     });
 
-  const clean = new Command()
+  program
+    .command("clean")
     .description("Clean output directory")
-    .arguments("[config]")
-    .action((options: any, args: any) => {
-      bok.clean(options, args);
+    .argument("[config]", "Path to config file")
+    .action((config: string, options: any) => {
+      bok.clean(options, config);
     });
 
-  await new Command()
-    .name("bok")
-    .version("0.1.3")
-    .description("Static Site Generator")
-    .command("init", init)
-    .command("build", build)
-    .command("watch", watch)
-    .command("serve", serve)
-    .command("clean", clean)
-    .parse(Deno.args);
+  program.parse(process.argv);
 }

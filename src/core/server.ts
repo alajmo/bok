@@ -1,11 +1,12 @@
-import { http, log, path } from "../../deps.ts";
+import * as path from "node:path";
+import { fs } from "./fs.ts";
+import { log } from "./log.ts";
 
 import { Site } from "./config.ts";
 import { __dirname, exists } from "./utils.ts";
 
 export { server };
 
-const encoder = new TextEncoder();
 let WS_CLIENT_CODE = "";
 
 const MEDIA_TYPES: Record<string, string> = {
@@ -28,7 +29,7 @@ const MEDIA_TYPES: Record<string, string> = {
 
 function initWSClientCode() {
   const wsClientPath = path.join(__dirname(), "ws-client.js");
-  WS_CLIENT_CODE = Deno.readTextFileSync(wsClientPath);
+  WS_CLIENT_CODE = fs.readFileSync(wsClientPath, 'utf-8');
 }
 
 /** Returns the content-type based on the extension of a path. */
@@ -37,105 +38,96 @@ function contentType(p: string): string | undefined {
 }
 
 async function serveStatic(
-  req: ServerRequest,
   filePath: string,
+  wsPort: number,
 ): Promise<Response> {
-  let [file, fileInfo] = await Promise.all([
-    Deno.open(filePath),
-    Deno.stat(filePath),
-  ]);
-
   const headers = new Headers();
 
   const ct = contentType(filePath);
-  let body;
+  let body: BodyInit;
+
   // Handle html and assets (js, css, json, .etc differently)
   if (ct === "text/html") {
-    body = await Deno.readTextFile(filePath);
-    body += `<script>${WS_CLIENT_CODE}</script>`;
+    body = fs.readFileSync(filePath, 'utf-8');
+    body += `<script>${WS_CLIENT_CODE.replace('${wsPort}', String(wsPort))}</script>`;
   } else {
-    body = await Deno.readFile(filePath);
+    body = fs.readFileSync(filePath);
+    // Cache static assets for 1 hour during dev
+    headers.set("cache-control", "max-age=3600");
   }
 
   if (ct) {
     headers.set("content-type", `${ct}; charset=utf-8`);
   }
 
-  const res = {
-    body,
-    status: 200,
-    headers,
-  };
-
-  return res;
+  return new Response(body, { status: 200, headers });
 }
 
 async function serveFallback(
   paths: any,
-  req: ServerRequest,
   e: Error,
+  wsPort: number,
 ): Promise<Response> {
-  if (e instanceof Deno.errors.NotFound) {
+  // Check if it's a "not found" type error
+  if ((e as NodeJS.ErrnoException).code === 'ENOENT') {
     const fsPath = path.join(paths.output, "404", "index.html");
     const notFoundPageExists = await exists(fsPath);
     if (notFoundPageExists) {
-      return serveStatic(req, fsPath);
+      return serveStatic(fsPath, wsPort);
     }
 
-    return Promise.resolve({
-      status: 404,
-      body: encoder.encode("Not found"),
-    });
+    return new Response("Not found", { status: 404 });
   } else {
-    return Promise.resolve({
-      status: 500,
-      body: encoder.encode("Internal server error"),
-    });
+    return new Response("Internal server error", { status: 500 });
   }
 }
 
-function serverLog(req: ServerRequest, res: Response): void {
+function serverLog(req: Request, res: Response): void {
   const d = new Date().toISOString();
   const dateFmt = `[${d.slice(0, 10)} ${d.slice(11, 19)}]`;
-  const s = `${dateFmt} "${req.method} ${req.url} ${req.proto}" ${res.status}`;
+  const url = new URL(req.url);
+  const s = `${dateFmt} "${req.method} ${url.pathname} HTTP/1.1" ${res.status}`;
+  log.debug(s);
 }
 
 function server(site: Site) {
-  if (site.serve.reload) {
+  if (site.serve?.reload) {
     initWSClientCode();
   }
 
-  const handler = async (req: Request): Promise<Response> => {
-    const url = req.url.replace(`http://localhost:${site.serve?.port}`, '');
-    let normalizedUrl = path.normalize(url);
+  const bunServer = Bun.serve({
+    port: site.serve?.port || 5000,
 
-    try {
-      normalizedUrl = decodeURIComponent(normalizedUrl);
-    } catch (e) {
-      if (!(e instanceof URIError)) {
-        throw e;
-      }
-    }
+    async fetch(req: Request): Promise<Response> {
+      const url = new URL(req.url);
+      let normalizedUrl = path.normalize(url.pathname);
 
-    let fsPath = path.join(site.paths.output, normalizedUrl);
-
-    let response: Response;
-    try {
-      const info = await Deno.stat(fsPath);
-      if (info.isDirectory) {
-        fsPath = path.join(fsPath, "index.html");
+      try {
+        normalizedUrl = decodeURIComponent(normalizedUrl);
+      } catch (e) {
+        if (!(e instanceof URIError)) {
+          throw e;
+        }
       }
 
-      response = await serveStatic(req, fsPath);
-    } catch (e) {
-      response = await serveFallback(site.paths, req, e);
-    } finally {
+      let fsPath = path.join(site.paths.output, normalizedUrl);
+
+      let response: Response;
+      try {
+        const info = fs.statSync(fsPath);
+        if (info.isDirectory()) {
+          fsPath = path.join(fsPath, "index.html");
+        }
+
+        response = await serveStatic(fsPath, site.serve?.wsPort || 5001);
+      } catch (e) {
+        response = await serveFallback(site.paths, e as Error, site.serve?.wsPort || 5001);
+      }
+
       serverLog(req, response);
-      return new Response(response.body, { status: response.status, headers: response.headers });
-    }
-  };
+      return response;
+    },
+  });
 
-  http.listenAndServe({ port: site.serve?.port }, handler);
-
-  log.info(`\nListening on http://localhost:${site.serve?.port}`);
+  log.info(`\nListening on http://localhost:${bunServer.port}`);
 }

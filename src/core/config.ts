@@ -1,4 +1,6 @@
-import { fs, log, path } from "../../deps.ts";
+import * as path from "node:path";
+import { fs } from "./fs.ts";
+import { log } from "./log.ts";
 import { __dirname } from "./utils.ts";
 
 export {
@@ -17,7 +19,8 @@ interface Site {
   files: SiteFiles;
   serve?: SiteServe;
   hooks: SiteHooks;
-  rootUrl: string,
+  rootUrl: string;
+  url?: string;
   uglyURLs?: boolean;
   params?: any;
 }
@@ -37,6 +40,7 @@ interface SitePaths {
   defaultLayout?: string;
 
   output: string;
+  sitemap?: string;
 }
 
 enum SearchFilesType {
@@ -47,6 +51,8 @@ enum SearchFilesType {
 
 interface SiteFiles {
   type: SearchFilesType;
+  file?: string;
+  glob?: string;
 }
 
 interface SiteServe {
@@ -97,10 +103,10 @@ async function getSiteConfig(
   const site: Site = {
     files: siteConfig.files,
     paths: siteConfig.paths,
-    public: siteConfig.paths.public,
     serve: siteConfig.serve,
     hooks: siteConfig.hooks,
     rootUrl: siteConfig.rootUrl,
+    url: siteConfig.url,
     uglyURLs: siteConfig.uglyURLs,
     params: siteConfig.params,
   };
@@ -145,8 +151,8 @@ function extendWithDefaultConfig(siteConfig: any, siteDir: string) {
   );
 
   if (siteConfig.paths.public) {
-    const publicPaths = [];
-    siteConfig.paths.public.forEach(p => {
+    const publicPaths: string[] = [];
+    siteConfig.paths.public.forEach((p: string) => {
 
       if (path.isAbsolute(p)) {
         publicPaths.push(p);
@@ -175,7 +181,12 @@ function extendWithDefaultConfig(siteConfig: any, siteDir: string) {
   // Files
   siteConfig.files = siteConfig.files ?? { type: SearchFilesType.walk };
 
-  if (SearchFilesType[siteConfig.files.type] === SearchFilesType.toc) {
+  // Convert string type to enum if needed
+  if (typeof siteConfig.files.type === "string") {
+    siteConfig.files.type = SearchFilesType[siteConfig.files.type as keyof typeof SearchFilesType];
+  }
+
+  if (siteConfig.files.type === SearchFilesType.toc) {
     siteConfig.files.file = path.join(
       siteConfig.paths.content,
       siteConfig.files.file,
@@ -230,9 +241,14 @@ async function extendWithThemeConfig(siteConfig: any) {
   siteConfig.uglyURLs = themeConfig.uglyURLs ?? siteConfig.uglyURLs;
 
   if (themeConfig.files) {
-    siteConfig.files = themeConfig.files;
+    siteConfig.files = { ...themeConfig.files };
 
-    if (SearchFilesType[siteConfig.files.type] === SearchFilesType.toc) {
+    // Convert string type to enum if needed
+    if (typeof siteConfig.files.type === "string") {
+      siteConfig.files.type = SearchFilesType[siteConfig.files.type as keyof typeof SearchFilesType];
+    }
+
+    if (siteConfig.files.type === SearchFilesType.toc) {
       siteConfig.files.file = path.join(
         siteConfig.paths.content,
         siteConfig.files.file,
@@ -262,13 +278,13 @@ function setSitePath(
   return path.join(siteDir, defaultValue);
 }
 
-async function readSiteConfig(siteConfigPath: string): Promise<any, string> {
+async function readSiteConfig(siteConfigPath: string): Promise<any> {
   if (!fs.existsSync(siteConfigPath)) {
     log.error(`Could not find config file ${siteConfigPath}`);
-    Deno.exit(1);
+    process.exit(1);
   }
 
-  const realSitePath = Deno.realPathSync(siteConfigPath);
+  const realSitePath = fs.realpathSync(siteConfigPath);
   const siteDir = path.dirname(realSitePath);
 
   try {
@@ -278,7 +294,7 @@ async function readSiteConfig(siteConfigPath: string): Promise<any, string> {
   } catch (error) {
     log.error(`Configuration file is malformed:`);
     log.error(error);
-    Deno.exit(1);
+    process.exit(1);
   }
 }
 

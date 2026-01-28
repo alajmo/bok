@@ -1,13 +1,22 @@
-export default function (site, content) {
+import { generateMetaTags } from "../../../src/core/meta.ts";
+import type { Site } from "../../../src/core/config.ts";
+import type { Page } from "../../../src/core/page.ts";
+
+export default function (site: Site, content: string, page?: Page) {
+  const metaTags = page
+    ? generateMetaTags(site, page)
+    : `<meta name="description" content="${site.params.description}">`;
+  const pageTitle = page?.params?.title || site.params.title;
+
   return `
     <!DOCTYPE html>
     <html lang="en">
       <head>
         <meta charset="UTF-8" />
-        <meta name="description" content="${site.params.description}">
+        ${metaTags}
         <meta name="author" content="${site.params.author}">
 
-        <title>${site.params.title}</title>
+        <title>${pageTitle}</title>
 
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
