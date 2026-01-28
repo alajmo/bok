@@ -22,9 +22,6 @@ jobs:
           - os: macos-latest
             target: darwin-arm64
             bun-target: bun-darwin-arm64
-          - os: macos-15-large
-            target: darwin-x64
-            bun-target: bun-darwin-x64
 
     runs-on: ${{ matrix.os }}
 
