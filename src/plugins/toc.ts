@@ -220,7 +220,9 @@ function TocParser(lexer: any) {
     const listRefs: any = { 0: list() };
     statements.forEach((v: any, i: number, arr: any) => {
       if (i > 0 && arr[i - 1].indent > v.indent) {
-        delete listRefs[arr[i - 1].indent];
+        for (let k = arr[i - 1].indent; k > v.indent; k--) {
+          delete listRefs[k];
+        }
       }
 
       if (listRefs.hasOwnProperty(v.indent)) {

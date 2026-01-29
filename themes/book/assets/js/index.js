@@ -10,6 +10,10 @@ window.addEventListener('DOMContentLoaded', (event) => {
   initMenuBorder()
   initKeydownActivation()
   initSidebarScrollPreserve()
+
+  // Focus content so arrow keys work for scrolling
+  const content = document.getElementById('content')
+  if (content) content.focus()
 })
 
 // Make buttons and links activate on keydown (Enter/Space) instead of waiting for keyup

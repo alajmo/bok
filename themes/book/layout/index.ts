@@ -32,7 +32,7 @@ export default function (site: Site, page: Page, _pages: Page[]) {
       <div class="sidebar-resize-handle"></div>
     </aside>
 
-    <main id="content" class="content">
+    <main id="content" class="content" tabindex="-1">
       <div class="menu">
         <div class="menu-left">
           <button title="Toggle sidebar (T)"
