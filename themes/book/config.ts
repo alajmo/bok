@@ -113,7 +113,7 @@ export default {
       enabled: true,
       title: "On this page",
       minHeadings: 2,
-      levels: [2, 3],
+      levels: [2, 3, 4, 5, 6],
     },
   },
 };
