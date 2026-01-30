@@ -177,10 +177,10 @@
       <div class="sidebar-resize-handle"></div>
     </aside>
 
-    <main id="content" class="content">
+    <main id="content" class="content" tabindex="-1">
       <div class="menu">
         <div class="menu-left">
-          <button title="Toggle sidebar"
+          <button title="Toggle sidebar (T)"
                   type="button"
                   class="icon-button"
                   onclick="sidebar.toggle();">
@@ -201,13 +201,13 @@
         
 
         <div class="menu-right">
-          <button title="Search (Cmd+K)" type="button" class="icon-button" onclick="openSearch();">
+          <button title="Search (/ or Cmd+K)" type="button" class="icon-button" onclick="openSearch();">
             <svg class="menu-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <circle cx="11" cy="11" r="8"/>
               <path d="M21 21l-4.35-4.35"/>
             </svg>
           </button>
-          <button title="Toggle theme" type="button" class="icon-button theme-toggle" onclick="toggleTheme();">
+          <button title="Toggle theme (D)" type="button" class="icon-button theme-toggle" onclick="toggleTheme();">
             <svg class="menu-icon theme-icon-light" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 3a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V4a1 1 0 0 1 1-1zm0 15a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1zm9-6a1 1 0 0 1-1 1h-1a1 1 0 1 1 0-2h1a1 1 0 0 1 1 1zM5 12a1 1 0 0 1-1 1H3a1 1 0 1 1 0-2h1a1 1 0 0 1 1 1zm14.07-5.66a1 1 0 0 1 0 1.41l-.71.71a1 1 0 1 1-1.41-1.41l.71-.71a1 1 0 0 1 1.41 0zM7.05 17.66a1 1 0 0 1 0 1.41l-.71.71a1 1 0 1 1-1.41-1.41l.71-.71a1 1 0 0 1 1.41 0zm11.9 1.41a1 1 0 0 1-1.41 0l-.71-.71a1 1 0 1 1 1.41-1.41l.71.71a1 1 0 0 1 0 1.41zM7.05 6.34a1 1 0 0 1-1.41 0l-.71-.71a1 1 0 0 1 1.41-1.41l.71.71a1 1 0 0 1 0 1.41zM12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/>
             </svg>
@@ -215,7 +215,7 @@
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
             </svg>
           </button>
-          <button title="Toggle focus mode" type="button" class="icon-button focus-toggle" onclick="toggleFocusMode();">
+          <button title="Toggle focus mode (F)" type="button" class="icon-button focus-toggle" onclick="toggleFocusMode();">
             <svg class="menu-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <circle cx="12" cy="12" r="3"/>
               <path d="M12 5c-7 0-10 7-10 7s3 7 10 7 10-7 10-7-3-7-10-7z"/>
@@ -239,7 +239,7 @@
       <div class="page-wrapper">
         <div class="page">
           
-    <a href="/bok/configuration/configuration" id="page-nav-prev" class="page-nav page-nav-prev">
+    <a href="/bok/configuration/configuration" id="page-nav-prev" class="page-nav page-nav-prev" title="Previous page (←)">
       <svg class="page-nav-icon" fill="none" viewBox="0 0 24 24" height="40" width="40" xmlns="http://www.w3.org/2000/svg">
         <path d="M14.7071 5.29289C15.0976 5.68342 15.0976 6.31658 14.7071 6.70711L9.41421 12L14.7071 17.2929C15.0976 17.6834 15.0976 18.3166 14.7071 18.7071C14.3166 19.0976 13.6834 19.0976 13.2929 18.7071L7.29289 12.7071C6.90237 12.3166 6.90237 11.6834 7.29289 11.2929L13.2929 5.29289C13.6834 4.90237 14.3166 4.90237 14.7071 5.29289Z" fill="currentColor"></path>
       </svg>
@@ -247,9 +247,9 @@
   
 
           <div class="page-content">
-            <h1 id="site-config" tabindex="-1">Site Config</h1>
+            <h1 id="site-config" tabindex="-1"><a class="header-anchor" href="#site-config">#</a> Site Config</h1>
 <p>The <code>config.ts</code> file is the heart of your bok site. This page covers all configuration options in detail.</p>
-<h2 id="config-structure" tabindex="-1">Config Structure</h2>
+<h2 id="config-structure" tabindex="-1"><a class="header-anchor" href="#config-structure">#</a> Config Structure</h2>
 <pre><code class="language-typescript">export default {
   // Theme to extend
   extends?: string,
@@ -296,7 +296,7 @@
   params?: Record&lt;string, any&gt;,
 };
 </code></pre>
-<h2 id="path-resolution" tabindex="-1">Path Resolution</h2>
+<h2 id="path-resolution" tabindex="-1"><a class="header-anchor" href="#path-resolution">#</a> Path Resolution</h2>
 <p>All paths in the config are resolved relative to the config file's directory.</p>
 <pre><code class="language-typescript">// If config is at /home/user/my-site/config.ts
 paths: {
@@ -305,7 +305,7 @@ paths: {
   public: [&quot;images&quot;],     // → /home/user/my-site/images
 }
 </code></pre>
-<h2 id="extending-themes" tabindex="-1">Extending Themes</h2>
+<h2 id="extending-themes" tabindex="-1"><a class="header-anchor" href="#extending-themes">#</a> Extending Themes</h2>
 <p>When you extend a theme:</p>
 <ol>
 <li>Theme's <code>hooks</code> are used</li>
@@ -326,8 +326,8 @@ params: {
   // showToc: true    // Inherited from theme
 }
 </code></pre>
-<h2 id="file-discovery-modes" tabindex="-1">File Discovery Modes</h2>
-<h3 id="toc-mode" tabindex="-1">TOC Mode</h3>
+<h2 id="file-discovery-modes" tabindex="-1"><a class="header-anchor" href="#file-discovery-modes">#</a> File Discovery Modes</h2>
+<h3 id="toc-mode" tabindex="-1"><a class="header-anchor" href="#toc-mode">#</a> TOC Mode</h3>
 <p>Best for books and documentation with a specific reading order.</p>
 <pre><code class="language-typescript">files: {
   type: &quot;toc&quot;,
@@ -341,23 +341,23 @@ params: {
 <li>Section groupings</li>
 </ul>
 <p>See <a href="toc-format.md">TOC Format</a> for details.</p>
-<h3 id="walk-mode" tabindex="-1">Walk Mode</h3>
+<h3 id="walk-mode" tabindex="-1"><a class="header-anchor" href="#walk-mode">#</a> Walk Mode</h3>
 <p>Recursively finds all markdown files.</p>
 <pre><code class="language-typescript">files: {
   type: &quot;walk&quot;,
 }
 </code></pre>
 <p>Good for blogs or sites without strict ordering.</p>
-<h3 id="glob-mode" tabindex="-1">Glob Mode</h3>
+<h3 id="glob-mode" tabindex="-1"><a class="header-anchor" href="#glob-mode">#</a> Glob Mode</h3>
 <p>Find files matching a pattern.</p>
 <pre><code class="language-typescript">files: {
   type: &quot;glob&quot;,
   glob: &quot;posts/**/*.md&quot;,
 }
 </code></pre>
-<h2 id="hooks" tabindex="-1">Hooks</h2>
+<h2 id="hooks" tabindex="-1"><a class="header-anchor" href="#hooks">#</a> Hooks</h2>
 <p>Hooks let you customize the build process.</p>
-<h3 id="beforesite" tabindex="-1">beforeSite</h3>
+<h3 id="beforesite" tabindex="-1"><a class="header-anchor" href="#beforesite">#</a> beforeSite</h3>
 <p>Called once before any pages are processed.</p>
 <pre><code class="language-typescript">hooks: {
   async beforeSite(site, pages, opts) {
@@ -367,7 +367,7 @@ params: {
   },
 }
 </code></pre>
-<h3 id="aftersite" tabindex="-1">afterSite</h3>
+<h3 id="aftersite" tabindex="-1"><a class="header-anchor" href="#aftersite">#</a> afterSite</h3>
 <p>Called once after all pages are processed.</p>
 <pre><code class="language-typescript">hooks: {
   async afterSite(site, pages, opts) {
@@ -377,7 +377,7 @@ params: {
   },
 }
 </code></pre>
-<h3 id="beforepage-%2F-afterpage" tabindex="-1">beforePage / afterPage</h3>
+<h3 id="beforepage-%2F-afterpage" tabindex="-1"><a class="header-anchor" href="#beforepage-%2F-afterpage">#</a> beforePage / afterPage</h3>
 <p>Called for each page.</p>
 <pre><code class="language-typescript">hooks: {
   async beforePage(site, page, index, pages, opts) {
@@ -390,7 +390,7 @@ params: {
   },
 }
 </code></pre>
-<h2 id="params" tabindex="-1">Params</h2>
+<h2 id="params" tabindex="-1"><a class="header-anchor" href="#params">#</a> Params</h2>
 <p>The <code>params</code> object is passed to all templates. Use it for:</p>
 <ul>
 <li>Site metadata (title, author, description)</li>
@@ -422,7 +422,7 @@ params: {
           </div>
 
           
-    <a href="/bok/configuration/toc-format" id="page-nav-next" class="page-nav page-nav-next">
+    <a href="/bok/configuration/toc-format" id="page-nav-next" class="page-nav page-nav-next" title="Next page (→)">
       <svg class="page-nav-icon" fill="none" viewBox="0 0 24 24" height="40" width="40" xmlns="http://www.w3.org/2000/svg">
         <path d="M9.29289 18.7071C8.90237 18.3166 8.90237 17.6834 9.29289 17.2929L14.5858 12L9.29289 6.70711C8.90237 6.31658 8.90237 5.68342 9.29289 5.29289C9.68342 4.90237 10.3166 4.90237 10.7071 5.29289L16.7071 11.2929C17.0976 11.6834 17.0976 12.3166 16.7071 12.7071L10.7071 18.7071C10.3166 19.0976 9.68342 19.0976 9.29289 18.7071Z" fill="currentColor"></path>
       </svg>

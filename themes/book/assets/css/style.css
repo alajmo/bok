@@ -180,6 +180,7 @@ h6 {
   line-height: 1.3;
   margin-top: 0;
   margin-bottom: 1rem;
+  cursor: pointer;
 }
 
 h1 {
@@ -227,21 +228,52 @@ h6 {
   margin-top: 1rem;
 }
 
-h1 a.header:target::before,
-h2 a.header:target::before,
-h3 a.header:target::before,
-h4 a.header:target::before {
-  display: inline-block;
-  content: '»';
-  margin-left: -30px;
-  width: 30px;
+.page-content h1,
+.page-content h2,
+.page-content h3,
+.page-content h4,
+.page-content h5,
+.page-content h6 {
+  position: relative;
 }
 
-h1 a.header:target,
-h2 a.header:target,
-h3 a.header:target,
-h4 a.header:target {
-  scroll-margin-top: calc(var(--menu-bar-height) + 0.5em);
+.header-anchor {
+  position: absolute;
+  right: 100%;
+  padding-right: 1ch;
+  text-decoration: none;
+  color: var(--fg);
+  opacity: 0;
+  font-weight: 400;
+  transition: opacity 0.15s;
+}
+
+h1:hover .header-anchor,
+h2:hover .header-anchor,
+h3:hover .header-anchor,
+h4:hover .header-anchor,
+h5:hover .header-anchor,
+h6:hover .header-anchor,
+.header-anchor:focus {
+  opacity: 0.4;
+}
+
+h1:target .header-anchor,
+h2:target .header-anchor,
+h3:target .header-anchor,
+h4:target .header-anchor,
+h5:target .header-anchor,
+h6:target .header-anchor {
+  opacity: 0.4;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  scroll-margin-top: calc(var(--menu-bar-height) + 1em);
 }
 
 hr {

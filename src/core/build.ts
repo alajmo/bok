@@ -21,7 +21,13 @@ export { build };
 const MD = MarkdownIt({
   html: true,
   linkify: true,
-}).use(MarkdownItAnchor);
+}).use(MarkdownItAnchor, {
+  permalink: MarkdownItAnchor.permalink.linkInsideHeader({
+    symbol: "#",
+    placement: "before",
+    class: "header-anchor",
+  }),
+});
 
 interface RightTocConfig {
   enabled?: boolean;
@@ -53,10 +59,10 @@ function generateRightToc(tokens: any[], config: RightTocConfig): string {
       if (cfg.levels!.includes(level)) {
         const id = token.attrGet("id") || "";
         const inlineToken = tokens[i + 1];
-        const text = inlineToken?.children
+        const text = (inlineToken?.children
           ?.filter((t: any) => t.type === "text" || t.type === "code_inline")
           .map((t: any) => t.content)
-          .join("") || "";
+          .join("") || "").trim();
 
         if (text && id) {
           headings.push({ level, text, id });

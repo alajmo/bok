@@ -11,6 +11,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
   initKeydownActivation()
   initSidebarScrollPreserve()
 
+  initHeaderAnchors()
+
   // Focus content so arrow keys work for scrolling
   const content = document.getElementById('content')
   if (content) content.focus()
@@ -434,6 +436,25 @@ function initRightTocScrollspy() {
 
   // Handle click on TOC links - let native anchor behavior work
   // CSS scroll-margin-top on headings handles the sticky header offset
+}
+
+function initHeaderAnchors() {
+  const content = document.getElementById('content')
+  if (!content) return
+
+  content.addEventListener('click', (e) => {
+    const heading = e.target.closest('h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]')
+    if (!heading) return
+
+    e.preventDefault()
+    const id = heading.id
+
+    // Update URL hash (use location.hash so :target CSS works)
+    window.location.hash = '#' + id
+
+    // Smooth scroll the heading into view
+    heading.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  })
 }
 
 function openSearch() {

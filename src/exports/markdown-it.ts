@@ -5,7 +5,13 @@ import MarkdownItAnchor from "markdown-it-anchor";
 export const MD = MarkdownIt({
   html: true,
   linkify: true,
-}).use(MarkdownItAnchor);
+}).use(MarkdownItAnchor, {
+  permalink: MarkdownItAnchor.permalink.linkInsideHeader({
+    symbol: "#",
+    placement: "before",
+    class: "header-anchor",
+  }),
+});
 
 // Re-export constructor for custom configuration
 export { MarkdownIt };

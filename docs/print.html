@@ -24,9 +24,9 @@
       
         <article class="print-chapter">
           <h1>index.md</h1>
-          <h1 id="bok" tabindex="-1">bok</h1>
+          <h1 id="bok" tabindex="-1"><a class="header-anchor" href="#bok">#</a> bok</h1>
 <p><strong>bok</strong> is a fast, minimal static site generator built with Bun. It converts Markdown files to HTML using TypeScript template literals, with a focus on documentation sites and books.</p>
-<h2 id="features" tabindex="-1">Features</h2>
+<h2 id="features" tabindex="-1"><a class="header-anchor" href="#features">#</a> Features</h2>
 <ul>
 <li><strong>Fast</strong> - Built on Bun for quick builds and hot reloading</li>
 <li><strong>Simple</strong> - Markdown in, HTML out, minimal configuration</li>
@@ -37,7 +37,7 @@
 <li><strong>Right-side Navigation</strong> - Auto-generated on-page heading navigation</li>
 <li><strong>Front Matter</strong> - Add metadata to pages with simple key-value pairs</li>
 </ul>
-<h2 id="quick-start" tabindex="-1">Quick Start</h2>
+<h2 id="quick-start" tabindex="-1"><a class="header-anchor" href="#quick-start">#</a> Quick Start</h2>
 <pre><code class="language-bash"># Install bun if you haven't already
 curl -fsSL https://bun.sh/install | bash
 
@@ -52,7 +52,7 @@ bun run mod.ts init
 # Start development server
 bun run mod.ts serve config.ts
 </code></pre>
-<h2 id="how-it-works" tabindex="-1">How It Works</h2>
+<h2 id="how-it-works" tabindex="-1"><a class="header-anchor" href="#how-it-works">#</a> How It Works</h2>
 <ol>
 <li><strong>Configuration</strong> - Define your site in <code>config.ts</code></li>
 <li><strong>Content</strong> - Write pages in Markdown in the <code>content/</code> directory</li>
@@ -60,7 +60,7 @@ bun run mod.ts serve config.ts
 <li><strong>Build</strong> - Run <code>bok build</code> to generate static HTML</li>
 <li><strong>Serve</strong> - Run <code>bok serve</code> for development with live reload</li>
 </ol>
-<h2 id="philosophy" tabindex="-1">Philosophy</h2>
+<h2 id="philosophy" tabindex="-1"><a class="header-anchor" href="#philosophy">#</a> Philosophy</h2>
 <blockquote>
 <p>In the beginning, all you want is results.
 In the end, all you want is control.</p>
@@ -76,25 +76,25 @@ In the end, all you want is control.</p>
       <hr class="print-break">
         <article class="print-chapter">
           <h1>getting-started.md</h1>
-          <h1 id="getting-started" tabindex="-1">Getting Started</h1>
+          <h1 id="getting-started" tabindex="-1"><a class="header-anchor" href="#getting-started">#</a> Getting Started</h1>
 <p>This guide will help you create your first bok site.</p>
-<h2 id="prerequisites" tabindex="-1">Prerequisites</h2>
+<h2 id="prerequisites" tabindex="-1"><a class="header-anchor" href="#prerequisites">#</a> Prerequisites</h2>
 <p>You need <a href="https://bun.sh">Bun</a> installed:</p>
 <pre><code class="language-bash">curl -fsSL https://bun.sh/install | bash
 </code></pre>
-<h2 id="installation" tabindex="-1">Installation</h2>
-<h3 id="from-source" tabindex="-1">From Source</h3>
+<h2 id="installation" tabindex="-1"><a class="header-anchor" href="#installation">#</a> Installation</h2>
+<h3 id="from-source" tabindex="-1"><a class="header-anchor" href="#from-source">#</a> From Source</h3>
 <pre><code class="language-bash">git clone https://github.com/alajmo/bok
 cd bok
 bun install
 </code></pre>
-<h3 id="global-install" tabindex="-1">Global Install</h3>
+<h3 id="global-install" tabindex="-1"><a class="header-anchor" href="#global-install">#</a> Global Install</h3>
 <p>After cloning, you can install bok globally:</p>
 <pre><code class="language-bash">make install
 </code></pre>
 <p>This creates a <code>bok</code> command you can run from anywhere.</p>
-<h2 id="create-a-new-site" tabindex="-1">Create a New Site</h2>
-<h3 id="interactive-mode" tabindex="-1">Interactive Mode</h3>
+<h2 id="create-a-new-site" tabindex="-1"><a class="header-anchor" href="#create-a-new-site">#</a> Create a New Site</h2>
+<h3 id="interactive-mode" tabindex="-1"><a class="header-anchor" href="#interactive-mode">#</a> Interactive Mode</h3>
 <p>Run the init command and follow the prompts:</p>
 <pre><code class="language-bash">bok init
 </code></pre>
@@ -103,11 +103,11 @@ bun install
 <li>Choose <strong>extend</strong> (use existing theme) or <strong>create</strong> (copy theme files)</li>
 <li>Select a theme: <strong>basic</strong> or <strong>book</strong></li>
 </ol>
-<h3 id="non-interactive-mode" tabindex="-1">Non-Interactive Mode</h3>
+<h3 id="non-interactive-mode" tabindex="-1"><a class="header-anchor" href="#non-interactive-mode">#</a> Non-Interactive Mode</h3>
 <pre><code class="language-bash"># Extend the book theme
 bok init --mode extend --theme book
 </code></pre>
-<h2 id="project-structure" tabindex="-1">Project Structure</h2>
+<h2 id="project-structure" tabindex="-1"><a class="header-anchor" href="#project-structure">#</a> Project Structure</h2>
 <p>After initialization, your project looks like this:</p>
 <pre><code>my-site/
 ├── config.ts        # Site configuration
@@ -116,8 +116,8 @@ bok init --mode extend --theme book
     ├── index.md     # Home page
     └── ...          # Your markdown pages
 </code></pre>
-<h2 id="development-workflow" tabindex="-1">Development Workflow</h2>
-<h3 id="start-the-dev-server" tabindex="-1">Start the Dev Server</h3>
+<h2 id="development-workflow" tabindex="-1"><a class="header-anchor" href="#development-workflow">#</a> Development Workflow</h2>
+<h3 id="start-the-dev-server" tabindex="-1"><a class="header-anchor" href="#start-the-dev-server">#</a> Start the Dev Server</h3>
 <pre><code class="language-bash">bok serve config.ts
 </code></pre>
 <p>This will:</p>
@@ -127,11 +127,11 @@ bok init --mode extend --theme book
 <li>Watch for file changes and rebuild automatically</li>
 <li>Reload your browser when files change</li>
 </ul>
-<h3 id="build-for-production" tabindex="-1">Build for Production</h3>
+<h3 id="build-for-production" tabindex="-1"><a class="header-anchor" href="#build-for-production">#</a> Build for Production</h3>
 <pre><code class="language-bash">bok build config.ts
 </code></pre>
 <p>The generated site will be in the <code>site/</code> directory (or whatever you configured as <code>paths.output</code>).</p>
-<h2 id="adding-pages" tabindex="-1">Adding Pages</h2>
+<h2 id="adding-pages" tabindex="-1"><a class="header-anchor" href="#adding-pages">#</a> Adding Pages</h2>
 <ol>
 <li>Create a new <code>.md</code> file in <code>content/</code>:</li>
 </ol>
@@ -147,7 +147,7 @@ This is my new page content.
 <ol start="3">
 <li>Save and watch the browser reload with your new page.</li>
 </ol>
-<h2 id="next-steps" tabindex="-1">Next Steps</h2>
+<h2 id="next-steps" tabindex="-1"><a class="header-anchor" href="#next-steps">#</a> Next Steps</h2>
 <ul>
 <li>Learn about <a href="usage/usage.md">CLI Commands</a></li>
 <li>Understand <a href="configuration/configuration.md">Configuration</a></li>
@@ -158,13 +158,13 @@ This is my new page content.
       <hr class="print-break">
         <article class="print-chapter">
           <h1>usage.md</h1>
-          <h1 id="cli-commands" tabindex="-1">CLI Commands</h1>
+          <h1 id="cli-commands" tabindex="-1"><a class="header-anchor" href="#cli-commands">#</a> CLI Commands</h1>
 <p>bok provides a simple command-line interface for building and serving your site.</p>
-<h2 id="usage" tabindex="-1">Usage</h2>
+<h2 id="usage" tabindex="-1"><a class="header-anchor" href="#usage">#</a> Usage</h2>
 <pre><code class="language-bash">bok &lt;command&gt; [config]
 </code></pre>
 <p>All commands except <code>init</code> accept an optional path to your config file. If not provided, it defaults to <code>config.ts</code> in the current directory.</p>
-<h2 id="available-commands" tabindex="-1">Available Commands</h2>
+<h2 id="available-commands" tabindex="-1"><a class="header-anchor" href="#available-commands">#</a> Available Commands</h2>
 <table>
 <thead>
 <tr>
@@ -195,11 +195,11 @@ This is my new page content.
 </tr>
 </tbody>
 </table>
-<h2 id="global-options" tabindex="-1">Global Options</h2>
+<h2 id="global-options" tabindex="-1"><a class="header-anchor" href="#global-options">#</a> Global Options</h2>
 <pre><code class="language-bash">bok --help     # Show help
 bok --version  # Show version
 </code></pre>
-<h2 id="examples" tabindex="-1">Examples</h2>
+<h2 id="examples" tabindex="-1"><a class="header-anchor" href="#examples">#</a> Examples</h2>
 <pre><code class="language-bash"># Initialize a new site
 bok init
 
@@ -220,12 +220,12 @@ bok serve --port 3000 config.ts
       <hr class="print-break">
         <article class="print-chapter">
           <h1>init.md</h1>
-          <h1 id="init" tabindex="-1">init</h1>
+          <h1 id="init" tabindex="-1"><a class="header-anchor" href="#init">#</a> init</h1>
 <p>Initialize a new bok site in the current directory.</p>
-<h2 id="usage" tabindex="-1">Usage</h2>
+<h2 id="usage" tabindex="-1"><a class="header-anchor" href="#usage">#</a> Usage</h2>
 <pre><code class="language-bash">bok init [options]
 </code></pre>
-<h2 id="options" tabindex="-1">Options</h2>
+<h2 id="options" tabindex="-1"><a class="header-anchor" href="#options">#</a> Options</h2>
 <table>
 <thead>
 <tr>
@@ -248,8 +248,8 @@ bok serve --port 3000 config.ts
 </tr>
 </tbody>
 </table>
-<h2 id="modes" tabindex="-1">Modes</h2>
-<h3 id="extend-mode-(recommended)" tabindex="-1">Extend Mode (Recommended)</h3>
+<h2 id="modes" tabindex="-1"><a class="header-anchor" href="#modes">#</a> Modes</h2>
+<h3 id="extend-mode-(recommended)" tabindex="-1"><a class="header-anchor" href="#extend-mode-(recommended)">#</a> Extend Mode (Recommended)</h3>
 <p>Extends an existing theme. Creates a minimal <code>config.ts</code> and copies the theme's content directory.</p>
 <pre><code class="language-bash">bok init --mode extend --theme book
 </code></pre>
@@ -266,7 +266,7 @@ bok serve --port 3000 config.ts
   },
 };
 </code></pre>
-<h3 id="create-mode" tabindex="-1">Create Mode</h3>
+<h3 id="create-mode" tabindex="-1"><a class="header-anchor" href="#create-mode">#</a> Create Mode</h3>
 <p>Copies all theme files into your project for full customization.</p>
 <pre><code class="language-bash">bok init --mode create --theme book
 </code></pre>
@@ -277,7 +277,7 @@ bok serve --port 3000 config.ts
 <li><code>layout/</code> - Template files</li>
 <li><code>assets/</code> - CSS, JS, images</li>
 </ul>
-<h2 id="interactive-mode" tabindex="-1">Interactive Mode</h2>
+<h2 id="interactive-mode" tabindex="-1"><a class="header-anchor" href="#interactive-mode">#</a> Interactive Mode</h2>
 <p>Run without options to use interactive prompts:</p>
 <pre><code class="language-bash">bok init
 </code></pre>
@@ -286,11 +286,11 @@ bok serve --port 3000 config.ts
 <li><strong>Mode</strong>: Extend or create from scratch?</li>
 <li><strong>Theme</strong>: Which theme to use?</li>
 </ol>
-<h2 id="using-a-custom-theme" tabindex="-1">Using a Custom Theme</h2>
+<h2 id="using-a-custom-theme" tabindex="-1"><a class="header-anchor" href="#using-a-custom-theme">#</a> Using a Custom Theme</h2>
 <p>Point to your own theme config:</p>
 <pre><code class="language-bash">bok init --mode extend --theme path --theme-path /path/to/theme/config.ts
 </code></pre>
-<h2 id="examples" tabindex="-1">Examples</h2>
+<h2 id="examples" tabindex="-1"><a class="header-anchor" href="#examples">#</a> Examples</h2>
 <pre><code class="language-bash"># Interactive mode
 bok init
 
@@ -305,12 +305,12 @@ bok init --mode create --theme basic
       <hr class="print-break">
         <article class="print-chapter">
           <h1>build.md</h1>
-          <h1 id="build" tabindex="-1">build</h1>
+          <h1 id="build" tabindex="-1"><a class="header-anchor" href="#build">#</a> build</h1>
 <p>Build your site into static HTML files.</p>
-<h2 id="usage" tabindex="-1">Usage</h2>
+<h2 id="usage" tabindex="-1"><a class="header-anchor" href="#usage">#</a> Usage</h2>
 <pre><code class="language-bash">bok build [config]
 </code></pre>
-<h2 id="arguments" tabindex="-1">Arguments</h2>
+<h2 id="arguments" tabindex="-1"><a class="header-anchor" href="#arguments">#</a> Arguments</h2>
 <table>
 <thead>
 <tr>
@@ -327,7 +327,7 @@ bok init --mode create --theme basic
 </tr>
 </tbody>
 </table>
-<h2 id="what-it-does" tabindex="-1">What It Does</h2>
+<h2 id="what-it-does" tabindex="-1"><a class="header-anchor" href="#what-it-does">#</a> What It Does</h2>
 <ol>
 <li><strong>Cleans</strong> the output directory</li>
 <li><strong>Discovers</strong> pages based on your file discovery mode (walk, glob, or toc)</li>
@@ -342,7 +342,7 @@ bok init --mode create --theme basic
 <li><strong>Copies</strong> assets (theme assets + public directories)</li>
 <li><strong>Outputs</strong> a summary table</li>
 </ol>
-<h2 id="output" tabindex="-1">Output</h2>
+<h2 id="output" tabindex="-1"><a class="header-anchor" href="#output">#</a> Output</h2>
 <p>After building, you'll see a summary:</p>
 <pre><code>[INFO] Building
 ┌─────────┬────┐
@@ -351,7 +351,7 @@ bok init --mode create --theme basic
 │ # Pages │ 12 │
 └─────────┴────┘
 </code></pre>
-<h2 id="output-directory" tabindex="-1">Output Directory</h2>
+<h2 id="output-directory" tabindex="-1"><a class="header-anchor" href="#output-directory">#</a> Output Directory</h2>
 <p>By default, files are output to <code>site/</code> relative to your config file. Configure this with <code>paths.output</code>:</p>
 <pre><code class="language-typescript">export default {
   paths: {
@@ -359,18 +359,18 @@ bok init --mode create --theme basic
   },
 };
 </code></pre>
-<h2 id="url-structure" tabindex="-1">URL Structure</h2>
-<h3 id="pretty-urls-(default)" tabindex="-1">Pretty URLs (default)</h3>
+<h2 id="url-structure" tabindex="-1"><a class="header-anchor" href="#url-structure">#</a> URL Structure</h2>
+<h3 id="pretty-urls-(default)" tabindex="-1"><a class="header-anchor" href="#pretty-urls-(default)">#</a> Pretty URLs (default)</h3>
 <pre><code>content/getting-started.md  →  site/getting-started/index.html
 content/guide/intro.md      →  site/guide/intro/index.html
 content/index.md            →  site/index.html
 </code></pre>
-<h3 id="ugly-urls" tabindex="-1">Ugly URLs</h3>
+<h3 id="ugly-urls" tabindex="-1"><a class="header-anchor" href="#ugly-urls">#</a> Ugly URLs</h3>
 <p>Set <code>uglyURLs: true</code> in your config:</p>
 <pre><code>content/getting-started.md  →  site/getting-started.html
 content/guide/intro.md      →  site/guide/intro.html
 </code></pre>
-<h2 id="examples" tabindex="-1">Examples</h2>
+<h2 id="examples" tabindex="-1"><a class="header-anchor" href="#examples">#</a> Examples</h2>
 <pre><code class="language-bash"># Build with default config
 bok build
 
@@ -385,12 +385,12 @@ bok build config.ts &amp;&amp; rsync -av site/ server:/var/www/
       <hr class="print-break">
         <article class="print-chapter">
           <h1>watch.md</h1>
-          <h1 id="watch" tabindex="-1">watch</h1>
+          <h1 id="watch" tabindex="-1"><a class="header-anchor" href="#watch">#</a> watch</h1>
 <p>Build your site and automatically rebuild when files change.</p>
-<h2 id="usage" tabindex="-1">Usage</h2>
+<h2 id="usage" tabindex="-1"><a class="header-anchor" href="#usage">#</a> Usage</h2>
 <pre><code class="language-bash">bok watch [config]
 </code></pre>
-<h2 id="arguments" tabindex="-1">Arguments</h2>
+<h2 id="arguments" tabindex="-1"><a class="header-anchor" href="#arguments">#</a> Arguments</h2>
 <table>
 <thead>
 <tr>
@@ -407,7 +407,7 @@ bok build config.ts &amp;&amp; rsync -av site/ server:/var/www/
 </tr>
 </tbody>
 </table>
-<h2 id="what-it-does" tabindex="-1">What It Does</h2>
+<h2 id="what-it-does" tabindex="-1"><a class="header-anchor" href="#what-it-does">#</a> What It Does</h2>
 <ol>
 <li>Performs an initial <a href="build.md">build</a></li>
 <li>Watches these directories for changes:
@@ -419,9 +419,9 @@ bok build config.ts &amp;&amp; rsync -av site/ server:/var/www/
 </li>
 <li>Rebuilds when any file changes</li>
 </ol>
-<h2 id="debouncing" tabindex="-1">Debouncing</h2>
+<h2 id="debouncing" tabindex="-1"><a class="header-anchor" href="#debouncing">#</a> Debouncing</h2>
 <p>Changes are debounced with a 500ms interval to prevent multiple rapid rebuilds when saving multiple files.</p>
-<h2 id="differences-from-serve" tabindex="-1">Differences from <code>serve</code></h2>
+<h2 id="differences-from-serve" tabindex="-1"><a class="header-anchor" href="#differences-from-serve">#</a> Differences from <code>serve</code></h2>
 <table>
 <thead>
 <tr>
@@ -459,7 +459,7 @@ bok build config.ts &amp;&amp; rsync -av site/ server:/var/www/
 <li>Want a complete development environment</li>
 <li>Need live reload in browser</li>
 </ul>
-<h2 id="examples" tabindex="-1">Examples</h2>
+<h2 id="examples" tabindex="-1"><a class="header-anchor" href="#examples">#</a> Examples</h2>
 <pre><code class="language-bash"># Watch with default config
 bok watch
 
@@ -471,12 +471,12 @@ bok watch ./docs/config.ts
       <hr class="print-break">
         <article class="print-chapter">
           <h1>serve.md</h1>
-          <h1 id="serve" tabindex="-1">serve</h1>
+          <h1 id="serve" tabindex="-1"><a class="header-anchor" href="#serve">#</a> serve</h1>
 <p>Build, serve, and live reload your site during development.</p>
-<h2 id="usage" tabindex="-1">Usage</h2>
+<h2 id="usage" tabindex="-1"><a class="header-anchor" href="#usage">#</a> Usage</h2>
 <pre><code class="language-bash">bok serve [options] [config]
 </code></pre>
-<h2 id="arguments" tabindex="-1">Arguments</h2>
+<h2 id="arguments" tabindex="-1"><a class="header-anchor" href="#arguments">#</a> Arguments</h2>
 <table>
 <thead>
 <tr>
@@ -493,7 +493,7 @@ bok watch ./docs/config.ts
 </tr>
 </tbody>
 </table>
-<h2 id="options" tabindex="-1">Options</h2>
+<h2 id="options" tabindex="-1"><a class="header-anchor" href="#options">#</a> Options</h2>
 <table>
 <thead>
 <tr>
@@ -520,7 +520,7 @@ bok watch ./docs/config.ts
 </tr>
 </tbody>
 </table>
-<h2 id="what-it-does" tabindex="-1">What It Does</h2>
+<h2 id="what-it-does" tabindex="-1"><a class="header-anchor" href="#what-it-does">#</a> What It Does</h2>
 <ol>
 <li>Performs an initial <a href="build.md">build</a></li>
 <li>Starts an HTTP server to serve your site</li>
@@ -528,7 +528,7 @@ bok watch ./docs/config.ts
 <li>Watches for file changes and rebuilds</li>
 <li>Notifies the browser to reload after rebuilds</li>
 </ol>
-<h2 id="live-reload" tabindex="-1">Live Reload</h2>
+<h2 id="live-reload" tabindex="-1"><a class="header-anchor" href="#live-reload">#</a> Live Reload</h2>
 <p>When <code>--reload</code> is enabled (default), bok:</p>
 <ol>
 <li>Injects a small JavaScript snippet into HTML pages</li>
@@ -536,7 +536,7 @@ bok watch ./docs/config.ts
 <li>Listens for build completion events</li>
 <li>Automatically reloads the page when content changes</li>
 </ol>
-<h2 id="server-details" tabindex="-1">Server Details</h2>
+<h2 id="server-details" tabindex="-1"><a class="header-anchor" href="#server-details">#</a> Server Details</h2>
 <p>The HTTP server:</p>
 <ul>
 <li>Serves static files from the output directory</li>
@@ -544,7 +544,7 @@ bok watch ./docs/config.ts
 <li>Serves <code>404/index.html</code> for missing pages (if it exists)</li>
 <li>Logs all requests to the console</li>
 </ul>
-<h2 id="examples" tabindex="-1">Examples</h2>
+<h2 id="examples" tabindex="-1"><a class="header-anchor" href="#examples">#</a> Examples</h2>
 <pre><code class="language-bash"># Start with defaults (port 5000)
 bok serve config.ts
 
@@ -557,7 +557,7 @@ bok serve --ws-port 3001 config.ts
 # Disable live reload
 bok serve --reload=false config.ts
 </code></pre>
-<h2 id="configuration" tabindex="-1">Configuration</h2>
+<h2 id="configuration" tabindex="-1"><a class="header-anchor" href="#configuration">#</a> Configuration</h2>
 <p>You can also set serve options in your config file:</p>
 <pre><code class="language-typescript">export default {
   serve: {
@@ -573,12 +573,12 @@ bok serve --reload=false config.ts
       <hr class="print-break">
         <article class="print-chapter">
           <h1>clean.md</h1>
-          <h1 id="clean" tabindex="-1">clean</h1>
+          <h1 id="clean" tabindex="-1"><a class="header-anchor" href="#clean">#</a> clean</h1>
 <p>Remove the output directory.</p>
-<h2 id="usage" tabindex="-1">Usage</h2>
+<h2 id="usage" tabindex="-1"><a class="header-anchor" href="#usage">#</a> Usage</h2>
 <pre><code class="language-bash">bok clean [config]
 </code></pre>
-<h2 id="arguments" tabindex="-1">Arguments</h2>
+<h2 id="arguments" tabindex="-1"><a class="header-anchor" href="#arguments">#</a> Arguments</h2>
 <table>
 <thead>
 <tr>
@@ -595,7 +595,7 @@ bok serve --reload=false config.ts
 </tr>
 </tbody>
 </table>
-<h2 id="what-it-does" tabindex="-1">What It Does</h2>
+<h2 id="what-it-does" tabindex="-1"><a class="header-anchor" href="#what-it-does">#</a> What It Does</h2>
 <p>Deletes the entire output directory (default: <code>site/</code>).</p>
 <p>This is useful for:</p>
 <ul>
@@ -603,9 +603,9 @@ bok serve --reload=false config.ts
 <li>Removing stale files from deleted pages</li>
 <li>Resetting your project state</li>
 </ul>
-<h2 id="note" tabindex="-1">Note</h2>
+<h2 id="note" tabindex="-1"><a class="header-anchor" href="#note">#</a> Note</h2>
 <p>The <code>build</code> command already cleans the output directory before building, so you typically don't need to run <code>clean</code> manually.</p>
-<h2 id="examples" tabindex="-1">Examples</h2>
+<h2 id="examples" tabindex="-1"><a class="header-anchor" href="#examples">#</a> Examples</h2>
 <pre><code class="language-bash"># Clean with default config
 bok clean
 
@@ -617,9 +617,9 @@ bok clean ./docs/config.ts
       <hr class="print-break">
         <article class="print-chapter">
           <h1>configuration.md</h1>
-          <h1 id="configuration" tabindex="-1">Configuration</h1>
+          <h1 id="configuration" tabindex="-1"><a class="header-anchor" href="#configuration">#</a> Configuration</h1>
 <p>bok uses a TypeScript configuration file (<code>config.ts</code>) to define your site settings.</p>
-<h2 id="basic-config" tabindex="-1">Basic Config</h2>
+<h2 id="basic-config" tabindex="-1"><a class="header-anchor" href="#basic-config">#</a> Basic Config</h2>
 <pre><code class="language-typescript">export default {
   extends: &quot;book&quot;,
 
@@ -633,24 +633,24 @@ bok clean ./docs/config.ts
   },
 };
 </code></pre>
-<h2 id="configuration-options" tabindex="-1">Configuration Options</h2>
-<h3 id="extends" tabindex="-1">extends</h3>
+<h2 id="configuration-options" tabindex="-1"><a class="header-anchor" href="#configuration-options">#</a> Configuration Options</h2>
+<h3 id="extends" tabindex="-1"><a class="header-anchor" href="#extends">#</a> extends</h3>
 <p>Extend a built-in or custom theme.</p>
 <pre><code class="language-typescript">extends: &quot;book&quot;        // Built-in theme
 extends: &quot;basic&quot;       // Built-in theme
 extends: &quot;/path/to/theme/config.ts&quot;  // Custom theme
 </code></pre>
-<h3 id="rooturl" tabindex="-1">rootUrl</h3>
+<h3 id="rooturl" tabindex="-1"><a class="header-anchor" href="#rooturl">#</a> rootUrl</h3>
 <p>Base URL prefix for all links. Useful when deploying to a subdirectory.</p>
 <pre><code class="language-typescript">rootUrl: &quot;/docs&quot;  // Site served at example.com/docs/
 rootUrl: &quot;&quot;       // Site served at root (default)
 </code></pre>
-<h3 id="uglyurls" tabindex="-1">uglyURLs</h3>
+<h3 id="uglyurls" tabindex="-1"><a class="header-anchor" href="#uglyurls">#</a> uglyURLs</h3>
 <p>Use <code>.html</code> extensions instead of directory-based URLs.</p>
 <pre><code class="language-typescript">uglyURLs: false  // /about/ (default)
 uglyURLs: true   // /about.html
 </code></pre>
-<h3 id="paths" tabindex="-1">paths</h3>
+<h3 id="paths" tabindex="-1"><a class="header-anchor" href="#paths">#</a> paths</h3>
 <p>Configure directory locations.</p>
 <pre><code class="language-typescript">paths: {
   content: &quot;content&quot;,     // Markdown files location
@@ -662,7 +662,7 @@ uglyURLs: true   // /about.html
 }
 </code></pre>
 <p>All paths are relative to the config file location.</p>
-<h3 id="files" tabindex="-1">files</h3>
+<h3 id="files" tabindex="-1"><a class="header-anchor" href="#files">#</a> files</h3>
 <p>Configure how pages are discovered.</p>
 <pre><code class="language-typescript">// Table of contents mode (recommended for books)
 files: {
@@ -681,7 +681,7 @@ files: {
   glob: &quot;**/*.md&quot;,
 }
 </code></pre>
-<h3 id="serve" tabindex="-1">serve</h3>
+<h3 id="serve" tabindex="-1"><a class="header-anchor" href="#serve">#</a> serve</h3>
 <p>Development server settings.</p>
 <pre><code class="language-typescript">serve: {
   reload: true,   // Enable live reload
@@ -689,7 +689,7 @@ files: {
   wsPort: 5001,   // WebSocket port
 }
 </code></pre>
-<h3 id="hooks" tabindex="-1">hooks</h3>
+<h3 id="hooks" tabindex="-1"><a class="header-anchor" href="#hooks">#</a> hooks</h3>
 <p>Lifecycle hooks for custom processing.</p>
 <pre><code class="language-typescript">hooks: {
   async beforeSite(site, pages, opts) {
@@ -706,7 +706,7 @@ files: {
   },
 }
 </code></pre>
-<h3 id="params" tabindex="-1">params</h3>
+<h3 id="params" tabindex="-1"><a class="header-anchor" href="#params">#</a> params</h3>
 <p>Custom parameters passed to templates.</p>
 <pre><code class="language-typescript">params: {
   title: &quot;My Site&quot;,
@@ -715,7 +715,7 @@ files: {
   // Any custom data you need in templates
 }
 </code></pre>
-<h2 id="full-example" tabindex="-1">Full Example</h2>
+<h2 id="full-example" tabindex="-1"><a class="header-anchor" href="#full-example">#</a> Full Example</h2>
 <pre><code class="language-typescript">export default {
   extends: &quot;book&quot;,
 
@@ -751,9 +751,9 @@ files: {
       <hr class="print-break">
         <article class="print-chapter">
           <h1>site-config.md</h1>
-          <h1 id="site-config" tabindex="-1">Site Config</h1>
+          <h1 id="site-config" tabindex="-1"><a class="header-anchor" href="#site-config">#</a> Site Config</h1>
 <p>The <code>config.ts</code> file is the heart of your bok site. This page covers all configuration options in detail.</p>
-<h2 id="config-structure" tabindex="-1">Config Structure</h2>
+<h2 id="config-structure" tabindex="-1"><a class="header-anchor" href="#config-structure">#</a> Config Structure</h2>
 <pre><code class="language-typescript">export default {
   // Theme to extend
   extends?: string,
@@ -800,7 +800,7 @@ files: {
   params?: Record&lt;string, any&gt;,
 };
 </code></pre>
-<h2 id="path-resolution" tabindex="-1">Path Resolution</h2>
+<h2 id="path-resolution" tabindex="-1"><a class="header-anchor" href="#path-resolution">#</a> Path Resolution</h2>
 <p>All paths in the config are resolved relative to the config file's directory.</p>
 <pre><code class="language-typescript">// If config is at /home/user/my-site/config.ts
 paths: {
@@ -809,7 +809,7 @@ paths: {
   public: [&quot;images&quot;],     // → /home/user/my-site/images
 }
 </code></pre>
-<h2 id="extending-themes" tabindex="-1">Extending Themes</h2>
+<h2 id="extending-themes" tabindex="-1"><a class="header-anchor" href="#extending-themes">#</a> Extending Themes</h2>
 <p>When you extend a theme:</p>
 <ol>
 <li>Theme's <code>hooks</code> are used</li>
@@ -830,8 +830,8 @@ params: {
   // showToc: true    // Inherited from theme
 }
 </code></pre>
-<h2 id="file-discovery-modes" tabindex="-1">File Discovery Modes</h2>
-<h3 id="toc-mode" tabindex="-1">TOC Mode</h3>
+<h2 id="file-discovery-modes" tabindex="-1"><a class="header-anchor" href="#file-discovery-modes">#</a> File Discovery Modes</h2>
+<h3 id="toc-mode" tabindex="-1"><a class="header-anchor" href="#toc-mode">#</a> TOC Mode</h3>
 <p>Best for books and documentation with a specific reading order.</p>
 <pre><code class="language-typescript">files: {
   type: &quot;toc&quot;,
@@ -845,23 +845,23 @@ params: {
 <li>Section groupings</li>
 </ul>
 <p>See <a href="toc-format.md">TOC Format</a> for details.</p>
-<h3 id="walk-mode" tabindex="-1">Walk Mode</h3>
+<h3 id="walk-mode" tabindex="-1"><a class="header-anchor" href="#walk-mode">#</a> Walk Mode</h3>
 <p>Recursively finds all markdown files.</p>
 <pre><code class="language-typescript">files: {
   type: &quot;walk&quot;,
 }
 </code></pre>
 <p>Good for blogs or sites without strict ordering.</p>
-<h3 id="glob-mode" tabindex="-1">Glob Mode</h3>
+<h3 id="glob-mode" tabindex="-1"><a class="header-anchor" href="#glob-mode">#</a> Glob Mode</h3>
 <p>Find files matching a pattern.</p>
 <pre><code class="language-typescript">files: {
   type: &quot;glob&quot;,
   glob: &quot;posts/**/*.md&quot;,
 }
 </code></pre>
-<h2 id="hooks" tabindex="-1">Hooks</h2>
+<h2 id="hooks" tabindex="-1"><a class="header-anchor" href="#hooks">#</a> Hooks</h2>
 <p>Hooks let you customize the build process.</p>
-<h3 id="beforesite" tabindex="-1">beforeSite</h3>
+<h3 id="beforesite" tabindex="-1"><a class="header-anchor" href="#beforesite">#</a> beforeSite</h3>
 <p>Called once before any pages are processed.</p>
 <pre><code class="language-typescript">hooks: {
   async beforeSite(site, pages, opts) {
@@ -871,7 +871,7 @@ params: {
   },
 }
 </code></pre>
-<h3 id="aftersite" tabindex="-1">afterSite</h3>
+<h3 id="aftersite" tabindex="-1"><a class="header-anchor" href="#aftersite">#</a> afterSite</h3>
 <p>Called once after all pages are processed.</p>
 <pre><code class="language-typescript">hooks: {
   async afterSite(site, pages, opts) {
@@ -881,7 +881,7 @@ params: {
   },
 }
 </code></pre>
-<h3 id="beforepage-%2F-afterpage" tabindex="-1">beforePage / afterPage</h3>
+<h3 id="beforepage-%2F-afterpage" tabindex="-1"><a class="header-anchor" href="#beforepage-%2F-afterpage">#</a> beforePage / afterPage</h3>
 <p>Called for each page.</p>
 <pre><code class="language-typescript">hooks: {
   async beforePage(site, page, index, pages, opts) {
@@ -894,7 +894,7 @@ params: {
   },
 }
 </code></pre>
-<h2 id="params" tabindex="-1">Params</h2>
+<h2 id="params" tabindex="-1"><a class="header-anchor" href="#params">#</a> Params</h2>
 <p>The <code>params</code> object is passed to all templates. Use it for:</p>
 <ul>
 <li>Site metadata (title, author, description)</li>
@@ -941,12 +941,12 @@ Create section titles that appear in the sidebar.
 
 # Advanced Topics
 </code></pre>
-<h3 id="links" tabindex="-1">Links</h3>
+<h3 id="links" tabindex="-1"><a class="header-anchor" href="#links">#</a> Links</h3>
 <p>Top-level links without list markers.</p>
 <pre><code class="language-markdown">[Introduction](index.md)
 [About](about.md)
 </code></pre>
-<h3 id="list-items" tabindex="-1">List Items</h3>
+<h3 id="list-items" tabindex="-1"><a class="header-anchor" href="#list-items">#</a> List Items</h3>
 <p>Numbered chapters with nesting support.</p>
 <pre><code class="language-markdown">- [Chapter 1](chapter-1.md)
   - [Section 1.1](section-1-1.md)
@@ -963,7 +963,7 @@ Create section titles that appear in the sidebar.
 </li>
 <li><strong>2.</strong> Chapter 2</li>
 </ul>
-<h3 id="horizontal-rules" tabindex="-1">Horizontal Rules</h3>
+<h3 id="horizontal-rules" tabindex="-1"><a class="header-anchor" href="#horizontal-rules">#</a> Horizontal Rules</h3>
 <p>Visual separators between sections.</p>
 <pre><code class="language-markdown">- [Chapter 1](chapter-1.md)
 
@@ -973,12 +973,12 @@ Create section titles that appear in the sidebar.
 
 - [Chapter 2](chapter-2.md)
 </code></pre>
-<h3 id="draft-pages" tabindex="-1">Draft Pages</h3>
+<h3 id="draft-pages" tabindex="-1"><a class="header-anchor" href="#draft-pages">#</a> Draft Pages</h3>
 <p>Empty parentheses create a draft entry (no link).</p>
 <pre><code class="language-markdown">- [Coming Soon]()
 </code></pre>
 <p>This appears in the sidebar but isn't clickable.</p>
-<h2 id="full-example" tabindex="-1">Full Example</h2>
+<h2 id="full-example" tabindex="-1"><a class="header-anchor" href="#full-example">#</a> Full Example</h2>
 <pre><code class="language-markdown"># My Book
 
 [Introduction](index.md)
@@ -1014,7 +1014,7 @@ Create section titles that appear in the sidebar.
 - [Changelog](changelog.md)
 - [Contributing](contributing.md)
 </code></pre>
-<h2 id="file-paths" tabindex="-1">File Paths</h2>
+<h2 id="file-paths" tabindex="-1"><a class="header-anchor" href="#file-paths">#</a> File Paths</h2>
 <p>Paths are relative to the <code>content/</code> directory.</p>
 <pre><code class="language-markdown"># If content/ structure is:
 # content/
@@ -1027,7 +1027,7 @@ Create section titles that appear in the sidebar.
 - [Intro](guide/intro.md)
 - [Advanced](guide/advanced.md)
 </code></pre>
-<h2 id="navigation" tabindex="-1">Navigation</h2>
+<h2 id="navigation" tabindex="-1"><a class="header-anchor" href="#navigation">#</a> Navigation</h2>
 <p>The TOC automatically generates:</p>
 <ul>
 <li><strong>Left sidebar</strong> - Full navigation tree</li>
@@ -1040,9 +1040,9 @@ Create section titles that appear in the sidebar.
       <hr class="print-break">
         <article class="print-chapter">
           <h1>Front Matter</h1>
-          <h1 id="front-matter" tabindex="-1">Front Matter</h1>
+          <h1 id="front-matter" tabindex="-1"><a class="header-anchor" href="#front-matter">#</a> Front Matter</h1>
 <p>Front matter lets you add metadata to individual pages.</p>
-<h2 id="syntax" tabindex="-1">Syntax</h2>
+<h2 id="syntax" tabindex="-1"><a class="header-anchor" href="#syntax">#</a> Syntax</h2>
 <p>Add key-value pairs at the top of your markdown file, followed by <code>---</code>:</p>
 <pre><code class="language-markdown">title: My Page Title
 layout: custom.ts
@@ -1053,13 +1053,13 @@ author: John Doe
 
 Your markdown content here...
 </code></pre>
-<h2 id="available-properties" tabindex="-1">Available Properties</h2>
-<h3 id="layout" tabindex="-1">layout</h3>
+<h2 id="available-properties" tabindex="-1"><a class="header-anchor" href="#available-properties">#</a> Available Properties</h2>
+<h3 id="layout" tabindex="-1"><a class="header-anchor" href="#layout">#</a> layout</h3>
 <p>Override the default layout template for this page.</p>
 <pre><code>layout: my-layout.ts
 </code></pre>
 <p>The path is relative to the <code>layout/</code> directory.</p>
-<h3 id="custom-properties" tabindex="-1">Custom Properties</h3>
+<h3 id="custom-properties" tabindex="-1"><a class="header-anchor" href="#custom-properties">#</a> Custom Properties</h3>
 <p>Add any custom properties you need:</p>
 <pre><code class="language-markdown">title: Getting Started
 description: Learn how to get started with bok
@@ -1080,7 +1080,7 @@ draft: true
   `;
 }
 </code></pre>
-<h2 id="parser-details" tabindex="-1">Parser Details</h2>
+<h2 id="parser-details" tabindex="-1"><a class="header-anchor" href="#parser-details">#</a> Parser Details</h2>
 <p>The front matter parser:</p>
 <ul>
 <li>Reads lines until it hits <code>---</code></li>
@@ -1098,8 +1098,8 @@ another: value: with: colons
   another: &quot;value: with: colons&quot;
 }
 </code></pre>
-<h2 id="examples" tabindex="-1">Examples</h2>
-<h3 id="blog-post" tabindex="-1">Blog Post</h3>
+<h2 id="examples" tabindex="-1"><a class="header-anchor" href="#examples">#</a> Examples</h2>
+<h3 id="blog-post" tabindex="-1"><a class="header-anchor" href="#blog-post">#</a> Blog Post</h3>
 <pre><code class="language-markdown">title: My First Post
 date: 2024-01-15
 author: Jane Doe
@@ -1110,7 +1110,7 @@ tags: announcement, news
 
 This is my first post...
 </code></pre>
-<h3 id="custom-layout" tabindex="-1">Custom Layout</h3>
+<h3 id="custom-layout" tabindex="-1"><a class="header-anchor" href="#custom-layout">#</a> Custom Layout</h3>
 <pre><code class="language-markdown">layout: landing.ts
 ---
 
@@ -1118,7 +1118,7 @@ This is my first post...
 
 This page uses a custom landing page layout.
 </code></pre>
-<h3 id="documentation-page" tabindex="-1">Documentation Page</h3>
+<h3 id="documentation-page" tabindex="-1"><a class="header-anchor" href="#documentation-page">#</a> Documentation Page</h3>
 <pre><code class="language-markdown">title: API Reference
 description: Complete API documentation
 order: 5
@@ -1128,7 +1128,7 @@ order: 5
 
 ...
 </code></pre>
-<h2 id="no-front-matter" tabindex="-1">No Front Matter</h2>
+<h2 id="no-front-matter" tabindex="-1"><a class="header-anchor" href="#no-front-matter">#</a> No Front Matter</h2>
 <p>Front matter is optional. If omitted, the page uses:</p>
 <ul>
 <li>Default layout from config</li>
@@ -1143,10 +1143,10 @@ This page has no front matter.
       <hr class="print-break">
         <article class="print-chapter">
           <h1>themes.md</h1>
-          <h1 id="themes" tabindex="-1">Themes</h1>
+          <h1 id="themes" tabindex="-1"><a class="header-anchor" href="#themes">#</a> Themes</h1>
 <p>Themes control the look and feel of your bok site. They provide layouts, styles, and default configuration.</p>
-<h2 id="built-in-themes" tabindex="-1">Built-in Themes</h2>
-<h3 id="basic" tabindex="-1">basic</h3>
+<h2 id="built-in-themes" tabindex="-1"><a class="header-anchor" href="#built-in-themes">#</a> Built-in Themes</h2>
+<h3 id="basic" tabindex="-1"><a class="header-anchor" href="#basic">#</a> basic</h3>
 <p>A minimal theme with just the essentials.</p>
 <pre><code class="language-typescript">export default {
   extends: &quot;basic&quot;,
@@ -1158,7 +1158,7 @@ This page has no front matter.
 <li>No styling</li>
 <li>Good starting point for custom themes</li>
 </ul>
-<h3 id="book" tabindex="-1">book</h3>
+<h3 id="book" tabindex="-1"><a class="header-anchor" href="#book">#</a> book</h3>
 <p>A documentation theme inspired by mdBook and GitBook.</p>
 <pre><code class="language-typescript">export default {
   extends: &quot;book&quot;,
@@ -1173,7 +1173,7 @@ This page has no front matter.
 <li>Syntax highlighting</li>
 </ul>
 <p>See <a href="book-theme.md">Book Theme</a> for details.</p>
-<h2 id="theme-structure" tabindex="-1">Theme Structure</h2>
+<h2 id="theme-structure" tabindex="-1"><a class="header-anchor" href="#theme-structure">#</a> Theme Structure</h2>
 <p>A theme consists of:</p>
 <pre><code>my-theme/
 ├── config.ts       # Theme configuration
@@ -1189,8 +1189,8 @@ This page has no front matter.
     ├── toc.md
     └── index.md
 </code></pre>
-<h2 id="extending-vs-creating" tabindex="-1">Extending vs Creating</h2>
-<h3 id="extend-(recommended)" tabindex="-1">Extend (Recommended)</h3>
+<h2 id="extending-vs-creating" tabindex="-1"><a class="header-anchor" href="#extending-vs-creating">#</a> Extending vs Creating</h2>
+<h3 id="extend-(recommended)" tabindex="-1"><a class="header-anchor" href="#extend-(recommended)">#</a> Extend (Recommended)</h3>
 <p>Use the theme's layouts and assets, customize only what you need:</p>
 <pre><code class="language-typescript">export default {
   extends: &quot;book&quot;,
@@ -1199,12 +1199,12 @@ This page has no front matter.
   },
 };
 </code></pre>
-<h3 id="create" tabindex="-1">Create</h3>
+<h3 id="create" tabindex="-1"><a class="header-anchor" href="#create">#</a> Create</h3>
 <p>Copy theme files for full customization:</p>
 <pre><code class="language-bash">bok init --mode create --theme book
 </code></pre>
 <p>This copies all theme files to your project.</p>
-<h2 id="custom-themes" tabindex="-1">Custom Themes</h2>
+<h2 id="custom-themes" tabindex="-1"><a class="header-anchor" href="#custom-themes">#</a> Custom Themes</h2>
 <p>Create your own theme by:</p>
 <ol>
 <li>Creating a theme directory with the structure above</li>
@@ -1223,9 +1223,9 @@ This page has no front matter.
       <hr class="print-break">
         <article class="print-chapter">
           <h1>book-theme.md</h1>
-          <h1 id="book-theme" tabindex="-1">Book Theme</h1>
+          <h1 id="book-theme" tabindex="-1"><a class="header-anchor" href="#book-theme">#</a> Book Theme</h1>
 <p>The book theme provides a complete documentation experience similar to mdBook or GitBook.</p>
-<h2 id="features" tabindex="-1">Features</h2>
+<h2 id="features" tabindex="-1"><a class="header-anchor" href="#features">#</a> Features</h2>
 <ul>
 <li><strong>Sidebar navigation</strong> - Collapsible table of contents</li>
 <li><strong>Page navigation</strong> - Previous/next page arrows</li>
@@ -1234,8 +1234,8 @@ This page has no front matter.
 <li><strong>Syntax highlighting</strong> - Via Prism.js</li>
 <li><strong>Toggle sidebar</strong> - Hide/show for more reading space</li>
 </ul>
-<h2 id="configuration" tabindex="-1">Configuration</h2>
-<h3 id="basic-setup" tabindex="-1">Basic Setup</h3>
+<h2 id="configuration" tabindex="-1"><a class="header-anchor" href="#configuration">#</a> Configuration</h2>
+<h3 id="basic-setup" tabindex="-1"><a class="header-anchor" href="#basic-setup">#</a> Basic Setup</h3>
 <pre><code class="language-typescript">export default {
   extends: &quot;book&quot;,
 
@@ -1246,7 +1246,7 @@ This page has no front matter.
   },
 };
 </code></pre>
-<h3 id="right-table-of-contents" tabindex="-1">Right Table of Contents</h3>
+<h3 id="right-table-of-contents" tabindex="-1"><a class="header-anchor" href="#right-table-of-contents">#</a> Right Table of Contents</h3>
 <p>Configure the on-page heading navigation:</p>
 <pre><code class="language-typescript">params: {
   rightToc: {
@@ -1257,16 +1257,16 @@ This page has no front matter.
   },
 }
 </code></pre>
-<h2 id="layout-structure" tabindex="-1">Layout Structure</h2>
+<h2 id="layout-structure" tabindex="-1"><a class="header-anchor" href="#layout-structure">#</a> Layout Structure</h2>
 <p>The book theme uses two layout files:</p>
-<h3 id="base.ts" tabindex="-1">base.ts</h3>
+<h3 id="base.ts" tabindex="-1"><a class="header-anchor" href="#base.ts">#</a> base.ts</h3>
 <p>The HTML wrapper with:</p>
 <ul>
 <li>Document head (meta, CSS, fonts)</li>
 <li>Script includes</li>
 <li>Body wrapper</li>
 </ul>
-<h3 id="index.ts" tabindex="-1">index.ts</h3>
+<h3 id="index.ts" tabindex="-1"><a class="header-anchor" href="#index.ts">#</a> index.ts</h3>
 <p>The page structure:</p>
 <ul>
 <li>Sidebar with TOC</li>
@@ -1274,8 +1274,8 @@ This page has no front matter.
 <li>Previous/next navigation</li>
 <li>Right-side TOC</li>
 </ul>
-<h2 id="styling" tabindex="-1">Styling</h2>
-<h3 id="css-files" tabindex="-1">CSS Files</h3>
+<h2 id="styling" tabindex="-1"><a class="header-anchor" href="#styling">#</a> Styling</h2>
+<h3 id="css-files" tabindex="-1"><a class="header-anchor" href="#css-files">#</a> CSS Files</h3>
 <table>
 <thead>
 <tr>
@@ -1310,7 +1310,7 @@ This page has no front matter.
 </tr>
 </tbody>
 </table>
-<h3 id="css-variables" tabindex="-1">CSS Variables</h3>
+<h3 id="css-variables" tabindex="-1"><a class="header-anchor" href="#css-variables">#</a> CSS Variables</h3>
 <p>Customize colors by overriding CSS variables:</p>
 <pre><code class="language-css">:root {
   --bg: #ffffff;
@@ -1319,17 +1319,17 @@ This page has no front matter.
   --link-color: #0066cc;
 }
 </code></pre>
-<h2 id="javascript" tabindex="-1">JavaScript</h2>
-<h3 id="index.js" tabindex="-1">index.js</h3>
+<h2 id="javascript" tabindex="-1"><a class="header-anchor" href="#javascript">#</a> JavaScript</h2>
+<h3 id="index.js" tabindex="-1"><a class="header-anchor" href="#index.js">#</a> index.js</h3>
 <p>Handles:</p>
 <ul>
 <li>Sidebar toggle</li>
 <li>Keyboard navigation (left/right arrows)</li>
 <li>Session storage for sidebar state</li>
 </ul>
-<h3 id="prism.min.js" tabindex="-1">prism.min.js</h3>
+<h3 id="prism.min.js" tabindex="-1"><a class="header-anchor" href="#prism.min.js">#</a> prism.min.js</h3>
 <p>Syntax highlighting for code blocks.</p>
-<h2 id="keyboard-shortcuts" tabindex="-1">Keyboard Shortcuts</h2>
+<h2 id="keyboard-shortcuts" tabindex="-1"><a class="header-anchor" href="#keyboard-shortcuts">#</a> Keyboard Shortcuts</h2>
 <table>
 <thead>
 <tr>
@@ -1352,7 +1352,7 @@ This page has no front matter.
 </tr>
 </tbody>
 </table>
-<h2 id="file-discovery" tabindex="-1">File Discovery</h2>
+<h2 id="file-discovery" tabindex="-1"><a class="header-anchor" href="#file-discovery">#</a> File Discovery</h2>
 <p>The book theme uses TOC mode by default:</p>
 <pre><code class="language-typescript">files: {
   type: &quot;toc&quot;,
@@ -1360,16 +1360,16 @@ This page has no front matter.
 }
 </code></pre>
 <p>Your <code>content/toc.md</code> defines the sidebar structure.</p>
-<h2 id="example-site" tabindex="-1">Example Site</h2>
+<h2 id="example-site" tabindex="-1"><a class="header-anchor" href="#example-site">#</a> Example Site</h2>
 <p>See the <code>examples/book/</code> directory for a complete example site using this theme.</p>
 
         </article>
       <hr class="print-break">
         <article class="print-chapter">
           <h1>creating-themes.md</h1>
-          <h1 id="creating-themes" tabindex="-1">Creating Themes</h1>
+          <h1 id="creating-themes" tabindex="-1"><a class="header-anchor" href="#creating-themes">#</a> Creating Themes</h1>
 <p>Build custom themes for your bok sites.</p>
-<h2 id="theme-structure" tabindex="-1">Theme Structure</h2>
+<h2 id="theme-structure" tabindex="-1"><a class="header-anchor" href="#theme-structure">#</a> Theme Structure</h2>
 <pre><code>my-theme/
 ├── config.ts       # Required: theme configuration
 ├── layout/         # Required: template files
@@ -1377,7 +1377,7 @@ This page has no front matter.
 ├── assets/         # Optional: static files
 └── content/        # Optional: example content
 </code></pre>
-<h2 id="theme-config" tabindex="-1">Theme Config</h2>
+<h2 id="theme-config" tabindex="-1"><a class="header-anchor" href="#theme-config">#</a> Theme Config</h2>
 <p>Create <code>config.ts</code>:</p>
 <pre><code class="language-typescript">export default {
   name: &quot;my-theme&quot;,
@@ -1415,7 +1415,7 @@ This page has no front matter.
   },
 };
 </code></pre>
-<h2 id="layout-templates" tabindex="-1">Layout Templates</h2>
+<h2 id="layout-templates" tabindex="-1"><a class="header-anchor" href="#layout-templates">#</a> Layout Templates</h2>
 <p>Layouts are TypeScript files that export a function:</p>
 <pre><code class="language-typescript">// layout/index.ts
 export default function(site, page, pages) {
@@ -1435,15 +1435,15 @@ export default function(site, page, pages) {
   `;
 }
 </code></pre>
-<h3 id="template-parameters" tabindex="-1">Template Parameters</h3>
-<h4 id="site" tabindex="-1">site</h4>
+<h3 id="template-parameters" tabindex="-1"><a class="header-anchor" href="#template-parameters">#</a> Template Parameters</h3>
+<h4 id="site" tabindex="-1"><a class="header-anchor" href="#site">#</a> site</h4>
 <p>The site configuration object:</p>
 <pre><code class="language-typescript">site.rootUrl      // URL prefix
 site.params       // Site params from config
 site.paths        // Directory paths
 site.uglyURLs     // URL style boolean
 </code></pre>
-<h4 id="page" tabindex="-1">page</h4>
+<h4 id="page" tabindex="-1"><a class="header-anchor" href="#page">#</a> page</h4>
 <p>The current page being rendered:</p>
 <pre><code class="language-typescript">page.name         // Filename
 page.path         // Full file path
@@ -1456,9 +1456,9 @@ page.rightToc     // Right-side TOC HTML
 page.prevPage     // Previous page URL
 page.nextPage     // Next page URL
 </code></pre>
-<h4 id="pages" tabindex="-1">pages</h4>
+<h4 id="pages" tabindex="-1"><a class="header-anchor" href="#pages">#</a> pages</h4>
 <p>Array of all pages in the site.</p>
-<h2 id="composable-templates" tabindex="-1">Composable Templates</h2>
+<h2 id="composable-templates" tabindex="-1"><a class="header-anchor" href="#composable-templates">#</a> Composable Templates</h2>
 <p>Split templates into reusable parts:</p>
 <pre><code class="language-typescript">// layout/base.ts
 export default function({ title, rootUrl }, content) {
@@ -1486,7 +1486,7 @@ export default function(site, page, pages) {
   );
 }
 </code></pre>
-<h2 id="assets" tabindex="-1">Assets</h2>
+<h2 id="assets" tabindex="-1"><a class="header-anchor" href="#assets">#</a> Assets</h2>
 <p>Place static files in <code>assets/</code>:</p>
 <pre><code>assets/
 ├── css/
@@ -1502,7 +1502,7 @@ export default function(site, page, pages) {
 <pre><code class="language-typescript">`&lt;link rel=&quot;stylesheet&quot; href=&quot;${site.rootUrl}/assets/css/style.css&quot;&gt;`
 `&lt;script src=&quot;${site.rootUrl}/assets/js/main.js&quot;&gt;&lt;/script&gt;`
 </code></pre>
-<h2 id="hooks" tabindex="-1">Hooks</h2>
+<h2 id="hooks" tabindex="-1"><a class="header-anchor" href="#hooks">#</a> Hooks</h2>
 <p>Use hooks for advanced processing:</p>
 <pre><code class="language-typescript">hooks: {
   // Generate sitemap after build
@@ -1523,7 +1523,7 @@ export default function(site, page, pages) {
   },
 }
 </code></pre>
-<h2 id="using-your-theme" tabindex="-1">Using Your Theme</h2>
+<h2 id="using-your-theme" tabindex="-1"><a class="header-anchor" href="#using-your-theme">#</a> Using Your Theme</h2>
 <p>Reference by path:</p>
 <pre><code class="language-typescript">export default {
   extends: &quot;/path/to/my-theme/config.ts&quot;,
@@ -1540,9 +1540,9 @@ export default function(site, page, pages) {
       <hr class="print-break">
         <article class="print-chapter">
           <h1>contributing.md</h1>
-          <h1 id="contributing" tabindex="-1">Contributing</h1>
+          <h1 id="contributing" tabindex="-1"><a class="header-anchor" href="#contributing">#</a> Contributing</h1>
 <p>Contributions to bok are welcome!</p>
-<h2 id="development-setup" tabindex="-1">Development Setup</h2>
+<h2 id="development-setup" tabindex="-1"><a class="header-anchor" href="#development-setup">#</a> Development Setup</h2>
 <pre><code class="language-bash"># Clone the repository
 git clone https://github.com/alajmo/bok
 cd bok
@@ -1553,7 +1553,7 @@ bun install
 # Run the example site
 make serve-debug
 </code></pre>
-<h2 id="project-structure" tabindex="-1">Project Structure</h2>
+<h2 id="project-structure" tabindex="-1"><a class="header-anchor" href="#project-structure">#</a> Project Structure</h2>
 <pre><code>bok/
 ├── mod.ts              # CLI entry point
 ├── deps.ts             # Centralized dependencies
@@ -1575,10 +1575,10 @@ make serve-debug
 └── examples/
     └── book/           # Example site
 </code></pre>
-<h2 id="key-files" tabindex="-1">Key Files</h2>
-<h3 id="deps.ts" tabindex="-1">deps.ts</h3>
+<h2 id="key-files" tabindex="-1"><a class="header-anchor" href="#key-files">#</a> Key Files</h2>
+<h3 id="deps.ts" tabindex="-1"><a class="header-anchor" href="#deps.ts">#</a> deps.ts</h3>
 <p>All external dependencies are centralized here. This makes it easy to swap implementations.</p>
-<h3 id="src%2Fcore%2Fbuild.ts" tabindex="-1">src/core/build.ts</h3>
+<h3 id="src%2Fcore%2Fbuild.ts" tabindex="-1"><a class="header-anchor" href="#src%2Fcore%2Fbuild.ts">#</a> src/core/build.ts</h3>
 <p>The main build pipeline:</p>
 <ol>
 <li>Clean output directory</li>
@@ -1586,7 +1586,7 @@ make serve-debug
 <li>Process each page (front matter → markdown → template)</li>
 <li>Copy assets</li>
 </ol>
-<h3 id="src%2Fcore%2Fconfig.ts" tabindex="-1">src/core/config.ts</h3>
+<h3 id="src%2Fcore%2Fconfig.ts" tabindex="-1"><a class="header-anchor" href="#src%2Fcore%2Fconfig.ts">#</a> src/core/config.ts</h3>
 <p>Configuration loading and merging:</p>
 <ul>
 <li>Read user config</li>
@@ -1594,7 +1594,7 @@ make serve-debug
 <li>Merge with theme config</li>
 <li>Validate paths</li>
 </ul>
-<h3 id="src%2Fplugins%2Ftoc.ts" tabindex="-1">src/plugins/toc.ts</h3>
+<h3 id="src%2Fplugins%2Ftoc.ts" tabindex="-1"><a class="header-anchor" href="#src%2Fplugins%2Ftoc.ts">#</a> src/plugins/toc.ts</h3>
 <p>Custom lexer and parser for the TOC format:</p>
 <ul>
 <li><code>TocReader</code> - Character stream</li>
@@ -1602,7 +1602,7 @@ make serve-debug
 <li><code>TocParser</code> - AST builder</li>
 <li><code>TocRender</code> - HTML generator</li>
 </ul>
-<h2 id="making-changes" tabindex="-1">Making Changes</h2>
+<h2 id="making-changes" tabindex="-1"><a class="header-anchor" href="#making-changes">#</a> Making Changes</h2>
 <ol>
 <li>Fork the repository</li>
 <li>Create a feature branch</li>
@@ -1610,7 +1610,7 @@ make serve-debug
 <li>Test with the example site</li>
 <li>Submit a pull request</li>
 </ol>
-<h2 id="testing" tabindex="-1">Testing</h2>
+<h2 id="testing" tabindex="-1"><a class="header-anchor" href="#testing">#</a> Testing</h2>
 <p>Run the example site to test changes:</p>
 <pre><code class="language-bash"># Development server
 make serve-debug
@@ -1618,14 +1618,14 @@ make serve-debug
 # Build only
 make build
 </code></pre>
-<h2 id="code-style" tabindex="-1">Code Style</h2>
+<h2 id="code-style" tabindex="-1"><a class="header-anchor" href="#code-style">#</a> Code Style</h2>
 <ul>
 <li>TypeScript for all source files</li>
 <li>Use template literals for HTML generation</li>
 <li>Keep dependencies minimal</li>
 <li>Prefer explicit over implicit</li>
 </ul>
-<h2 id="reporting-issues" tabindex="-1">Reporting Issues</h2>
+<h2 id="reporting-issues" tabindex="-1"><a class="header-anchor" href="#reporting-issues">#</a> Reporting Issues</h2>
 <p>Open an issue on GitHub with:</p>
 <ul>
 <li>bok version</li>

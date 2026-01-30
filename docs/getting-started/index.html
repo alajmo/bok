@@ -177,10 +177,10 @@
       <div class="sidebar-resize-handle"></div>
     </aside>
 
-    <main id="content" class="content">
+    <main id="content" class="content" tabindex="-1">
       <div class="menu">
         <div class="menu-left">
-          <button title="Toggle sidebar"
+          <button title="Toggle sidebar (T)"
                   type="button"
                   class="icon-button"
                   onclick="sidebar.toggle();">
@@ -201,13 +201,13 @@
         
 
         <div class="menu-right">
-          <button title="Search (Cmd+K)" type="button" class="icon-button" onclick="openSearch();">
+          <button title="Search (/ or Cmd+K)" type="button" class="icon-button" onclick="openSearch();">
             <svg class="menu-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <circle cx="11" cy="11" r="8"/>
               <path d="M21 21l-4.35-4.35"/>
             </svg>
           </button>
-          <button title="Toggle theme" type="button" class="icon-button theme-toggle" onclick="toggleTheme();">
+          <button title="Toggle theme (D)" type="button" class="icon-button theme-toggle" onclick="toggleTheme();">
             <svg class="menu-icon theme-icon-light" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 3a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V4a1 1 0 0 1 1-1zm0 15a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1zm9-6a1 1 0 0 1-1 1h-1a1 1 0 1 1 0-2h1a1 1 0 0 1 1 1zM5 12a1 1 0 0 1-1 1H3a1 1 0 1 1 0-2h1a1 1 0 0 1 1 1zm14.07-5.66a1 1 0 0 1 0 1.41l-.71.71a1 1 0 1 1-1.41-1.41l.71-.71a1 1 0 0 1 1.41 0zM7.05 17.66a1 1 0 0 1 0 1.41l-.71.71a1 1 0 1 1-1.41-1.41l.71-.71a1 1 0 0 1 1.41 0zm11.9 1.41a1 1 0 0 1-1.41 0l-.71-.71a1 1 0 1 1 1.41-1.41l.71.71a1 1 0 0 1 0 1.41zM7.05 6.34a1 1 0 0 1-1.41 0l-.71-.71a1 1 0 0 1 1.41-1.41l.71.71a1 1 0 0 1 0 1.41zM12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/>
             </svg>
@@ -215,7 +215,7 @@
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
             </svg>
           </button>
-          <button title="Toggle focus mode" type="button" class="icon-button focus-toggle" onclick="toggleFocusMode();">
+          <button title="Toggle focus mode (F)" type="button" class="icon-button focus-toggle" onclick="toggleFocusMode();">
             <svg class="menu-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <circle cx="12" cy="12" r="3"/>
               <path d="M12 5c-7 0-10 7-10 7s3 7 10 7 10-7 10-7-3-7-10-7z"/>
@@ -239,7 +239,7 @@
       <div class="page-wrapper">
         <div class="page">
           
-    <a href="/bok/" id="page-nav-prev" class="page-nav page-nav-prev">
+    <a href="/bok/" id="page-nav-prev" class="page-nav page-nav-prev" title="Previous page (←)">
       <svg class="page-nav-icon" fill="none" viewBox="0 0 24 24" height="40" width="40" xmlns="http://www.w3.org/2000/svg">
         <path d="M14.7071 5.29289C15.0976 5.68342 15.0976 6.31658 14.7071 6.70711L9.41421 12L14.7071 17.2929C15.0976 17.6834 15.0976 18.3166 14.7071 18.7071C14.3166 19.0976 13.6834 19.0976 13.2929 18.7071L7.29289 12.7071C6.90237 12.3166 6.90237 11.6834 7.29289 11.2929L13.2929 5.29289C13.6834 4.90237 14.3166 4.90237 14.7071 5.29289Z" fill="currentColor"></path>
       </svg>
@@ -247,25 +247,25 @@
   
 
           <div class="page-content">
-            <h1 id="getting-started" tabindex="-1">Getting Started</h1>
+            <h1 id="getting-started" tabindex="-1"><a class="header-anchor" href="#getting-started">#</a> Getting Started</h1>
 <p>This guide will help you create your first bok site.</p>
-<h2 id="prerequisites" tabindex="-1">Prerequisites</h2>
+<h2 id="prerequisites" tabindex="-1"><a class="header-anchor" href="#prerequisites">#</a> Prerequisites</h2>
 <p>You need <a href="https://bun.sh">Bun</a> installed:</p>
 <pre><code class="language-bash">curl -fsSL https://bun.sh/install | bash
 </code></pre>
-<h2 id="installation" tabindex="-1">Installation</h2>
-<h3 id="from-source" tabindex="-1">From Source</h3>
+<h2 id="installation" tabindex="-1"><a class="header-anchor" href="#installation">#</a> Installation</h2>
+<h3 id="from-source" tabindex="-1"><a class="header-anchor" href="#from-source">#</a> From Source</h3>
 <pre><code class="language-bash">git clone https://github.com/alajmo/bok
 cd bok
 bun install
 </code></pre>
-<h3 id="global-install" tabindex="-1">Global Install</h3>
+<h3 id="global-install" tabindex="-1"><a class="header-anchor" href="#global-install">#</a> Global Install</h3>
 <p>After cloning, you can install bok globally:</p>
 <pre><code class="language-bash">make install
 </code></pre>
 <p>This creates a <code>bok</code> command you can run from anywhere.</p>
-<h2 id="create-a-new-site" tabindex="-1">Create a New Site</h2>
-<h3 id="interactive-mode" tabindex="-1">Interactive Mode</h3>
+<h2 id="create-a-new-site" tabindex="-1"><a class="header-anchor" href="#create-a-new-site">#</a> Create a New Site</h2>
+<h3 id="interactive-mode" tabindex="-1"><a class="header-anchor" href="#interactive-mode">#</a> Interactive Mode</h3>
 <p>Run the init command and follow the prompts:</p>
 <pre><code class="language-bash">bok init
 </code></pre>
@@ -274,11 +274,11 @@ bun install
 <li>Choose <strong>extend</strong> (use existing theme) or <strong>create</strong> (copy theme files)</li>
 <li>Select a theme: <strong>basic</strong> or <strong>book</strong></li>
 </ol>
-<h3 id="non-interactive-mode" tabindex="-1">Non-Interactive Mode</h3>
+<h3 id="non-interactive-mode" tabindex="-1"><a class="header-anchor" href="#non-interactive-mode">#</a> Non-Interactive Mode</h3>
 <pre><code class="language-bash"># Extend the book theme
 bok init --mode extend --theme book
 </code></pre>
-<h2 id="project-structure" tabindex="-1">Project Structure</h2>
+<h2 id="project-structure" tabindex="-1"><a class="header-anchor" href="#project-structure">#</a> Project Structure</h2>
 <p>After initialization, your project looks like this:</p>
 <pre><code>my-site/
 ├── config.ts        # Site configuration
@@ -287,8 +287,8 @@ bok init --mode extend --theme book
     ├── index.md     # Home page
     └── ...          # Your markdown pages
 </code></pre>
-<h2 id="development-workflow" tabindex="-1">Development Workflow</h2>
-<h3 id="start-the-dev-server" tabindex="-1">Start the Dev Server</h3>
+<h2 id="development-workflow" tabindex="-1"><a class="header-anchor" href="#development-workflow">#</a> Development Workflow</h2>
+<h3 id="start-the-dev-server" tabindex="-1"><a class="header-anchor" href="#start-the-dev-server">#</a> Start the Dev Server</h3>
 <pre><code class="language-bash">bok serve config.ts
 </code></pre>
 <p>This will:</p>
@@ -298,11 +298,11 @@ bok init --mode extend --theme book
 <li>Watch for file changes and rebuild automatically</li>
 <li>Reload your browser when files change</li>
 </ul>
-<h3 id="build-for-production" tabindex="-1">Build for Production</h3>
+<h3 id="build-for-production" tabindex="-1"><a class="header-anchor" href="#build-for-production">#</a> Build for Production</h3>
 <pre><code class="language-bash">bok build config.ts
 </code></pre>
 <p>The generated site will be in the <code>site/</code> directory (or whatever you configured as <code>paths.output</code>).</p>
-<h2 id="adding-pages" tabindex="-1">Adding Pages</h2>
+<h2 id="adding-pages" tabindex="-1"><a class="header-anchor" href="#adding-pages">#</a> Adding Pages</h2>
 <ol>
 <li>Create a new <code>.md</code> file in <code>content/</code>:</li>
 </ol>
@@ -318,7 +318,7 @@ This is my new page content.
 <ol start="3">
 <li>Save and watch the browser reload with your new page.</li>
 </ol>
-<h2 id="next-steps" tabindex="-1">Next Steps</h2>
+<h2 id="next-steps" tabindex="-1"><a class="header-anchor" href="#next-steps">#</a> Next Steps</h2>
 <ul>
 <li>Learn about <a href="usage/usage.md">CLI Commands</a></li>
 <li>Understand <a href="configuration/configuration.md">Configuration</a></li>
@@ -328,7 +328,7 @@ This is my new page content.
           </div>
 
           
-    <a href="/bok/usage/usage" id="page-nav-next" class="page-nav page-nav-next">
+    <a href="/bok/usage/usage" id="page-nav-next" class="page-nav page-nav-next" title="Next page (→)">
       <svg class="page-nav-icon" fill="none" viewBox="0 0 24 24" height="40" width="40" xmlns="http://www.w3.org/2000/svg">
         <path d="M9.29289 18.7071C8.90237 18.3166 8.90237 17.6834 9.29289 17.2929L14.5858 12L9.29289 6.70711C8.90237 6.31658 8.90237 5.68342 9.29289 5.29289C9.68342 4.90237 10.3166 4.90237 10.7071 5.29289L16.7071 11.2929C17.0976 11.6834 17.0976 12.3166 16.7071 12.7071L10.7071 18.7071C10.3166 19.0976 9.68342 19.0976 9.29289 18.7071Z" fill="currentColor"></path>
       </svg>

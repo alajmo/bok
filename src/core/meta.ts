@@ -98,7 +98,8 @@ function extractFirstHeading(tokens: any[]): string {
         return inlineToken.children
           .filter((t: any) => t.type === "text" || t.type === "code_inline")
           .map((t: any) => t.content)
-          .join("");
+          .join("")
+          .trim();
       }
     }
   }

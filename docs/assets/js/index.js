@@ -9,6 +9,13 @@ window.addEventListener('DOMContentLoaded', (event) => {
   initRightTocScrollspy()
   initMenuBorder()
   initKeydownActivation()
+  initSidebarScrollPreserve()
+
+  initHeaderAnchors()
+
+  // Focus content so arrow keys work for scrolling
+  const content = document.getElementById('content')
+  if (content) content.focus()
 })
 
 // Make buttons and links activate on keydown (Enter/Space) instead of waiting for keyup
@@ -25,6 +32,34 @@ function initKeydownActivation() {
     if (isLink || isButton) {
       e.preventDefault()
       el.click()
+    }
+  })
+}
+
+function initSidebarScrollPreserve() {
+  const sidebarEl = document.getElementById('sidebar')
+  if (!sidebarEl) return
+
+  // Restore scroll position on page load
+  const savedScroll = sessionStorage.getItem('sidebarScroll')
+  if (savedScroll) {
+    sidebarEl.scrollTop = parseInt(savedScroll, 10)
+  }
+
+  // Save scroll position before navigating, restore for same-page anchors
+  sidebarEl.addEventListener('click', (e) => {
+    const link = e.target.closest('a')
+    if (!link) return
+
+    const scrollPos = sidebarEl.scrollTop
+    sessionStorage.setItem('sidebarScroll', scrollPos.toString())
+
+    // For same-page anchor links, restore scroll position after browser scrolls
+    const href = link.getAttribute('href')
+    if (href && href.startsWith('#')) {
+      requestAnimationFrame(() => {
+        sidebarEl.scrollTop = scrollPos
+      })
     }
   })
 }
@@ -267,12 +302,31 @@ function shortcutHandler(e) {
     return
   }
 
-  if (e.code === 'KeyT') {
-    sidebar.toggle()
-  } else if (e.code === 'KeyS') {
-  } else if (e.code === 'ArrowLeft') {
+  // Single-key shortcuts (no modifiers)
+  if (!e.metaKey && !e.ctrlKey && !e.altKey && !e.shiftKey) {
+    if (e.code === 'KeyT') {
+      sidebar.toggle()
+      return
+    } else if (e.code === 'KeyD') {
+      toggleTheme()
+      return
+    } else if (e.code === 'KeyF') {
+      e.preventDefault() // Prevent browser's find
+      toggleFocusMode()
+      return
+    } else if (e.code === 'KeyQ') {
+      scrollToPrevHeader()
+      return
+    } else if (e.code === 'KeyW') {
+      e.preventDefault() // Prevent browser close tab
+      scrollToNextHeader()
+      return
+    }
+  }
+
+  if (!e.shiftKey && !e.metaKey && !e.ctrlKey && e.code === 'ArrowLeft') {
     previousChapter()
-  } else if (e.code === 'ArrowRight') {
+  } else if (!e.shiftKey && !e.metaKey && !e.ctrlKey && e.code === 'ArrowRight') {
     nextChapter()
   }
 }
@@ -289,6 +343,53 @@ function nextChapter() {
   if (nextButton) {
     window.location.href = nextButton.href
   }
+}
+
+function getPageHeaders() {
+  const content = document.querySelector('.page-content')
+  if (!content) return []
+  return Array.from(content.querySelectorAll('h1, h2, h3, h4, h5, h6'))
+}
+
+function scrollToNextHeader() {
+  const headers = getPageHeaders()
+  if (headers.length === 0) return
+
+  const content = document.getElementById('content')
+  if (!content) return
+
+  const scrollTop = content.scrollTop
+  const offset = 100 // Account for sticky header
+
+  for (const header of headers) {
+    const headerTop = header.offsetTop - offset
+    if (headerTop > scrollTop + 5) {
+      content.scrollTo({ top: headerTop, behavior: 'smooth' })
+      return
+    }
+  }
+}
+
+function scrollToPrevHeader() {
+  const headers = getPageHeaders()
+  if (headers.length === 0) return
+
+  const content = document.getElementById('content')
+  if (!content) return
+
+  const scrollTop = content.scrollTop
+  const offset = 100 // Account for sticky header
+
+  for (let i = headers.length - 1; i >= 0; i--) {
+    const headerTop = headers[i].offsetTop - offset
+    if (headerTop < scrollTop - 5) {
+      content.scrollTo({ top: headerTop, behavior: 'smooth' })
+      return
+    }
+  }
+
+  // If no previous header, scroll to top
+  content.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
 function initRightTocScrollspy() {
@@ -333,21 +434,28 @@ function initRightTocScrollspy() {
 
   headings.forEach((heading) => observer.observe(heading))
 
-  // Handle click on TOC links for smooth scroll
+  // Handle click on TOC links - let native anchor behavior work
+  // CSS scroll-margin-top on headings handles the sticky header offset
+}
+
+function initHeaderAnchors() {
   const content = document.getElementById('content')
-  tocLinks.forEach((link) => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault()
-      const targetId = link.getAttribute('href').slice(1)
-      const target = document.getElementById(targetId)
-      if (target && content) {
-        const contentRect = content.getBoundingClientRect()
-        const targetRect = target.getBoundingClientRect()
-        const scrollTop = content.scrollTop + targetRect.top - contentRect.top - 20
-        content.scrollTo({ top: scrollTop, behavior: 'smooth' })
-        history.pushState(null, null, `#${targetId}`)
-      }
-    })
+  if (!content) return
+
+  content.addEventListener('click', (e) => {
+    const anchor = e.target.closest('a.header-anchor')
+    if (!anchor) return
+
+    e.preventDefault()
+    const id = anchor.getAttribute('href').slice(1)
+    const heading = document.getElementById(id)
+    if (!heading) return
+
+    // Update URL
+    history.pushState(null, '', '#' + id)
+
+    // Smooth scroll the heading into view
+    heading.scrollIntoView({ behavior: 'smooth', block: 'start' })
   })
 }
 

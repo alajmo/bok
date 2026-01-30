@@ -177,10 +177,10 @@
       <div class="sidebar-resize-handle"></div>
     </aside>
 
-    <main id="content" class="content">
+    <main id="content" class="content" tabindex="-1">
       <div class="menu">
         <div class="menu-left">
-          <button title="Toggle sidebar"
+          <button title="Toggle sidebar (T)"
                   type="button"
                   class="icon-button"
                   onclick="sidebar.toggle();">
@@ -201,13 +201,13 @@
         
 
         <div class="menu-right">
-          <button title="Search (Cmd+K)" type="button" class="icon-button" onclick="openSearch();">
+          <button title="Search (/ or Cmd+K)" type="button" class="icon-button" onclick="openSearch();">
             <svg class="menu-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <circle cx="11" cy="11" r="8"/>
               <path d="M21 21l-4.35-4.35"/>
             </svg>
           </button>
-          <button title="Toggle theme" type="button" class="icon-button theme-toggle" onclick="toggleTheme();">
+          <button title="Toggle theme (D)" type="button" class="icon-button theme-toggle" onclick="toggleTheme();">
             <svg class="menu-icon theme-icon-light" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 3a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V4a1 1 0 0 1 1-1zm0 15a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1zm9-6a1 1 0 0 1-1 1h-1a1 1 0 1 1 0-2h1a1 1 0 0 1 1 1zM5 12a1 1 0 0 1-1 1H3a1 1 0 1 1 0-2h1a1 1 0 0 1 1 1zm14.07-5.66a1 1 0 0 1 0 1.41l-.71.71a1 1 0 1 1-1.41-1.41l.71-.71a1 1 0 0 1 1.41 0zM7.05 17.66a1 1 0 0 1 0 1.41l-.71.71a1 1 0 1 1-1.41-1.41l.71-.71a1 1 0 0 1 1.41 0zm11.9 1.41a1 1 0 0 1-1.41 0l-.71-.71a1 1 0 1 1 1.41-1.41l.71.71a1 1 0 0 1 0 1.41zM7.05 6.34a1 1 0 0 1-1.41 0l-.71-.71a1 1 0 0 1 1.41-1.41l.71.71a1 1 0 0 1 0 1.41zM12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/>
             </svg>
@@ -215,7 +215,7 @@
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
             </svg>
           </button>
-          <button title="Toggle focus mode" type="button" class="icon-button focus-toggle" onclick="toggleFocusMode();">
+          <button title="Toggle focus mode (F)" type="button" class="icon-button focus-toggle" onclick="toggleFocusMode();">
             <svg class="menu-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <circle cx="12" cy="12" r="3"/>
               <path d="M12 5c-7 0-10 7-10 7s3 7 10 7 10-7 10-7-3-7-10-7z"/>
@@ -241,9 +241,9 @@
           <div class="page-nav page-nav-prev"></div>
 
           <div class="page-content">
-            <h1 id="bok" tabindex="-1">bok</h1>
+            <h1 id="bok" tabindex="-1"><a class="header-anchor" href="#bok">#</a> bok</h1>
 <p><strong>bok</strong> is a fast, minimal static site generator built with Bun. It converts Markdown files to HTML using TypeScript template literals, with a focus on documentation sites and books.</p>
-<h2 id="features" tabindex="-1">Features</h2>
+<h2 id="features" tabindex="-1"><a class="header-anchor" href="#features">#</a> Features</h2>
 <ul>
 <li><strong>Fast</strong> - Built on Bun for quick builds and hot reloading</li>
 <li><strong>Simple</strong> - Markdown in, HTML out, minimal configuration</li>
@@ -254,7 +254,7 @@
 <li><strong>Right-side Navigation</strong> - Auto-generated on-page heading navigation</li>
 <li><strong>Front Matter</strong> - Add metadata to pages with simple key-value pairs</li>
 </ul>
-<h2 id="quick-start" tabindex="-1">Quick Start</h2>
+<h2 id="quick-start" tabindex="-1"><a class="header-anchor" href="#quick-start">#</a> Quick Start</h2>
 <pre><code class="language-bash"># Install bun if you haven't already
 curl -fsSL https://bun.sh/install | bash
 
@@ -269,7 +269,7 @@ bun run mod.ts init
 # Start development server
 bun run mod.ts serve config.ts
 </code></pre>
-<h2 id="how-it-works" tabindex="-1">How It Works</h2>
+<h2 id="how-it-works" tabindex="-1"><a class="header-anchor" href="#how-it-works">#</a> How It Works</h2>
 <ol>
 <li><strong>Configuration</strong> - Define your site in <code>config.ts</code></li>
 <li><strong>Content</strong> - Write pages in Markdown in the <code>content/</code> directory</li>
@@ -277,7 +277,7 @@ bun run mod.ts serve config.ts
 <li><strong>Build</strong> - Run <code>bok build</code> to generate static HTML</li>
 <li><strong>Serve</strong> - Run <code>bok serve</code> for development with live reload</li>
 </ol>
-<h2 id="philosophy" tabindex="-1">Philosophy</h2>
+<h2 id="philosophy" tabindex="-1"><a class="header-anchor" href="#philosophy">#</a> Philosophy</h2>
 <blockquote>
 <p>In the beginning, all you want is results.
 In the end, all you want is control.</p>
@@ -292,7 +292,7 @@ In the end, all you want is control.</p>
           </div>
 
           
-    <a href="/bok/getting-started" id="page-nav-next" class="page-nav page-nav-next">
+    <a href="/bok/getting-started" id="page-nav-next" class="page-nav page-nav-next" title="Next page (→)">
       <svg class="page-nav-icon" fill="none" viewBox="0 0 24 24" height="40" width="40" xmlns="http://www.w3.org/2000/svg">
         <path d="M9.29289 18.7071C8.90237 18.3166 8.90237 17.6834 9.29289 17.2929L14.5858 12L9.29289 6.70711C8.90237 6.31658 8.90237 5.68342 9.29289 5.29289C9.68342 4.90237 10.3166 4.90237 10.7071 5.29289L16.7071 11.2929C17.0976 11.6834 17.0976 12.3166 16.7071 12.7071L10.7071 18.7071C10.3166 19.0976 9.68342 19.0976 9.29289 18.7071Z" fill="currentColor"></path>
       </svg>
