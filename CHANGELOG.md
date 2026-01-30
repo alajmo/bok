@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-01-30
+
+### Changed
+- Fix TOC parser multi-level dedent and auto-focus content for keyboard scrolling
+- Include all heading levels (H2-H6) in right TOC by default
+
 ## [0.2.0] - 2026-01-28
 
 ### Changed
@@ -26,5 +32,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Right table of contents with scrollspy
 - GitHub release workflow with cross-platform binaries
 
-[Unreleased]: https://github.com/alajmo/bok/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/alajmo/bok/compare/v0.3.0...HEAD
 [0.1.0]: https://github.com/alajmo/bok/releases/tag/v0.1.0
