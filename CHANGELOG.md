@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-01-31
+
+### Changed
+- Embed built-in themes in compiled binary
+- Add clickable heading anchors with # permalink indicator
+
 ## [0.3.0] - 2026-01-30
 
 ### Changed
@@ -32,5 +38,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Right table of contents with scrollspy
 - GitHub release workflow with cross-platform binaries
 
-[Unreleased]: https://github.com/alajmo/bok/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/alajmo/bok/compare/v0.4.0...HEAD
 [0.1.0]: https://github.com/alajmo/bok/releases/tag/v0.1.0
