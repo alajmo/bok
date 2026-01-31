@@ -443,16 +443,14 @@ function initHeaderAnchors() {
   if (!content) return
 
   content.addEventListener('click', (e) => {
-    const anchor = e.target.closest('a.header-anchor')
-    if (!anchor) return
-
-    e.preventDefault()
-    const id = anchor.getAttribute('href').slice(1)
-    const heading = document.getElementById(id)
+    const heading = e.target.closest('h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]')
     if (!heading) return
 
-    // Update URL
-    history.pushState(null, '', '#' + id)
+    e.preventDefault()
+    const id = heading.id
+
+    // Update URL hash (use location.hash so :target CSS works)
+    window.location.hash = '#' + id
 
     // Smooth scroll the heading into view
     heading.scrollIntoView({ behavior: 'smooth', block: 'start' })

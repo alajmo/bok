@@ -3,11 +3,43 @@ import { fs } from "./fs.ts";
 import { log } from "./log.ts";
 
 import { Site } from "./config.ts";
-import { __dirname, exists } from "./utils.ts";
+import { exists } from "./utils.ts";
 
 export { server };
 
-let WS_CLIENT_CODE = "";
+const WS_CLIENT_CODE = `(function connect() {
+  let ws = new WebSocket("ws://localhost:\${wsPort}/websocket");
+  let retryDelay = 1000;
+
+  ws.onopen = (event) => {
+    console.log("Live reload ready");
+  };
+
+  ws.onmessage = (event) => {
+    let data = JSON.parse(event.data);
+
+    switch (data.type) {
+      case "build_complete":
+        ws.close(1000, "[DOCS] Reloading site...");
+        console.log("Reloading page after receiving build_complete");
+        location.reload(true);
+        break;
+      default:
+        console.log("Don't know how to handle type '" + data.type + "'");
+    }
+  };
+
+  ws.onclose = (event) => {
+    console.log(
+      "Websocket connection closed or unable to connect; " +
+        "starting reconnect timeout",
+    );
+    ws = null;
+    setTimeout(connect, retryDelay);
+  };
+
+  ws.onerror = (err) => console.log("WebSocket error:", err.error);
+})();`;
 
 const MEDIA_TYPES: Record<string, string> = {
   ".md": "text/markdown",
@@ -26,11 +58,6 @@ const MEDIA_TYPES: Record<string, string> = {
   ".mjs": "application/javascript",
   ".svg": "image/svg+xml",
 };
-
-function initWSClientCode() {
-  const wsClientPath = path.join(__dirname(), "ws-client.js");
-  WS_CLIENT_CODE = fs.readFileSync(wsClientPath, 'utf-8');
-}
 
 /** Returns the content-type based on the extension of a path. */
 function contentType(p: string): string | undefined {
@@ -92,10 +119,6 @@ function serverLog(req: Request, res: Response): void {
 }
 
 function server(site: Site) {
-  if (site.serve?.reload) {
-    initWSClientCode();
-  }
-
   const rootUrl = site.rootUrl || "";
 
   const bunServer = Bun.serve({

@@ -1,7 +1,12 @@
 import * as path from "node:path";
+import * as nodeFs from "node:fs";
 import { fs } from "./fs.ts";
 import { log } from "./log.ts";
-import { __dirname } from "./utils.ts";
+import {
+  isBuiltinTheme,
+  builtinConfigs,
+  extractBuiltinAssets,
+} from "../themes/registry.ts";
 
 export {
   getSiteConfig,
@@ -68,10 +73,7 @@ interface SiteHooks {
   afterPage: any;
 }
 
-export const THEMES: any = {
-  basic: path.join(__dirname(), "../../themes/basic/config.ts"),
-  book: path.join(__dirname(), "../../themes/book/config.ts"),
-};
+export const BUILTIN_THEMES = ["book", "basic"] as const;
 
 /**
  * Parse, validate config and return Site object.
@@ -101,6 +103,7 @@ async function getSiteConfig(
 
   // 6. Return site object
   const site: Site = {
+    theme: siteConfig.theme,
     files: siteConfig.files,
     paths: siteConfig.paths,
     serve: siteConfig.serve,
@@ -214,7 +217,57 @@ function extendWithDefaultConfig(siteConfig: any, siteDir: string) {
 }
 
 async function extendWithThemeConfig(siteConfig: any) {
-  const configPath = THEMES[siteConfig.extends] ?? siteConfig.extends;
+  const themeName = siteConfig.extends;
+
+  if (isBuiltinTheme(themeName)) {
+    await extendWithBuiltinTheme(siteConfig, themeName);
+  } else {
+    await extendWithCustomTheme(siteConfig, themeName);
+  }
+}
+
+async function extendWithBuiltinTheme(siteConfig: any, themeName: string) {
+  const themeConfig = builtinConfigs[themeName as keyof typeof builtinConfigs];
+
+  siteConfig.theme = themeName;
+  siteConfig.hooks = themeConfig.hooks;
+
+  // Extract embedded assets to a temp directory
+  // Use /assets as final segment so path.basename() returns "assets"
+  const tmpBase = path.join(
+    nodeFs.realpathSync(require("node:os").tmpdir()),
+    `bok-${themeName}`,
+  );
+  const tmpAssetsDir = path.join(tmpBase, "assets");
+  await extractBuiltinAssets(themeName, tmpAssetsDir);
+
+  siteConfig.paths.assets = tmpAssetsDir;
+  siteConfig.paths.layout = `__builtin:${themeName}`;
+  siteConfig.paths.defaultLayout = `__builtin:${themeName}/index.ts`;
+
+  siteConfig.uglyURLs = themeConfig.uglyURLs ?? siteConfig.uglyURLs;
+
+  if (themeConfig.files) {
+    siteConfig.files = { ...themeConfig.files };
+
+    if (typeof siteConfig.files.type === "string") {
+      siteConfig.files.type = SearchFilesType[siteConfig.files.type as keyof typeof SearchFilesType];
+    }
+
+    if (siteConfig.files.type === SearchFilesType.toc) {
+      siteConfig.files.file = path.join(
+        siteConfig.paths.content,
+        siteConfig.files.file,
+      );
+    }
+  }
+
+  if (themeConfig.params) {
+    siteConfig.params = { ...themeConfig.params, ...siteConfig.params };
+  }
+}
+
+async function extendWithCustomTheme(siteConfig: any, configPath: string) {
   const themeConfig = (await import(configPath)).default;
   const themeDir = path.dirname(configPath);
 
@@ -243,7 +296,6 @@ async function extendWithThemeConfig(siteConfig: any) {
   if (themeConfig.files) {
     siteConfig.files = { ...themeConfig.files };
 
-    // Convert string type to enum if needed
     if (typeof siteConfig.files.type === "string") {
       siteConfig.files.type = SearchFilesType[siteConfig.files.type as keyof typeof SearchFilesType];
     }
@@ -256,7 +308,6 @@ async function extendWithThemeConfig(siteConfig: any) {
     }
   }
 
-  // Merge theme params with user params (user params take precedence)
   if (themeConfig.params) {
     siteConfig.params = { ...themeConfig.params, ...siteConfig.params };
   }
@@ -303,11 +354,14 @@ function validateConfig(paths: any) {
     log.error("error: content directory is missing");
   }
 
-  if (!fs.existsSync(paths.assets)) {
+  // Built-in theme paths are virtual — skip filesystem validation
+  const isBuiltin = typeof paths.layout === "string" && paths.layout.startsWith("__builtin:");
+
+  if (!isBuiltin && !fs.existsSync(paths.assets)) {
     log.error("error: assets directory is missing");
   }
 
-  if (!fs.existsSync(paths.layout)) {
+  if (!isBuiltin && !fs.existsSync(paths.layout)) {
     log.error("error: layout directory is missing");
   }
 }

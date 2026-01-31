@@ -15,6 +15,7 @@ import print from "./print.ts";
 import { Page } from "./page.ts";
 import { SearchFilesType, Site } from "./config.ts";
 import { clean } from "./utils.ts";
+import { getBuiltinLayout } from "../themes/registry.ts";
 
 export { build };
 
@@ -143,13 +144,23 @@ async function generateSiteFiles(site: Site, pages: Page[]) {
  * Generate a combined print page with all content.
  */
 async function generatePrintPage(site: Site, pages: Page[]) {
-  const printLayoutPath = path.join(site.paths.layout, "print.ts");
-  if (!fs.existsSync(printLayoutPath)) {
-    return;
+  let printLayoutFn: Function | null = null;
+
+  if (site.paths.layout.startsWith("__builtin:")) {
+    const themeName = site.paths.layout.replace("__builtin:", "");
+    printLayoutFn = getBuiltinLayout(themeName, "print.ts");
+  } else {
+    const printLayoutPath = path.join(site.paths.layout, "print.ts");
+    if (!fs.existsSync(printLayoutPath)) {
+      return;
+    }
+    const printLayout = await import(printLayoutPath);
+    printLayoutFn = printLayout.default;
   }
 
-  const printLayout = await import(printLayoutPath);
-  const printHtml = printLayout.default(site, pages);
+  if (!printLayoutFn) return;
+
+  const printHtml = printLayoutFn(site, pages);
   const printPath = path.join(site.paths.output, "print.html");
   await fsPromises.writeFile(printPath, printHtml);
   log.info("Generated print.html");
@@ -277,10 +288,15 @@ async function copyAssets(site: Site) {
 }
 
 async function buildHtml(site: Site, page: Page, pages: Page[], opts?: any) {
+  const isBuiltin = site.paths.layout.startsWith("__builtin:");
+
   // Page has specified layout
   if (typeof page.params.layout === "string") {
-    let layoutPath = path.join(site.paths.layout, page.params.layout);
-    if (fs.existsSync(layoutPath)) {
+    let layoutPath = isBuiltin
+      ? `${site.paths.layout}/${page.params.layout}`
+      : path.join(site.paths.layout, page.params.layout);
+
+    if (isBuiltin || fs.existsSync(layoutPath)) {
       await convertToHtml(site, page, pages, layoutPath, opts);
     } else {
       log.error(`Encountered error when processing file ${page.path}.
@@ -291,7 +307,7 @@ Could not find referenced layout: ${page.params.layout}
     // Use default layout
     if (
       typeof site.paths.defaultLayout === "string" &&
-      fs.existsSync(site.paths.defaultLayout)
+      (isBuiltin || fs.existsSync(site.paths.defaultLayout))
     ) {
       await convertToHtml(site, page, pages, site.paths.defaultLayout, opts);
     } else {
@@ -310,8 +326,26 @@ async function convertToHtml(
   layoutPath: string,
   opts: any,
 ) {
-  let layout = await import(layoutPath);
-  const htmlContent = await layout.default(site, page, pages, opts);
+  let layoutFn: Function;
+
+  if (layoutPath.startsWith("__builtin:")) {
+    // e.g. "__builtin:book/index.ts" → theme="book", file="index.ts"
+    const rest = layoutPath.replace("__builtin:", "");
+    const slashIdx = rest.indexOf("/");
+    const themeName = slashIdx >= 0 ? rest.slice(0, slashIdx) : rest;
+    const fileName = slashIdx >= 0 ? rest.slice(slashIdx + 1) : "index.ts";
+    const fn = getBuiltinLayout(themeName, fileName);
+    if (!fn) {
+      log.error(`Built-in layout not found: ${layoutPath}`);
+      return;
+    }
+    layoutFn = fn;
+  } else {
+    const layout = await import(layoutPath);
+    layoutFn = layout.default;
+  }
+
+  const htmlContent = await layoutFn(site, page, pages, opts);
 
   const pagePath = path.relative(site.paths.content, page.path);
   let outputPath: string;

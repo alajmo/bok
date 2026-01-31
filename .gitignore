@@ -5,3 +5,4 @@ tmp
 themes/book/site
 RELEASE_NOTES.md
 node_modules
+src/themes/embedded-assets.ts
