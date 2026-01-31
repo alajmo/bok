@@ -14,7 +14,7 @@
     "serve:watch": "bun --watch run mod.ts serve examples/book/config.ts",
     "serve:theme": "bun run mod.ts serve themes/book/config.ts",
     "build": "bun run mod.ts build examples/book/config.ts",
-    "compile": "bun run scripts/generate-embedded.ts && bun build --compile --outfile ~/.local/bin/bok mod.ts",
+    "compile": "bun run scripts/generate-embedded.ts && bun build --compile --minify --sourcemap --outfile ~/.local/bin/bok mod.ts",
     "tsc": "tsc --noEmit"
   },
   "dependencies": {

@@ -41,7 +41,7 @@ jobs:
         run: bun run scripts/generate-embedded.ts
 
       - name: Build binary
-        run: bun build --compile --target=${{ matrix.bun-target }} --outfile=bok-${{ matrix.target }} mod.ts
+        run: bun build --compile --minify --sourcemap --target=${{ matrix.bun-target }} --outfile=bok-${{ matrix.target }} mod.ts
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
