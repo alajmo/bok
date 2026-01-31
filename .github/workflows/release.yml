@@ -37,6 +37,9 @@ jobs:
       - name: Install dependencies
         run: bun install
 
+      - name: Generate embedded theme assets
+        run: bun run scripts/generate-embedded.ts
+
       - name: Build binary
         run: bun build --compile --target=${{ matrix.bun-target }} --outfile=bok-${{ matrix.target }} mod.ts
 
