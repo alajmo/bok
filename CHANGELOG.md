@@ -10,18 +10,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.4.0] - 2026-01-31
 
 ### Changed
+
 - Embed built-in themes in compiled binary
 - Add clickable heading anchors with # permalink indicator
 
 ## [0.3.0] - 2026-01-30
 
 ### Changed
+
 - Fix TOC parser multi-level dedent and auto-focus content for keyboard scrolling
 - Include all heading levels (H2-H6) in right TOC by default
 
 ## [0.2.0] - 2026-01-28
 
 ### Changed
+
 - Add search, sidebar scroll persistence, and disable dev caching
 - Add changelog with automatic updates on release
 
